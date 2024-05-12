@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap");
+
+* {
+
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+
+  background-color: #ffffff;
+}
+main h1{
+    font-size: 8rem;
+    color: #1fa398;
+    text-align: left;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;   
+}
+h2{
+  font-size: 2rem;
+    color: #1fa398;
+    text-align: left;
+    letter-spacing: 0.5px;
+    margin-bottom: 40px;
+
+}
+a{
+  text-decoration: none;
+
+}
+
+hr{
+    height: 5px;
+    border: none;
+    border-radius: 10px;
+    width: 120px;
+    background: #43C6AC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    margin-bottom: 50px;
+}
+
+
+p{
+  color: #1fa398;
+    margin-bottom: 60px;
+    
+}
+
+.img-content{
+  transform: translateX(30px);
+  width: 100%;
+  height: 100%;
+
+}
+
+.img-principal{
+  width: 100%;
+}
+
+.btn {
+    color: #1fa398;
+    width: 30%;
+    padding: 10px 30px;
+    border: 2px solid #43C6AC; /* Utiliza el mismo color que el fondo */
+    outline: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background-color 0.3s, border-color 0.3s; /* Transición para el cambio de color de fondo y borde */
+}
+.btn:hover {
+    color: #1fa398;
+    border: 2px solid  rgba(59, 59, 59, 0.37);
+
+  }
+  
+.btn1 {
+    color: #ffffff !important;
+    font-weight: 500;
+    padding: 10px 50px;
+    background: rgba(0,0,0,0);
+    border-radius: 25px;
+    background: #43C6AC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    transition: all 1s ease;
+    position: relative;
+    margin-right: 10px;
+  }
+  .btn1:hover {
+    background: #ffffff;
+    color: #1fa398 !important;
+    transition: all 1s ease-out;
+  }
+  
+
+.login-container {
+  position: fixed;
+  z-index: 1000; 
+  width: 30%;
+  margin: 0 auto;   
+  height: 600px;
+  background: #fff;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 45px rgb(255, 255, 255, 0.55);
+  display: none;
+  color: rgb(0, 0, 0);
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.767); /* Color de fondo semi-transparente */
+  z-index: 999; /* Asegura que el overlay esté encima de todo */
+  display: none; /* Inicialmente oculto */
+}
+.container .form {
+  width: 70%;
+  padding: 60px;
+}
+.form {
+  margin-top: 30px;
+  transform: translateX(18px);
+}
+.form h1 {
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.input_box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 40px 0;
+  border-bottom: 2px solid rgb(0, 0, 0);
+}
+.input_box label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.input_box input[type="number"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input_box input:focus ~ label,
+.input_box input:valid ~ label {
+  top: -5px;
+}
+
+.input_box select:focus ~ label,
+.input_box select:valid ~ label {
+  top: -5px;
+}
+
+.input_box input,
+select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 15px;
+  color: rgb(78, 78, 78);
+  font-weight: 600;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.input_box .icon {
+  position: absolute;
+  right: 8px;
+  font-size: 1.2rem;
+  line-height: 57px;
+}
+
+.boton {
+  width: 100%;
+  height: 45px;
+  background-color: rgb(163, 113, 91);
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+}
+.boton:hover {
+  background-color: rgb(119, 81, 65);
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  cursor: pointer;
+}
+option {
+  background-color: #eaeaea;
+}
+.img-body {
+  margin-left: 40px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}

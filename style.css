@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap");
+
+* {
+
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+
+  background-color: #ffffff;
+}
+
+.login-container {
+  position: relative;
+  width: 70%;
+  height: 600px;
+  background: #fff;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 45px rgb(255, 255, 255, 0.55);
+  display: flex;
+  color: rgb(0, 0, 0);
+}
+.container .form {
+  width: 70%;
+  padding: 60px;
+}
+.form {
+  margin-top: 30px;
+  transform: translateX(18px);
+}
+.form h1 {
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.input_box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 40px 0;
+  border-bottom: 2px solid rgb(0, 0, 0);
+}
+.input_box label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.input_box input[type="number"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input_box input:focus ~ label,
+.input_box input:valid ~ label {
+  top: -5px;
+}
+
+.input_box select:focus ~ label,
+.input_box select:valid ~ label {
+  top: -5px;
+}
+
+.input_box input,
+select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 15px;
+  color: rgb(78, 78, 78);
+  font-weight: 600;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.input_box .icon {
+  position: absolute;
+  right: 8px;
+  font-size: 1.2rem;
+  line-height: 57px;
+}
+
+.boton {
+  width: 100%;
+  height: 45px;
+  background-color: rgb(163, 113, 91);
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+}
+.boton:hover {
+  background-color: rgb(119, 81, 65);
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  cursor: pointer;
+}
+option {
+  background-color: #eaeaea;
+}
+.img-body {
+  margin-left: 40px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}

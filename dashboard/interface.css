@@ -1,0 +1,337 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
+* {
+  font-family: "Prompt", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html {  
+  scroll-behavior: smooth;
+}
+body{
+    background-color: #121717;  
+}
+
+.card-title1{
+  background-color: #114c5f;
+  font-size: 42px;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.routine-card {
+  background-image: linear-gradient(to bottom left , #24baae 50%, #111 50%);/* fallback for old browsers */
+    z-index: 0; 
+    border: none;
+
+}
+
+.card{
+  border-radius: 10px;
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.733) !important;
+}
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-container label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(50%);
+  background: linear-gradient(to bottom, #f2f2f2 50%, #dbdbdb 50%);
+  padding: 0 10px;
+  z-index: 1;
+  margin-left: 25px;
+  border: none;
+}
+
+.inputcont {
+  padding: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 26px;
+  font-size: 15px;
+}
+.bxs-plus-circle {
+  font-size: 90px;
+}
+
+.input_box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-right: 10px;
+}
+.input_box .icon {
+  position: absolute;
+  right: 8px;
+  font-size: 1.2rem;
+  color: black;
+  line-height: 57px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: black;
+  pointer-events: none;
+}
+
+.animated-image {
+  animation: bounceUpDown 2s infinite;
+}
+
+@keyframes bounceUpDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+
+.form-select {
+  background-color: rgba(41, 41, 41, 0.116) !important;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #24243f;
+  padding: 0 10px;
+  z-index: 1;
+  margin-left: 25px;
+  border: none;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  margin-top: 26px;
+  font-size: 15px;
+}
+
+.form-group input {
+  padding: 10px 20px;
+  background-color: #fff;
+}
+
+.large-icon {
+  font-size: 50px;
+}
+
+.form-group select {
+  padding: 15px 15px;
+  border-radius: 5px;
+  margin-top: -5px;
+  background-color: #fff;
+}
+
+.box-select {
+  margin-top: 30px;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-container label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(8%);
+  background: linear-gradient(to bottom, #f2f2f2 98%, #dbdbdb 2%);
+  padding: 0 20px;
+  z-index: 1;
+  margin-left: 25px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 1px solid #111;
+  border-left: 1px solid #111;
+  /* Ajusta el grosor y color del borde izquierdo según tus necesidades */
+  border-right: 1px solid #111;
+}
+
+.input-container input {
+  padding: 15px;
+  border: 1px solid #111;
+  margin-top: 26px;
+  font-size: 15px;
+}
+
+.reloj {
+  color: #ff0000;
+  /* Cambia el color según tus preferencias */
+}
+
+.number-input {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-link.active {
+  border-radius: 10px;
+  background-color: white;
+  color: black !important;
+  box-shadow: 0px 2px 20px 1px rgba(255, 255, 255, 0.632);
+}
+
+.checkboxxd {
+  display: flex;
+}
+
+.collapse-horizontal {
+  display: flex;
+  overflow-x: auto;
+  transition: max-height 0.35s ease-out;
+}
+
+/* Ajuste de margen para el contenido del colapso */
+.collapse-horizontal .card {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.card {
+  padding: 40px 120px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
+
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-70%);
+  background-color: #24243f;
+  padding: 0 10px;
+  z-index: 1;
+  margin-left: 25px;
+  border: none;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #111;
+  margin-top: 26px;
+  font-size: 15px;
+}
+
+.form-group input {
+  padding: 10px 20px;
+  background-color: #fff;
+}
+
+.form-group select {
+  padding: 15px 15px;
+  border-radius: 5px;
+  margin-top: -5px;
+  background-color: #fff;
+}
+
+.box-select {
+  margin-top: 30px;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-container label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to bottom, #f2f2f2 98%, #dbdbdb 2%);
+  padding: 0 20px;
+  z-index: 1;
+  margin-left: 25px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 1px solid #111;
+  border-left: 1px solid #111;
+  border-right: 1px solid #111;
+}
+
+.input-container input {
+  padding: 15px;
+  border: 1px solid #111;
+  margin-top: 26px;
+  font-size: 15px;
+}
+
+.checkbox {
+  margin-top: 40px;
+}
+
+.checkbox label {
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearence: none;
+  height: 20px !important;
+  width: 20px;
+  background-color: #d5d5d5;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+
+.checkbox label {
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.checkbox input[type="checkbox"]:checked {
+  background-color: grey;
+}
+
+.checkbox input[type="checkbox"]:hover {
+  background-color: grey;
+}
+
+.checkbox input[type="checkbox"]:checked::after {
+  color: white;
+  
+}
+
+.botones {
+  align-items: center;
+  margin-left: 45%;
+}
