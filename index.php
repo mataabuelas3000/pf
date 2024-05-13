@@ -68,7 +68,7 @@ if (isset($_POST['enviar'])) {
 
 <body>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary ">
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">  <img src="images/Logo.svg" alt="Logo" width="70" height="54" class="d-inline-block align-text-top"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,24 +80,20 @@ if (isset($_POST['enviar'])) {
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#entrenamiento">Entrenamiento</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#planes">Planes</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contacto">Contactanos</a>
+        </li>
+
        
       </ul>
         <ul class="navbar-nav mb-2 mb-lg-0" >
             <li class="nav-item">
-            <a class="nav-link" href="#" id="login-link">Iniciar Sesión</a>
+            <a class="nav-link" href="#"  id="login-link">Iniciar Sesión</a>
             </li>
         </ul>
      
@@ -109,14 +105,14 @@ if (isset($_POST['enviar'])) {
     <div class="container login-container" style="display:none" id="login-container" >
         <div class="form">
         <div class="cerrar d-flex justify-content-end" id="cerrar">
-        <box-icon name='x' color='#191654'></box-icon>
+        <box-icon name='x' color='#fff'></box-icon>
           </div>
             <h1>Iniciar Sesión</h1>
             <br>
             <form method="post">
                 <div class="input_box">
                     <span class="icon">
-                        <box-icon color='#191654' name='id-card'></box-icon>
+                        <box-icon color='#fff' name='id-card'></box-icon>
                     </span>
                     <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
                         placehorder="Ingrese cedula" required>
@@ -124,7 +120,7 @@ if (isset($_POST['enviar'])) {
                 </div>
                 <div class="input_box">
                     <span class="icon">
-                        <box-icon name='lock-alt' color="#191654"></box-icon>
+                        <box-icon name='lock-alt' color="#fff"></box-icon>
                     </span>
                     <input type="password" name="password" placehorder="Ingrese contraseña" required>
                     <label>Contraseña</label>
@@ -158,8 +154,8 @@ if (isset($_POST['enviar'])) {
 
 </main>
 
-<section>
-    <div class="container mt-5">
+<section id="entrenamiento" class="py-5 my-5 bg-dark" >
+    <div class="container mt-5 ">
         <div class="row">
             <div class="col">
                 <h2>Entrenamiento</h2>
@@ -175,53 +171,37 @@ if (isset($_POST['enviar'])) {
             </div>
         </div>
     </div>
-
-    
-</section>
-
-<section id="nosotros" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-4">Nosotros</h2>
-        <div class="row">
-            <div class="col-lg-6">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, eos doloribus odit cumque eligendi quasi, quia maxime possimus error aliquid sit incidunt sapiente nobis et temporibus consequuntur sunt quisquam accusantium?</p>
-            </div>
-            <div class="col-lg-6">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, enim consequatur? Nihil sequi, dolore odio amet, eos eveniet velit doloremque incidunt praesentium magnam laudantium distinctio voluptatem. Minima quo optio ad!</p>
-            </div>
-        </div>
-    </div>
 </section>
 
 
-<section id="planes" class="py-5">
+<section id="planes" class="py-5 my-5">
     <div class="container">
         <h2 class="text-center mb-4">Planes</h2>
         <div class="row">
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card bg-dark" data-bs-theme="dark">
                     <div class="card-body">
                         <h5 class="card-title">Plan Básico</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="#" class="btn btn-primary">Más información</a>
+                        <a href="#" class="">Más información</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card bg-dark" data-bs-theme="dark">
                     <div class="card-body">
                         <h5 class="card-title">Plan Estándar</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="#" class="btn btn-primary">Más información</a>
+                        <a href="#" class="">Más información</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card bg-dark" data-bs-theme="dark">
                     <div class="card-body">
                         <h5 class="card-title">Plan Premium</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="#" class="btn btn-primary">Más información</a>
+                        <a href="#" class="">Más información</a>
                     </div>
                 </div>
             </div>
@@ -229,13 +209,30 @@ if (isset($_POST['enviar'])) {
     </div>
 </section>
 
-<section id="contacto" class="py-5 bg-light">
+
+<section id="nosotros" class="py-5 my-5 bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-4">Nosotros</h2>
+        <div class="row">
+            <div class="col-lg-6 mt-5">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat veniam accusantium id inventore quo itaque maiores facilis eos molestias illum! Inventore dignissimos, odit non, distinctio amet consectetur odio facere aut rerum natus tempora ex voluptas sed quidem molestiae! Veritatis accusantium assumenda reprehenderit ducimus commodi asperiores corporis neque quasi, quae alias voluptates cum qui omnis odit possimus nobis magni amet tempora architecto labore molestiae odio ea. Inventore blanditiis debitis rerum excepturi adipisci dolor dolorem voluptates quidem consequatur, dolore doloremque nulla esse, quia officiis. Autem maiores quam, voluptatum eveniet dolorum veritatis minima, saepe nulla tenetur fugiat placeat quos eius sed dolores nemo doloribus! Fugit veniam officia praesentium doloremque fugiat voluptate quos illo iusto est impedit. Aliquam ipsam obcaecati commodi, esse quasi iure nihil dignissimos eum? Aliquid asperiores voluptate reiciendis nisi facere laborum voluptatum odit sed doloribus eaque quam fugiat ad optio distinctio ut eius, fugit quod nihil officiis iure rerum et iusto.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="images/Logo.svg" alt="Logo" width="400" height="400" class="d-inline-block align-text-top">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="contacto" class="py-5 my-5">
     <div class="container">
         <h2 class="text-center mb-4">Contacto</h2>
         <div class="row">
             <div class="col-lg-6">
                 <p>Para cualquier consulta o información adicional, no dudes en ponerte en contacto con nosotros.</p>
-                <ul>
+                <ul class="text-secondary">
                     <li>Teléfono: 123-456-789</li>
                     <li>Correo electrónico: info@example.com</li>
                     <li>Dirección: Calle Principal #123, Ciudad, País</li>
@@ -267,6 +264,7 @@ if (isset($_POST['enviar'])) {
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script src="SmoothScroll.js"></script>
         <script>
         document.getElementById('login-link').addEventListener('click', function() {
             document.getElementById('overlay').style.display = 'block'; // Mostrar overlay

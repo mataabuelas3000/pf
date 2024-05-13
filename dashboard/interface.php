@@ -496,7 +496,7 @@ function botonesrutinas($con)
     }
 
     .bxs-chat{
-        color: black;
+        color: white;
         transform: translateY(7px);
         font-size: 100px;
         margin-left: -10px;

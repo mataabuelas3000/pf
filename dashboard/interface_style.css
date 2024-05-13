@@ -11,7 +11,7 @@ html {
   scroll-behavior: smooth;
 }
 body{
-    background-color: #ffffff;  
+    background-color: #202020;  
 }
 .background .line-map {
   width: 100%;
@@ -31,13 +31,11 @@ body{
 }
 
 .routine-card {
-  background: transparent;
+  background-image: linear-gradient(to bottom left , #24baae 50%, #111 50%);/* fallback for old browsers */
     z-index: 0; 
     border: none;
 
 }
-<<<<<<< HEAD
-=======
 .border-danger {
   border-color: red !important;
 }
@@ -62,24 +60,18 @@ body{
   transform: translateY(-50%);
 }
 .container{
-  background: rgb(71, 180, 170);
   width: 100%;
   border-radius: 15px;
   padding:50px;
 }
->>>>>>> fdd5d38711c720425ecd8bc721c8dab1d4d32c11
 
 .card{
   border-radius: 10px;
 }
 
 .form-control {
-<<<<<<< HEAD
-  background-color: rgba(255, 255, 255, 0.733) !important;
-=======
   background-color: rgb(255, 255, 255) !important;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
->>>>>>> fdd5d38711c720425ecd8bc721c8dab1d4d32c11
 }
 .input-container {
   position: relative;
@@ -118,7 +110,7 @@ body{
   position: absolute;
   right: 8px;
   font-size: 1.2rem;
-  color: black;
+  color: rgb(255, 255, 255);
   line-height: 57px;
   top: 50%;
   transform: translateY(-50%);
@@ -222,7 +214,7 @@ body{
 
 .reloj {
   color: #ff0000;
-  /* Cambia el color según tus preferencias */
+ 
 }
 
 .number-input {
