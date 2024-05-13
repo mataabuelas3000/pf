@@ -331,78 +331,8 @@ if (isset($_POST['agregarejer'])) {
         if (empty($ejercicios)) {
             echo '<p>No hay ejercicios en esta rutina.</p>';
         } else {
-
-
-            // Consultar el estado del check en la base de datos
-            $sqlCheck = "SELECT Id_Check FROM routine WHERE Id_Routine = ?";
-            $stmtCheck = mysqli_prepare($con, $sqlCheck);
-            mysqli_stmt_bind_param($stmtCheck, 'i', $idrutina);
-            mysqli_stmt_execute($stmtCheck);
-            $resultCheck = mysqli_stmt_get_result($stmtCheck);
-
-            // Verificar si se obtuvieron resultados de la consulta
-            if ($resultCheck) {
-                // Obtener el estado del check
-                $rowCheck = mysqli_fetch_assoc($resultCheck);
-                $id_check = $rowCheck['Id_Check'];
-
-                // Procesar la actualización del estado de la rutina cuando se recibe la solicitud POST
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_rutina"])) {
-                    $idRutina = $_POST["id_rutina"];
-                    $sqlUpdate = "UPDATE routine SET Id_Check = 1 WHERE Id_Routine = ?";
-                    $stmtUpdate = mysqli_prepare($con, $sqlUpdate);
-                    mysqli_stmt_bind_param($stmtUpdate, 'i', $idRutina);
-                    if (mysqli_stmt_execute($stmtUpdate)) {
-                        echo "success";
-                    } else {
-                        echo "Error al actualizar el estado de la rutina: " . mysqli_error($con);
-                    }
-                }
-
-
-                date_default_timezone_set('America/Bogota');
-                // Obtener la hora deseada en formato HH:MM:SS
-                $hora_deseada = '23:59:59'; // Modificar aquí la hora deseada en formato HH:MM:SS
-                // Actualizar la columna completion_time y resume_time en la base de datos
-                $completionTime = date('H:i:s');
-                $reanudar_rutina = date('Y-m-d', strtotime('today')) . ' ' . $hora_deseada; // Establecer la fecha actual y la hora deseada
-                $sql = "UPDATE routine SET completion_time = '$completionTime', resume_time = '$reanudar_rutina' WHERE Id_Routine = $idrutina";
-
-                if (mysqli_query($con, $sql)) {
-                    echo "";
-                } else {
-                    echo "Error al actualizar la hora de finalización: " . mysqli_error($con);
-                }
-
-                // Consultar la hora actual en el servidor de la base de datos
-                $sqlHoraActual = "SELECT CURTIME() AS hora_actual";
-                $resultHoraActual = mysqli_query($con, $sqlHoraActual);
-                $rowHoraActual = mysqli_fetch_assoc($resultHoraActual);
-                $hora_actual_servidor = $rowHoraActual['hora_actual'];
-
-                // Verificar si la hora actual es mayor o igual a las 22:00 (10:00 PM)
-                if ($completionTime >= '22:00:00') {
-                    echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM. Espere hasta la hora deseada.'); window.location.href = 'interface.php';</script>";
-                    exit; // Terminar la ejecución del script para evitar que se continúe con el resto del código
-                } else {
-                    // Verificar si la hora actual es mayor que la hora deseada para cambiar el id_check a 0
-                    if ($id_check == 1 && $hora_actual_servidor > $hora_deseada) {
-                        $sqlUpdateCheck = "UPDATE routine SET Id_Check = 0,completion_time = '$completionTime' WHERE Id_Routine = ?";
-                        $stmtUpdateCheck = mysqli_prepare($con, $sqlUpdateCheck);
-                        mysqli_stmt_bind_param($stmtUpdateCheck, 'i', $idrutina);
-                        if (mysqli_stmt_execute($stmtUpdateCheck)) {
-                            echo "";
-                            $id_check = 0; // Actualiza la variable local $id_check también
-                        } else {
-                            echo "Error al actualizar Id_Check: " . mysqli_error($con);
-                        }
-                    }
-                }
-
-                    echo '<button type="button" id="btnComenzar" class="btn btn-primary" data-toggle="modal" data-target="#modal1">Comenzar</button>';
-
+                echo '<button type="button" id="btnComenzar" class="btn btn-primary" data-toggle="modal" data-target="#modal1">Comenzar</button>';
             }
-        }
 
         ?>
 
@@ -502,48 +432,50 @@ if (isset($_POST['agregarejer'])) {
                 }
 
 
-                date_default_timezone_set('America/Bogota');
-                // Obtener la hora deseada en formato HH:MM:SS
-                $hora_deseada = '23:59:59'; // Modificar aquí la hora deseada en formato HH:MM:SS
-                // Actualizar la columna completion_time y resume_time en la base de datos
-                $completionTime = date('H:i:s');
-                $reanudar_rutina = date('Y-m-d', strtotime('today')) . ' ' . $hora_deseada; // Establecer la fecha actual y la hora deseada
-                $sql = "UPDATE routine SET completion_time = '$completionTime', resume_time = '$reanudar_rutina' WHERE Id_Routine = $idrutina";
+                    date_default_timezone_set('America/Bogota');
+                    // Obtener la hora deseada en formato HH:MM:SS
+                    $hora_deseada = '23:59:59'; // Modificar aquí la hora deseada en formato HH:MM:SS
 
-                if (mysqli_query($con, $sql)) {
-                    echo "";
-                } else {
-                    echo "Error al actualizar la hora de finalización: " . mysqli_error($con);
-                }
+                    $fecha_actual = date('Y-m-d');
+                    $completionTime = date('H:i:s');
+                    $fecha_manana = date('Y-m-d', strtotime('+1 day'));
+                    $hora_manana = '05:00:00';
+                    // Crear la fecha y hora completa para las 5:00 AM del día siguiente
+                    $hora_deseada_manana = $fecha_manana . ' ' . $hora_manana;
 
-                // Consultar la hora actual en el servidor de la base de datos
-                $sqlHoraActual = "SELECT CURTIME() AS hora_actual";
-                $resultHoraActual = mysqli_query($con, $sqlHoraActual);
-                $rowHoraActual = mysqli_fetch_assoc($resultHoraActual);
-                $hora_actual_servidor = $rowHoraActual['hora_actual'];
+                    $reanudar_rutina = date('Y-m-d', strtotime('today')) . ' ' . $hora_deseada; // Establecer la fecha actual y la hora deseada
+                    $sql = "UPDATE routine SET completion_time = '$completionTime', resume_time = '$reanudar_rutina' WHERE Id_Routine = $idrutina";
 
-                // Verificar si la hora actual es mayor o igual a las 22:00 (10:00 PM)
-                if ($completionTime >= '22:00:00') {
-                    echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM. Espere hasta la hora deseada.'); window.location.href = 'interface.php';</script>";
-                    exit; // Terminar la ejecución del script para evitar que se continúe con el resto del código
-                } else {
-                    // Verificar si la hora actual es mayor que la hora deseada para cambiar el id_check a 0
-                    if ($id_check == 1 && $hora_actual_servidor > $hora_deseada) {
-                        $sqlUpdateCheck = "UPDATE routine SET Id_Check = 0,completion_time = '$completionTime' WHERE Id_Routine = ?";
-                        $stmtUpdateCheck = mysqli_prepare($con, $sqlUpdateCheck);
-                        mysqli_stmt_bind_param($stmtUpdateCheck, 'i', $idrutina);
-                        if (mysqli_stmt_execute($stmtUpdateCheck)) {
-                            echo "";
-                            $id_check = 0; // Actualiza la variable local $id_check también
-                        } else {
-                            echo "Error al actualizar Id_Check: " . mysqli_error($con);
+                    if (mysqli_query($con, $sql)) {
+                        echo "";
+                    } else {
+                        echo "Error al actualizar la hora de finalización: " . mysqli_error($con);
+                    }
+
+                    $sqlHoraActual = "SELECT CURTIME() AS hora_actual";
+                    $resultHoraActual = mysqli_query($con, $sqlHoraActual);
+                    $rowHoraActual = mysqli_fetch_assoc($resultHoraActual);
+                    $hora_actual_servidor = $rowHoraActual['hora_actual'];
+
+                    // Verificar si la hora actual está dentro del rango de 10:00 PM a 5:00 AM
+                    if ($completionTime >= '23:10:00' && $hora_deseada_manana <='05:00:00') {
+                        echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM y antes de las 5:00 AM. Espere hasta la hora deseada.'); window.location.href = 'interface.php';</script>";
+                        exit; // Terminar la ejecución del script para evitar que se continúe con el resto del código
+                    } else {
+                        // Verificar si la hora actual es mayor que la hora deseada para cambiar el id_check a 0
+                        if ($id_check == 1 && $hora_actual_servidor > $hora_deseada) {
+                            $sqlUpdateCheck = "UPDATE routine SET Id_Check = 0, completion_time = '$completionTime' WHERE Id_Routine = ?";
+                            $stmtUpdateCheck = mysqli_prepare($con, $sqlUpdateCheck);
+                            mysqli_stmt_bind_param($stmtUpdateCheck, 'i', $idrutina);
+                            if (mysqli_stmt_execute($stmtUpdateCheck)) {
+                                echo "";
+                                $id_check = 0; // Actualiza la variable local $id_check también
+                            } else {
+                                echo "Error al actualizar Id_Check: " . mysqli_error($con);
+                            }
                         }
                     }
-                }
 
-
-                
-                    
                 if ($id_check == 0) {
                     echo '<button type="button" id="btnFelicitaciones" class="btn btn-primary d-none" data-toggle="modal" data-target="#modalFelicitaciones" onclick="actualizarEstadoRutina()">Felicitaciones</button>'; 
                      echo '<script>

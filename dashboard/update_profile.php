@@ -92,7 +92,11 @@ if (isset($_POST['mandar'])) {
             
            
             
-            <div class="container my-5" id="cerrar">
+            <div class="container my-7" id="cerrar">
+            <h1 style="text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);">
+        Actualiza tus Datos
+        </h1>
+        <hr class="hr">
                 <form method="post" id="actualizarForm">
                     <div class="row ">
                         <div class="col-md-6">
@@ -173,7 +177,7 @@ if (isset($_POST['mandar'])) {
                         <label for="show_password">Mostrar contraseña</label>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-secondary" name="mandar" id="updatebtn">Actualizar</button>
+                    <button type="submit" class="btn btn-dark" name="mandar" id="updatebtn">Actualizar</button>
                     <button type="submit" class="btn btn-danger" name="cancelar">Cancelar</button>
             </div>
             <div class="mr-5"></div>

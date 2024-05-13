@@ -39,9 +39,11 @@ function imprimir($id, $con)
         echo ' <div class="card" style="background-color:rgb(71, 180, 170);box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
-        <h1>Tus datos</h1>
+        <h1 style="text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);">
+        TUS DATOS
+        </h1>
         </div>
-        <img class="line-map" src="img/line-1-1.svg"/>
+        <hr class="hr">
         <div class="py-3">
         </div>
         <form class="row"> 
@@ -337,7 +339,7 @@ function botonesrutinas($con)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="interface_style.css">
+    <link rel="stylesheet" href="interface.css">
     <title>GYM</title>
 </head>
 
@@ -379,11 +381,6 @@ function botonesrutinas($con)
         bottom: 20px; /* Posición final */
     }
 }
-
-
-    .container-buttons {
-
-    }
 
     .container-buttons button {
         margin-bottom: 5px;
@@ -983,7 +980,7 @@ chatbotCloseButton.addEventListener('click', () => {
         </div>
 
         <div class="container tab-content" id="container-tienda" style="display:none; flex-direction: column; transform: translateX(-5vh); margin-bottom: 80px  ">
-            <div class="row" style="">
+            <div class="row" >
                 <div class="col-md-6">
                     <input type="text" id="buscador" class="form-control mb-3" placeholder="Buscar...">
                 </div>
