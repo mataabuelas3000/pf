@@ -46,7 +46,7 @@ function imprimir($id, $con)
         <form class="row"> 
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Primer Nombre</label>
-        <input type="text" class="form-control" id="inputPrimernom" value="' . $nombre . '"   disabled>
+        <input type="text" class="form-control" style="background-color: white" id="inputPrimernom" value="' . $nombre . '"   disabled>
         </div>
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Primer Apellido</label>

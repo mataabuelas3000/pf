@@ -44,6 +44,7 @@ body{
 
 .input-container input {
   padding-right: 30px; /* Ajusta el espacio para el icono */
+  
 }
 
 .input-container i {
@@ -65,6 +66,7 @@ body{
 
 .form-control {
   background-color: rgb(255, 255, 255) !important;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 .input-container {
   position: relative;
@@ -191,6 +193,7 @@ body{
   border: 1px solid #111;
   margin-top: 26px;
   font-size: 15px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .reloj {

@@ -132,7 +132,7 @@ if (isset($_POST['mandar'])) {
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group input-container" style="margin-top:30px">
+                            <div class="form-group input-container" style="margin-top:30px;box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);">
                                 <label class="form-label">Genero</label>
                                 <select class="form-select" style="width:100%; margin-top:0px" name="genero" required>
                                     <option value="M" <?php if ($genero === 'M') echo 'selected'; ?>>Masculino</option>
