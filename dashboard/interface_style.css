@@ -11,8 +11,7 @@ html {
   scroll-behavior: smooth;
 }
 body{
-    background-color: #121717;  
-    font-size: 20px;
+    background-color: #ffffff;  
 }
 
 .card-title1{
@@ -25,38 +24,10 @@ body{
 }
 
 .routine-card {
-  background-image: linear-gradient(to bottom left , #24baae 50%, #111 50%);/* fallback for old browsers */
+  background: transparent;
     z-index: 0; 
     border: none;
 
-}
-.border-danger {
-  border-color: red !important;
-}
-
-.border-success {
-  border-color: green !important;
-}
-
-.input-container {
-  position: relative;
-}
-
-.input-container input {
-  padding-right: 30px; /* Ajusta el espacio para el icono */
-}
-
-.input-container i {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-}
-.container{
-  background: rgb(71, 180, 170);
-  width: 100%;
-  border-radius: 15px;
-  padding:50px;
 }
 
 .card{
@@ -64,7 +35,7 @@ body{
 }
 
 .form-control {
-  background-color: rgb(255, 255, 255) !important;
+  background-color: rgba(255, 255, 255, 0.733) !important;
 }
 .input-container {
   position: relative;
@@ -136,6 +107,17 @@ body{
   margin-bottom: 20px;
 }
 
+.form-group label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #24243f;
+  padding: 0 10px;
+  z-index: 1;
+  margin-left: 25px;
+  border: none;
+}
 
 .form-group input {
   padding: 10px;
@@ -175,7 +157,7 @@ body{
   left: 0;
   transform: translateY(8%);
   background: linear-gradient(to bottom, #f2f2f2 98%, #dbdbdb 2%);
-  padding: 15px 20px;
+  padding: 0 20px;
   z-index: 1;
   margin-left: 25px;
   border-top-left-radius: 5px;
@@ -251,7 +233,7 @@ button {
   left: 0;
   transform: translateY(-70%);
   background-color: #24243f;
-  padding: 10px 10px;
+  padding: 0 10px;
   z-index: 1;
   margin-left: 25px;
   border: none;

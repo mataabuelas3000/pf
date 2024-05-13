@@ -62,17 +62,11 @@ if (isset($_POST['enviar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
 
 </head>
 
 <body>
-
-<div class="container">
-
-</div>
-
-
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary ">
   <div class="container-fluid">
@@ -115,14 +109,14 @@ if (isset($_POST['enviar'])) {
     <div class="container login-container" style="display:none" id="login-container" >
         <div class="form">
         <div class="cerrar d-flex justify-content-end" id="cerrar">
-        <box-icon name='x' color='brown'></box-icon>
+        <box-icon name='x' color='#191654'></box-icon>
           </div>
             <h1>Iniciar Sesión</h1>
             <br>
             <form method="post">
                 <div class="input_box">
                     <span class="icon">
-                        <box-icon color='brown' name='id-card'></box-icon>
+                        <box-icon color='#191654' name='id-card'></box-icon>
                     </span>
                     <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
                         placehorder="Ingrese cedula" required>
@@ -130,7 +124,7 @@ if (isset($_POST['enviar'])) {
                 </div>
                 <div class="input_box">
                     <span class="icon">
-                        <box-icon name='lock-alt' color="brown"></box-icon>
+                        <box-icon name='lock-alt' color="#191654"></box-icon>
                     </span>
                     <input type="password" name="password" placehorder="Ingrese contraseña" required>
                     <label>Contraseña</label>
@@ -161,8 +155,112 @@ if (isset($_POST['enviar'])) {
 <div class="img-content">
 <img class="img-principal" src="images/img1.svg" alt="">
 </div>
+
 </main>
 
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h2>Entrenamiento</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque voluptatem, tenetur, omnis quidem minima, dolorem debitis atque nesciunt quibusdam dicta placeat. Corrupti libero ab saepe vitae eaque. Id, facere tempora!</p>
+            </div>
+            <div class="col">
+                <h2>Entrenamiento</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque voluptatem, tenetur, omnis quidem minima, dolorem debitis atque nesciunt quibusdam dicta placeat. Corrupti libero ab saepe vitae eaque. Id, facere tempora!</p>
+            </div>
+            <div class="col">
+                <h2>Entrenamiento</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque voluptatem, tenetur, omnis quidem minima, dolorem debitis atque nesciunt quibusdam dicta placeat. Corrupti libero ab saepe vitae eaque. Id, facere tempora!</p>
+            </div>
+        </div>
+    </div>
+
+    
+</section>
+
+<section id="nosotros" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Nosotros</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, eos doloribus odit cumque eligendi quasi, quia maxime possimus error aliquid sit incidunt sapiente nobis et temporibus consequuntur sunt quisquam accusantium?</p>
+            </div>
+            <div class="col-lg-6">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, enim consequatur? Nihil sequi, dolore odio amet, eos eveniet velit doloremque incidunt praesentium magnam laudantium distinctio voluptatem. Minima quo optio ad!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="planes" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Planes</h2>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plan Básico</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <a href="#" class="btn btn-primary">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plan Estándar</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <a href="#" class="btn btn-primary">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plan Premium</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <a href="#" class="btn btn-primary">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacto" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Contacto</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <p>Para cualquier consulta o información adicional, no dudes en ponerte en contacto con nosotros.</p>
+                <ul>
+                    <li>Teléfono: 123-456-789</li>
+                    <li>Correo electrónico: info@example.com</li>
+                    <li>Dirección: Calle Principal #123, Ciudad, País</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="correo" placeholder="Correo electrónico">
+                    </div>
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="mensaje" rows="3" placeholder="Mensaje"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

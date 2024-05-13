@@ -336,7 +336,7 @@ function botonesrutinas($con)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="interface.css">
+    <link rel="stylesheet" href="interface_style.css">
     <title>GYM</title>
 </head>
 
@@ -495,7 +495,7 @@ function botonesrutinas($con)
     }
 
     .bxs-chat{
-        color: white;
+        color: black;
         transform: translateY(7px);
         font-size: 100px;
         margin-left: -10px;
@@ -882,7 +882,7 @@ chatbotCloseButton.addEventListener('click', () => {
                 <br>
                 <form method="post" id="calendarioForm" style="width: 90%;">
                     <div class="container ">
-                        <table class="table table-light  table-hover" style=" border-radius: 10px">
+                        <table class="table table-secondary  table-hover" style=" border-radius: 10px">
                             <thead>
                                 <tr>
                                     <?php
