@@ -36,17 +36,18 @@ function imprimir($id, $con)
         $imc = $row['Imc_User'];
         $password = $row['Password'];
 
-        echo ' <div class="card" style="background-color:rgb(71, 180, 170)">
+        echo ' <div class="card" style="background-color:rgb(71, 180, 170);box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
         <h1>Tus datos</h1>
         </div>
+        <img class="line-map" src="img/line-1-1.svg"/>
         <div class="py-3">
         </div>
         <form class="row"> 
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Primer Nombre</label>
-        <input type="text" class="form-control" id="inputPrimernom" value="' . $nombre . '"   disabled>
+        <input type="text" class="form-control" style="background-color: white" id="inputPrimernom" value="' . $nombre . '"   disabled>
         </div>
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Primer Apellido</label>

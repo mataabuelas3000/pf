@@ -13,7 +13,14 @@ html {
 body{
     background-color: #ffffff;  
 }
-
+.background .line-map {
+  width: 100%;
+  top: 100px;
+  position: absolute;
+  height: 1px;
+  left: 10px;
+  object-fit: cover;
+}
 .card-title1{
   background-color: #114c5f;
   font-size: 42px;
@@ -29,13 +36,50 @@ body{
     border: none;
 
 }
+<<<<<<< HEAD
+=======
+.border-danger {
+  border-color: red !important;
+}
+
+.border-success {
+  border-color: green !important;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  padding-right: 30px; /* Ajusta el espacio para el icono */
+  
+}
+
+.input-container i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+.container{
+  background: rgb(71, 180, 170);
+  width: 100%;
+  border-radius: 15px;
+  padding:50px;
+}
+>>>>>>> fdd5d38711c720425ecd8bc721c8dab1d4d32c11
 
 .card{
   border-radius: 10px;
 }
 
 .form-control {
+<<<<<<< HEAD
   background-color: rgba(255, 255, 255, 0.733) !important;
+=======
+  background-color: rgb(255, 255, 255) !important;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+>>>>>>> fdd5d38711c720425ecd8bc721c8dab1d4d32c11
 }
 .input-container {
   position: relative;
@@ -173,6 +217,7 @@ body{
   border: 1px solid #111;
   margin-top: 26px;
   font-size: 15px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .reloj {
