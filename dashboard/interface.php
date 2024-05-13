@@ -39,11 +39,9 @@ function imprimir($id, $con)
         echo ' <div class="card" style="background-color:rgb(71, 180, 170);box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
-        <h1 style="text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);">
-        TUS DATOS
-        </h1>
+        <h1>Tus datos</h1>
         </div>
-        <hr class="hr">
+        <hr>
         <div class="py-3">
         </div>
         <form class="row"> 
@@ -198,7 +196,7 @@ if (isset($_POST['guardarcalendario'])) {
 
             if (in_array($idRutina, $rutinas_existentes)) {
                 // Si la rutina ya existe para este día, mostrar una alerta y continuar con el siguiente día
-                echo '<script>alert("La rutina seleccionada ya está asignada para el día ' . $diasSemana2[$index]. '");</script>';
+                echo '<script>alert("La rutina seleccionada ya está asignada para el día ' . $diasSemana2[$index]. '");window.location.href = "interface.php#calendar";</script>';
                 continue;  // Continuar con el siguiente día
             }
             // Verificar si previamente se seleccionó "descanso" para este día
@@ -211,7 +209,7 @@ if (isset($_POST['guardarcalendario'])) {
 
             if ($idRutina == 0 && $row_descanso && $row_descanso['Id_Routine'] != 0) {
                 // Si se intenta agregar "descanso" y previamente se seleccionó otra rutina, mostrar alerta y continuar con el siguiente día
-                echo '<script>alert("No se puede añadir descanso para el día ' . $diasSemana2[$index] . ' porque ya se han asignado rutinas.");</script>';
+                echo '<script>alert("No se puede añadir descanso para el día ' . $diasSemana2[$index] . ' porque ya se han asignado rutinas.");window.location.href = "interface.php#calendar";</script>';
                 continue;  // Continuar con el siguiente día
             }
 
@@ -226,13 +224,13 @@ if (isset($_POST['guardarcalendario'])) {
 
             if ($row_descanso && $row_descanso['Id_Routine'] == 0) {
                 // Si previamente se seleccionó "descanso", mostrar una alerta y continuar con el siguiente día
-                echo '<script>alert("No se pueden añadir más rutinas para el día ' . $diasSemana2[$index] . ' porque ya se ha seleccionado descanso.");</script>';
+                echo '<script>alert("No se pueden añadir más rutinas para el día ' . $diasSemana2[$index] . ' porque ya se ha seleccionado descanso.");window.location.href = "interface.php#calendar";</script>';
                 continue;  // Continuar con el siguiente día
             }
 
             if ($count >= 3) {
                 // Si ya hay 3 o más rutinas asignadas, mostrar una alerta y detener el proceso
-                echo '<script>alert("No se pueden añadir más de 3 rutinas para el día ' . $diasSemana2[$index] . '");</script>';
+                echo '<script>alert("No se pueden añadir más de 3 rutinas para el día ' . $diasSemana2[$index] . '");window.location.href = "interface.php#calendar";</script>';
                 break;  // Detener el proceso
             }
 
@@ -255,57 +253,62 @@ if (isset($_POST['guardarcalendario'])) {
             $row_descanso = $result_descanso->fetch_assoc();
 
             if ($row_descanso && $row_descanso['Id_Routine'] == 0) {
-                echo '<script>alert("No se pueden añadir más rutinas para el día ' . $diasSemana2[$index] . ' porque ya se ha seleccionado descanso.");</script>';
+                echo '<script>alert("No se pueden añadir más rutinas para el día ' . $diasSemana2[$index] . ' porque ya se ha seleccionado descanso.");window.location.href = "interface.php#calendar";</script>';
             }
         }
     }
-    echo "<script>alert('Calendario actualizado correctamente.');window.location.href = 'interface.php#calendar';</script>";
+    echo "<script>alert('Calendario actualizado correctamente.');window.location.href = 'interface.php#calendar'; </script>";
 }
 
 if (isset($_POST['crearrutina'])) {
+    // Obtener datos del formulario
     $nombrerutina = $_POST['namerutina'];
     $descripcion = $_POST['descripcion'];
 
     // Verificar si se ha seleccionado una dificultad
-    if(isset($_POST['selecciondificultad'])) {
+    if (isset($_POST['selecciondificultad'])) {
         // Si se ha seleccionado una dificultad, obtenemos el valor
         $dificultad = $_POST['selecciondificultad'];
         // Si la dificultad es una cadena vacía, la convertimos a NULL
-        if($dificultad === "") {
+        if ($dificultad === "") {
             $dificultad = NULL;
         }
     } else {
         // Si no se ha seleccionado ninguna dificultad, establecer la dificultad como nula
         $dificultad = NULL;
     }
-    
-    // Verificar si ya existe una rutina con el mismo nombre y descripción
-    $query_check_routine = "SELECT COUNT(*) AS count FROM routine WHERE Id_User = ? AND Name_routine = ? AND Approach_Routine = ?";
-    $stmt_check_routine = mysqli_prepare($con, $query_check_routine);
-    mysqli_stmt_bind_param($stmt_check_routine, 'iss', $id, $nombrerutina, $descripcion);
-    mysqli_stmt_execute($stmt_check_routine);
-    $result_check_routine = mysqli_stmt_get_result($stmt_check_routine);
-    $row_check_routine = mysqli_fetch_assoc($result_check_routine);
-    $rutina_existente = $row_check_routine['count'] > 0;
-    
-    if ($rutina_existente) {
-        echo "<script>alert('¡Una rutina con el mismo nombre y descripción ya existe!');window.location.href = 'interface.php';</script>";
+
+    // Verificar si el usuario ya ha alcanzado el límite de rutinas permitidas
+    $query_count_routines = "SELECT COUNT(*) AS count FROM routine WHERE Id_User = ?";
+    $stmt_count_routines = mysqli_prepare($con, $query_count_routines);
+    mysqli_stmt_bind_param($stmt_count_routines, 'i', $id);
+    mysqli_stmt_execute($stmt_count_routines);
+    $result_count_routines = mysqli_stmt_get_result($stmt_count_routines);
+    $row_count_routines = mysqli_fetch_assoc($result_count_routines);
+    $count_routines = $row_count_routines['count'];
+
+    // Definir el límite de rutinas permitidas
+    $limite_rutinas = 6;
+
+    // Verificar si se ha alcanzado el límite
+    if ($count_routines >= $limite_rutinas) {
+        echo "<script>alert('Ya has creado el máximo número de rutinas permitidas.');window.location.href = 'interface.php';</script>";
         exit;
     }
-    
-    // Insertar la rutina con el ID_Routine generado
+
+    // Insertar la nueva rutina si no se ha alcanzado el límite
     $sql_insert_routine = "INSERT INTO routine (Name_routine, Approach_Routine, Id_Difficulty, Id_User) VALUES (?, ?, ?, ?)";
     $stmt_insert_routine = mysqli_prepare($con, $sql_insert_routine);
     mysqli_stmt_bind_param($stmt_insert_routine, 'sssi', $nombrerutina, $descripcion, $dificultad, $id);
     $result_insert_routine = mysqli_stmt_execute($stmt_insert_routine);
-    
+
     if ($result_insert_routine) {
         echo "<script>alert('Rutina creada exitosamente.');window.location.href = 'interface.php';</script>";
         exit;
     } else {
         echo 'Error al agregar la rutina: ' . mysqli_error($con);
     }
-    }
+}
 
 if (isset($_GET['creada']) && $_GET['creada'] == 'true') {
     $_POST = array();
@@ -381,6 +384,11 @@ function botonesrutinas($con)
         bottom: 20px; /* Posición final */
     }
 }
+
+
+    .container-buttons {
+
+    }
 
     .container-buttons button {
         margin-bottom: 5px;
@@ -484,12 +492,11 @@ function botonesrutinas($con)
     #boton-chatbot {
         color: black;
         position: fixed;
-        width: 0%;
+        bottom: 0; /* Fijar el botón en la parte inferior */
+        right: 0; /* Fijar el botón a la derecha */
+        margin-right: 30px;
+        margin-bottom: 10px;
         z-index: 999;
-        display: flex;
-        justify-content: right;
-        transform: translateY(1000px);
-        translate: 2350px;
     }
 
     .bxs-chat{
@@ -497,6 +504,7 @@ function botonesrutinas($con)
         transform: translateY(7px);
         font-size: 100px;
         margin-left: -10px;
+
     }
 
     .message-chat {
@@ -643,7 +651,7 @@ function botonesrutinas($con)
                 <i class='bx bx-run' style="font-size: 35px"></i>
                 </span>
             </a>
-            <a class="nav-link " href="#" onclick="setActiveLink(this); openTab('container-calendario');" title="Calendario">
+            <a class="nav-link a-calendar" href="#" onclick="setActiveLink(this); openTab('container-calendario');" title="Calendario">
                 <span class="icon d-flex align-items-center justify-content-center">
                 <i class='bx bxs-calendar' style="font-size: 35px"></i>
                 </span>
@@ -666,7 +674,7 @@ function botonesrutinas($con)
 
     <!-- Widget del chatbot -->
     <div id="boton-chatbot">
-        <i class='bx bxs-chat bx-tada btn'></i>
+        <i class='bx bxs-chat btn'></i>
     </div>
     <!-- Widget del chatbot -->
     <div class="widget" id="widget" style="display: none;">
@@ -852,12 +860,12 @@ chatbotCloseButton.addEventListener('click', () => {
                                 <!-- Etiqueta del nombre -->
                                 <input type="text" class="form-control" name="namerutina"
                                     value="<?php if (isset($_POST['namerutina'])) echo $_POST['namerutina']; ?>"
-                                    placeholder="Nombre rutina" required> <!-- Entrada para el nombre de la rutina -->
+                                     required> <!-- Entrada para el nombre de la rutina -->
                             </div>
                             <div class="input-group mb-3">
                                 <!-- Grupo de entrada para la descripción de la rutina -->
                                 <span class="input-group-text">Descripcion</span> <!-- Etiqueta de la descripción -->
-                                <textarea class="form-control" name="descripcion" placeholder="Descripción"
+                                <textarea class="form-control" name="descripcion" 
                                     required><?php if (isset($_POST['descripcion'])) echo $_POST['descripcion']; ?></textarea>
                                 <!-- Área de texto para la descripción -->
                             </div>
@@ -880,7 +888,7 @@ chatbotCloseButton.addEventListener('click', () => {
                 <br>
                 <form method="post" id="calendarioForm" style="width: 90%;">
                     <div class="container ">
-                        <table class="table table-secondary  table-hover" style=" border-radius: 10px">
+                        <table class="table table-light  table-hover" style=" border-radius: 10px">
                             <thead>
                                 <tr>
                                     <?php
@@ -980,7 +988,7 @@ chatbotCloseButton.addEventListener('click', () => {
         </div>
 
         <div class="container tab-content" id="container-tienda" style="display:none; flex-direction: column; transform: translateX(-5vh); margin-bottom: 80px  ">
-            <div class="row" >
+            <div class="row" style="">
                 <div class="col-md-6">
                     <input type="text" id="buscador" class="form-control mb-3" placeholder="Buscar...">
                 </div>
@@ -1089,32 +1097,32 @@ window.addEventListener('load', function() {
     // Datos de ejemplo de productos (puedes obtener estos datos de la base de datos)
     var productos = [{
             nombre: "camiseta",
-            imagen: "https://via.placeholder.com/400x300",
+            imagen: "../images/camiseta.jpg",
             precio: 20.0,
         },
         {
             nombre: "licras",
-            imagen: "https://via.placeholder.com/400x300",
+            imagen: "../images/licras.jpg",
             precio: 30.0,
         },
         {
             nombre: "sudaderas",
-            imagen: "https://via.placeholder.com/400x300",
+            imagen: "../images/sudadera.jpg",
             precio: 25.0,
         },
         {
             nombre: "suplementos",
-            imagen: "https://via.placeholder.com/400x300",
+            imagen: "../images/suplementos.jpg",
             precio: 20.0,
         },
         {
             nombre: "mancuernas",
-            imagen: "https://via.placeholder.com/400x300",
+            imagen: "../images/mancuernas.jpg",
             precio: 30.0,
         },
         {
             nombre: "tennis",
-            imagen: "https://via.placeholder.com/400x300",
+            imagen: "../images/zapatos.jpg",
             precio: 25.0,
         },
     ];
@@ -1272,7 +1280,59 @@ window.addEventListener('load', function() {
       }
       document.getElementById(tabName).style.display = "flex";
     }
-    
+
+
+    window.addEventListener('load', function() {
+    if (window.location.href.indexOf('#calendar') !== -1) {
+        var calendarLink = document.querySelector('.a-calendar');
+        setActiveLink(calendarLink);
+        openTab('container-calendario');
+    }
+});
+
+window.addEventListener('load', function() {
+    if (window.location.href.indexOf('#info') !== -1) {
+        var calendarLink = document.querySelector('.buton-info');
+        setActiveLink(calendarLink);
+        openTab('info');
+    }
+});
+ inputs = document.querySelectorAll('input[type="number"]');
+
+    inputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            var valor = this.value.trim();
+            var soloNumeros = valor.replace(/[^0-9]/g, '');
+            this.value = soloNumeros;
+        });
+    });
+    //--------------------------------------------------------------------------------------------------
+
+    function openTab(tabName) {
+      var i, tabContent;
+      tabContent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+      }
+      document.getElementById(tabName).style.display = "flex";
+    }
+
+
+    window.addEventListener('load', function() {
+    if (window.location.href.indexOf('#calendar') !== -1) {
+        var calendarLink = document.querySelector('.a-calendar');
+        setActiveLink(calendarLink);
+        openTab('container-calendario');
+    }
+});
+
+window.addEventListener('load', function() {
+    if (window.location.href.indexOf('#info') !== -1) {
+        var calendarLink = document.querySelector('.buton-info');
+        setActiveLink(calendarLink);
+        openTab('info');
+    }
+});
 </script>
 
     <script type="text/javascript" src="jspdf.min.js"></script>

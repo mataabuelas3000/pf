@@ -34,7 +34,7 @@ hr{
     height: 5px;
     border: none;
     border-radius: 10px;
-    width: 120px;
+    width: 190px;
     background: #43C6AC;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
@@ -71,7 +71,7 @@ p{
 }
 .btn:hover {
     color: #1fa398;
-    border: 2px solid  rgba(255, 255, 255, 0.37);
+    border: 2px solid  rgba(255, 255, 255, 0.555);
 
   }
   
@@ -89,7 +89,7 @@ p{
     margin-right: 10px;
   }
   .btn1:hover {
-    background: #ffffff;
+    background: #ffffffd7;
     color: #1fa398 !important;
     transition: all 1s ease-out;
   }
@@ -102,12 +102,11 @@ p{
   right: 0;
   width: 27%;
   height: 600px;
-  background: #fff;
+  background: #1a1a1a49;
   border-radius: 20px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 0 45px rgb(255, 255, 255, 0.55);
   display: none;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 .overlay {
   position: fixed;
@@ -133,7 +132,7 @@ p{
 .form h1 {
   margin-top: 40px;
   font-size: 2rem;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   text-align: center;
   letter-spacing: 0.5px;
 }
@@ -150,7 +149,7 @@ p{
   left: 5px;
   transform: translateY(-50%);
   font-size: 1rem;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-weight: 500;
   pointer-events: none;
   transition: 0.5s;
@@ -186,7 +185,7 @@ select {
   margin-left: 10px;
   margin-top: 5px;
   font-size: 15px;
-  color: rgb(78, 78, 78);
+  color: rgb(247, 247, 247);
   font-weight: 600;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -229,4 +228,44 @@ option {
   border-bottom-right-radius: 20px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+/* Animación para mostrar el contenedor de inicio de sesión */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación para ocultar el contenedor de inicio de sesión */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Aplicamos las animaciones a los elementos */
+#login-container {
+  animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#overlay {
+  animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#login-container.cerrar {
+  animation: fadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#overlay.cerrar {
+  animation: fadeOut 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
