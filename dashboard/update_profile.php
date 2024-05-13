@@ -106,7 +106,7 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Primer nombre</label>
-                                <input type="text" class="form-control" name="primernombre"
+                                <input type="text" class="form-control" name="primernombre" id="inputText" onkeypress="return soloLetras(event)"
                                     placeholder="Ingrese su nombre" value="<?php echo $primernombre ?>" required>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" name="primerapellido"
+                                <input type="text" class="form-control" name="primerapellido"id="inputText" onkeypress="return soloLetras(event)"
                                     placeholder="Ingrese su Segundo apellido" value="<?php echo $primerapellido ?>"
                                     required>
                             </div>
@@ -180,6 +180,15 @@ if (isset($_POST['mandar'])) {
             </form>
             </div>
             <script>
+                function soloLetras(event) {
+    var charCode = event.which ? event.which : event.keyCode;
+    if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+        event.preventDefault();
+        return false;
+    }
+    return true;
+}
+
                  document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('actualizarForm');
             const inputs = form.querySelectorAll('input, select');

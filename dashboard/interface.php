@@ -36,7 +36,7 @@ function imprimir($id, $con)
         $imc = $row['Imc_User'];
         $password = $row['Password'];
 
-        echo ' <div class="card" style="background-color:rgb(71, 180, 170)">
+        echo ' <div class="card" style="background-color:rgb(71, 180, 170);box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
         <h1>Tus datos</h1>
