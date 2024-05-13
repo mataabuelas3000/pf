@@ -41,6 +41,7 @@ function imprimir($id, $con)
         <div style="font-size:20px; text-align: center;">
         <h1>Tus datos</h1>
         </div>
+        <img class="line-map" src="img/line-1-1.svg"/>
         <div class="py-3">
         </div>
         <form class="row"> 

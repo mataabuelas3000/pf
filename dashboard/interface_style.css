@@ -14,7 +14,14 @@ body{
     background-color: #121717;  
     font-size: 20px;
 }
-
+.background .line-map {
+  width: 100%;
+  top: 100px;
+  position: absolute;
+  height: 1px;
+  left: 10px;
+  object-fit: cover;
+}
 .card-title1{
   background-color: #114c5f;
   font-size: 42px;
