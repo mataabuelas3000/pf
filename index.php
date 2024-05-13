@@ -62,7 +62,7 @@ if (isset($_POST['enviar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -114,6 +114,9 @@ if (isset($_POST['enviar'])) {
 <div class="overlay" id="overlay"></div>
     <div class="container login-container" style="display:none" id="login-container" >
         <div class="form">
+        <div class="cerrar d-flex justify-content-end" id="cerrar">
+        <box-icon name='x' color='brown'></box-icon>
+          </div>
             <h1>Iniciar Sesión</h1>
             <br>
             <form method="post">
@@ -166,11 +169,16 @@ if (isset($_POST['enviar'])) {
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
-    <script>
-    document.getElementById('login-link').addEventListener('click', function() {
-        document.getElementById('overlay').style.display = 'block'; // Mostrar overlay
-        document.getElementById('login-container').style.display = 'flex'; // Mostrar contenedor de inicio de sesión
+        <script>
+        document.getElementById('login-link').addEventListener('click', function() {
+            document.getElementById('overlay').style.display = 'block'; // Mostrar overlay
+            document.getElementById('login-container').style.display = 'flex'; // Mostrar contenedor de inicio de sesión
+        });
+
+        document.getElementById('cerrar').addEventListener('click', function() {
+        document.getElementById('overlay').style.display = 'none'; // Ocultar overlay
+        document.getElementById('login-container').style.display = 'none'; // Ocultar contenedor de inicio de sesión
     });
-</script>
+    </script>
 </body>
 </html>
