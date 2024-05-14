@@ -1,6 +1,6 @@
 <?php
 include('C:\xampp\htdocs\pf\database\connect.php');
-$con->set_charset('utf8');
+
 session_start();
 
 // Verificar si no hay una sesión activa de personal o de rutina
@@ -47,7 +47,7 @@ function mostrarejercicios($con, $idRutina)
 
     // Consultar los ejercicios disponibles según la dificultad de la rutina
     if ($dificultad_rutina != null) {
-        $sql = 'SELECT g.Name_Group, e.Name_Exercise, e.Id_Exercise
+        $sql = 'SELECT g.Name_Group, e.url_video, e.Name_Exercise, e.Id_Exercise
                 FROM muscle_group g 
                 INNER JOIN exercise e ON g.Id_Muscle_Group = e.Id_Muscle_Group 
                 WHERE e.Id_Exercise NOT IN (
@@ -61,7 +61,7 @@ function mostrarejercicios($con, $idRutina)
         $stmt = mysqli_prepare($con, $sql);
         mysqli_stmt_bind_param($stmt, 'is', $idRutina, $dificultad_rutina);
     } else {
-        $sql = 'SELECT g.Name_Group, e.Name_Exercise, e.Id_Exercise
+        $sql = 'SELECT g.Name_Group, e.url_video, e.Name_Exercise, e.Id_Exercise
                 FROM muscle_group g 
                 INNER JOIN exercise e ON g.Id_Muscle_Group = e.Id_Muscle_Group 
                 WHERE e.Id_Exercise NOT IN (
@@ -81,29 +81,32 @@ function mostrarejercicios($con, $idRutina)
     // Verificar si se obtuvieron resultados de la consulta
     if ($result) {
         $current_grupo = '';
-        echo '<div class="container " style="margin-top: 30px;display: flex; flex-wrap: wrap;  justify-content: center;">';
+        echo '<div class="container " style="margin-top: 30px;width: 100%;display: flex; flex-wrap: wrap;  justify-content: right;">';
         while ($row = mysqli_fetch_assoc($result)) {
             $nombregrupo = iconv('ISO-8859-1', 'UTF-8', $row['Name_Group']);
             $nombreejercicio = iconv('ISO-8859-1', 'UTF-8', $row['Name_Exercise']);
             $idejercicio = $row['Id_Exercise'];
+            $video = $row['url_video'];
             if ($nombregrupo != $current_grupo) {
                 if ($current_grupo != '') {
                     echo '</ul>';
                 }
-                echo '<ul class="list-group ml-4 mt-3" style="width: 30%">';
-                echo '<li class="list-group-item list-group-item-info" style="margin-top:20px; border-radius: 4px; padding: 15px">' . $nombregrupo . '</li>';
+                echo '<ul class="list-group ml-4 mt-3" style="width: 30%; border-radius: 20px">';
+                echo '<li class="list-group-item list-group-item-info text-light text-center bg-dark" style="margin-top:20px; padding: 15px;font-size: 20px">' . $nombregrupo . '</li>';
                 $current_grupo = $nombregrupo;
             }
 
             echo '<li class="list-group-item" style="padding: 13px; border: 1px solid rgba(41, 41, 41, 0.116)">
                     <input class="form-check-input ml-1 me-1" type="checkbox" value="' . $idejercicio . '" id="checkbox_' . $idejercicio . '" name="seleccioncheck[]">
                     <label class="form-check-label ml-5" for="checkbox_' . $idejercicio . '">' . $nombreejercicio . '</label>
+               
                 </li>';
         }
         echo '</ul></div>';
 
         // Agregar un botón para enviar el formulario después de seleccionar los ejercicios
-        echo '<button type="submit" class="btn btn-primary mt-4" name="agregarejer">Agregar Ejercicios Seleccionados</button>';
+        echo '
+        <div class="d-flex justify-content-end"><button type="submit" class="btn btn-dark mt-4" name="agregarejer">Agregar Ejercicios Seleccionados</button></div>';
     }
 }
 
@@ -256,36 +259,33 @@ if (isset($_POST['agregarejer'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="routine_styles.css">
+    <link rel="stylesheet" href="routine.css">
 </head>
 
 <body>
     <!-- Barra de navegación -->
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <h5><?php echo $nombrerutina ?></h5>
+            <h5 class="nav-link text-light"><?php echo $nombrerutina ?></h5>
             <a class="nav-link text-light" href="interface.php?id_personal=<?php echo $id; ?>">
-                <input value="Regresar" type="button" class="btn btn-danger">
+               Logout <i class='bx bx-log-out bx-logout'></i>
             </a>
         </div>
     </nav>
 
     <!-- Contenido principal -->
-    <div class="card">
-        <div class="card-body mb-4">
+    <div class="card1 d-flex justify-content-end">
+        <img src="../images/img2.svg" alt="" width="900">
             <form method="post">
-                <button type="button" class="btn btn-secondary detalles toggle-details" style="margin-left:-40px">Ver
-                    Ejercicios</button>
-                <div class="details" style="display: none;">
+                <div class="details">
                     <?php mostrarejercicios($con, $idrutina); ?>
                 </div>
             </form>
-        </div>
     </div>
 
-    <div class="card1" style="width: 100%">
+    <div class="card bg-dark" style="width: 100%">
         <div class="card-body">
-            <h3>Mis ejercicios</h3>
+            <h3 class="text-light">Mis ejercicios</h3>
             <br>
             <div id="ejercicios-lista">
                 <?php
@@ -299,7 +299,7 @@ if (isset($_POST['agregarejer'])) {
                     // Iterar sobre los ejercicios y mostrarlos
                     foreach ($ejercicios as $ejercicio) {
                         echo '
-                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px">
+                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #24baae;">
                         <i class="bx bx-dialpad-alt draggable-handle justify-content-center align-items-center d-flex"></i>
                         <form method="post">
                             <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-center align-items-center d-flex" style="background: none; border: none; cursor: pointer;"></button>
@@ -320,22 +320,23 @@ if (isset($_POST['agregarejer'])) {
 
 
 <br>
-<div class="card">
-    <div class="card-body">
-        <h3>Iniciar rutina</h3>
-        <video autoplay muted loop>
-                <source src="../videos/Dosaminadas1.mp4" type="video/mp4">
-              </video>
+
         <?php
 
         if (empty($ejercicios)) {
             echo '<p>No hay ejercicios en esta rutina.</p>';
         } else {
-                echo '<button type="button" id="btnComenzar" class="btn btn-primary" data-toggle="modal" data-target="#modal1">Comenzar</button>';
+                echo '
+                
+                <div id="boton-chatbot">
+                <button type="button" id="btnComenzar"  class="btn btn-primary" data-toggle="modal" data-target="#modal1"><i class="bx bx-play-circle bx-play"></i></button>
+            </div>
+                ';
             }
 
         ?>
-
+<div class="card1">
+    <div class="card-body">
         <?php
         // Establecer el conjunto de caracteres a UTF-8
         // Obtener ejercicios de la rutina
@@ -458,7 +459,7 @@ if (isset($_POST['agregarejer'])) {
                     $hora_actual_servidor = $rowHoraActual['hora_actual'];
 
                     // Verificar si la hora actual está dentro del rango de 10:00 PM a 5:00 AM
-                    if ($completionTime >= '22:00:00') {
+                    if ($completionTime >= '23:10:00' && $hora_deseada_manana <='05:00:00') {
                         echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM y antes de las 5:00 AM. Espere hasta la hora deseada.'); window.location.href = 'interface.php';</script>";
                         exit; // Terminar la ejecución del script para evitar que se continúe con el resto del código
                     } else {
@@ -678,22 +679,6 @@ if (isset($_POST['agregarejer'])) {
     //-------------------------------------------------
 
 
-
-    const toggleButtons = document.querySelectorAll('.toggle-details');
-
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const details = button.nextElementSibling;
-
-            if (details.style.display === 'none' || details.style.display === '') {
-                details.style.display = 'block';
-                button.textContent = 'Cerrar ';
-            } else {
-                details.style.display = 'none';
-                button.textContent = 'Ver Ejercicios';
-            }
-        });
-    });
 
     window.onload = function() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
