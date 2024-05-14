@@ -85,26 +85,82 @@ if (isset($_POST['mandar'])) {
             <link rel="stylesheet" href="style.css">
             <title>actualizar</title>
         </head>
+        <style>
+        body {
+            background-color: #202020;
+        }
+        .container{
+        position: relative;
+        top: 100px;
+        }
+        .form{
+            padding: 35px;
+            border: 2px solid #cccc;
+            border-radius: 8px;
+        }
+        .input-container input {
+        padding: 15px;
+        border: 1px solid #ffffff;
+        margin-top: 26px;
+        font-size: 20px;
+        }
+        .input-container input::placeholder {
+            color: #b6b6b6;
+        }
+        .titulo{
+            text-align: center;
+            color:white;
+            font-size: 25px;
+        }
+        hr{
+            background-color: #ffffff;
+        }
+        .border-danger {
+        border-color: red !important;
+        }
 
+        .border-success {
+        border-color: green !important;
+        }
+
+        .input-container {
+        position: relative;
+        }
+
+        .input-container input {
+        padding-right: 70px; /* Ajusta el espacio para el icono */
+        
+        }
+
+        .input-container i {
+        position: absolute;
+        top: 40%;
+        right: 30px;
+        }
+        select option {
+            color: black;
+        }
+        </style>
         <body>
-            
-           
-            
             <div class="container my-5" id="cerrar">
-                <form method="post" id="actualizarForm">
+                <form method="post" id="actualizarForm" class="form bg-dark" data-bs-theme="dark">
+                    <div class="titulo">
+                        <h1>Actualización de Datos</h1>
+                    </div>
+                    <hr>
                     <div class="row ">
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">ID</label>
                                 <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                    class="form-control" name="id" placeholder="Ingrese su id"
+                                    class="form-control text-light" name="id" placeholder="Ingrese su id"
                                     value="<?php echo $idviejo ?>" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Primer nombre</label>
-                                <input type="text" class="form-control" name="primernombre"
+                                <input type="text" class="form-control text-light" name="primernombre" onkeypress="return soloLetras(event)"
                                     placeholder="Ingrese su nombre" value="<?php echo $primernombre ?>" required>
                             </div>
                         </div>
@@ -114,7 +170,7 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" name="primerapellido"
+                                <input type="text" class="form-control text-light" name="primerapellido" onkeypress="return soloLetras(event)"
                                     placeholder="Ingrese su Segundo apellido" value="<?php echo $primerapellido ?>"
                                     required>
                             </div>
@@ -122,7 +178,7 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Correo</label>
-                                <input type="email" class="form-control" name="correo" placeholder="Ingrese su correo"
+                                <input type="email" class="form-control text-light" name="correo" placeholder="Ingrese su correo"
                                     value="<?php echo $correo ?>" required>
                             </div>
 
@@ -132,7 +188,8 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container" style="margin-top:30px">
                                 <label class="form-label">Genero</label>
-                                <select class="form-select" style="width:100%; margin-top:0px" name="genero" required>
+                                <select class="form-select text-light" style="width:100%; margin-top:0px" name="genero" required>
+                                
                                     <option value="M" <?php if ($genero === 'M') echo 'selected'; ?>>Masculino</option>
                                     <option value="F" <?php if ($genero === 'F') echo 'selected'; ?>>Femenino</option>
                                     <option value="O" <?php if ($genero === 'O') echo 'selected'; ?>>Otro</option>
@@ -142,7 +199,7 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Altura</label>
-                                <input type="number" step="0.01" class="form-control" id="altura" name="altura"
+                                <input type="number" step="0.01" class="form-control text-light" id="altura" name="altura"
                                     placeholder="Ingrese su altura" value="<?php echo $altura ?>" required>
                             </div>
                         </div>
@@ -153,7 +210,7 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Peso</label>
-                                <input type="number" step="0.01" class="form-control" id="peso" name="peso"
+                                <input type="number" step="0.01" class="form-control text-light" id="peso" name="peso"
                                     placeholder="Ingrese su peso" value="<?php echo $peso ?>" required>
                             </div>
 
@@ -161,23 +218,113 @@ if (isset($_POST['mandar'])) {
                         <div class="col-md-6">
                             <div class="form-group input-container">
                                 <label class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" name="pass"
+                                <input type="password" class="form-control text-light" name="pass"
                                     placeholder="Ingrese su contraseña" value="<?php echo $password ?>" required>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 checkbox">
+                    <div class="col-md-6 checkbox text-light">
                         <input type="checkbox" name="show_password" id="show_password">
                         <label for="show_password">Mostrar contraseña</label>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-secondary" name="mandar" id="updatebtn">Actualizar</button>
+                    <button type="submit" class="btn btn-light" name="mandar" id="updatebtn">Actualizar</button>
                     <button type="submit" class="btn btn-danger" name="cancelar">Cancelar</button>
             </div>
             <div class="mr-5"></div>
             </form>
             </div>
             <script>
+                function soloLetras(event) {
+    var charCode = event.which ? event.which : event.keyCode;
+    if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+        event.preventDefault();
+        return false;
+    }
+    return true;
+}
+
+                 document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('actualizarForm');
+            const inputs = form.querySelectorAll('input, select');
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    if (input.checkValidity()) {
+                        input.classList.remove('border-danger');
+                        input.classList.add('border-success');
+                        input.nextElementSibling.classList.add('icon-success');
+                        input.nextElementSibling.classList.remove('icon-error');
+                        input.nextElementSibling.style.display = 'inline-block'; // Mostrar el icono de "correcto"
+                    } else {
+                        input.classList.remove('border-success');
+                        input.classList.add('border-danger');
+                        input.nextElementSibling.classList.remove('icon-success');
+                        input.nextElementSibling.classList.add('icon-error');
+                        input.nextElementSibling.style.display = 'inline-block'; // Mostrar el icono de "error"
+                    }
+                });
+            });
+        });
+                document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('actualizarForm');
+            const inputs = form.querySelectorAll('input, select');
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    if (input.checkValidity()) {
+                        input.classList.remove('border-danger');
+                        input.classList.add('border-success');
+                        if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('fa-check')) {
+                            const icon = document.createElement('i');
+                            icon.className = 'fas fa-check ml-2 text-success';
+                            input.parentNode.insertBefore(icon, input.nextElementSibling);
+                        }
+                    } else {
+                        input.classList.remove('border-success');
+                        input.classList.add('border-danger');
+                        const icon = input.nextElementSibling;
+                        if (icon && icon.classList.contains('fa-check')) {
+                            icon.remove();
+                        }
+                    }
+                });
+            });
+
+            const nombreInput = form.querySelector('input[name="primernombre"]');
+            const apellidoInput = form.querySelector('input[name="primerapellido"]');
+            const correoInput = form.querySelector('input[name="correo"]');
+
+            nombreInput.addEventListener('input', function () {
+                if (/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreInput.value)) {
+                    nombreInput.classList.remove('border-danger');
+                    nombreInput.classList.add('border-success');
+                } else {
+                    nombreInput.classList.remove('border-success');
+                    nombreInput.classList.add('border-danger');
+                }
+            });
+
+            apellidoInput.addEventListener('input', function () {
+                if (/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellidoInput.value)) {
+                    apellidoInput.classList.remove('border-danger');
+                    apellidoInput.classList.add('border-success');
+                } else {
+                    apellidoInput.classList.remove('border-success');
+                    apellidoInput.classList.add('border-danger');
+                }
+            });
+
+            correoInput.addEventListener('input', function () {
+                if (/^\S+@\S+\.\S+$/.test(correoInput.value)) {
+                    correoInput.classList.remove('border-danger');
+                    correoInput.classList.add('border-success');
+                } else {
+                    correoInput.classList.remove('border-success');
+                    correoInput.classList.add('border-danger');
+                }
+            });
+        });
             document.getElementById('show_password').addEventListener('change', function() {
                 var passwordField = document.getElementsByName('pass')[0];
                 passwordField.type = this.checked ? 'text' : 'password';

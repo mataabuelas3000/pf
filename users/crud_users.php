@@ -49,47 +49,47 @@ while ($row = mysqli_fetch_assoc($result)) {
   $imc = $row['Imc_User'];
   $password = $row['Password'];
 
-          echo ' <div class="card1" style="width: 100%;">
+          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
           <div class="card-body">
-            <h5 class="card-title">Cliente: ' . $id . '</h5>
+            <h5 class="card-title text-light">Cliente: ' . $id . '</h5>
             <div class="py-2">
             </div>
-            <button type="button" class="btn btn-dark  detalles toggle-details">Mostrar Detalles</button> 
+            <button type="button" class="btn btn-light  detalles toggle-details">Mostrar Detalles</button> 
             <div class="details" style="display: none;" >
             <div class="py-3">
           </div>
           <form class="row g-3 py-2">
           <div class="col-md-6 input-container">
           <label for="inputEmail4" class="form-label">Nombres</label>
-          <input type="text" class="form-control" id="inputPrimernom" value="' . $nombre . '"   disabled>
+          <input type="text" class="form-control text-light" id="inputPrimernom" value="' . $nombre . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" id="inputPrimerape" value="' . $apellido . '"   disabled>
+            <input type="text" class="form-control text-light" id="inputPrimerape" value="' . $apellido . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="inputCorreo" value="' . $correo. '"  disabled>
+            <input type="email" class="form-control text-light" id="inputCorreo" value="' . $correo. '"  disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Genero</label>
-            <input type="text" class="form-control" id="inputGenero" value="' . $genero . '"  disabled>
+            <input type="text" class="form-control text-light" id="inputGenero" value="' . $genero . '"  disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Contraseña</label>
-            <input type="text" class="form-control" id="inputContraseña" value="'.$password.'"  disabled>
+            <input type="text" class="form-control text-light" id="inputContraseña" value="'.$password.'"  disabled>
           </div>
             <div class="col-md-6 input-container">
                         <label for="inputEmail4" class="form-label">Peso</label>
-                        <input type="text" class="form-control" id="inputPeso" value="' . $peso . '"  disabled>
+                        <input type="text" class="form-control text-light" id="inputPeso" value="' . $peso . '"  disabled>
                       </div>
                       <div class="col-md-6 input-container">
                       <label for="inputEmail4" class="form-label">Altura</label>
-                      <input type="text" class="form-control" id="inputAltura" value="' . $altura. '"  disabled>
+                      <input type="text" class="form-control text-light" id="inputAltura" value="' . $altura. '"  disabled>
                     </div>
                     <div class="col-md input-container">
                     <label for="inputEmail4" class="form-label">IMC</label>
-                    <input type="text" class="form-control" id="inputImc" value="' . $imc . '"  disabled>
+                    <input type="text" class="form-control text-light" id="inputImc" value="' . $imc . '"  disabled>
                   </div>
           <div class="py-5">
           </div>
@@ -112,7 +112,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
         }
       } else {
-        echo '<h2 class="nofound">La cedula no existe :(</h2>';
+        echo '<h2 class="nofound text-light">La cedula no existe :(</h2>';
       }
     }
 
@@ -144,47 +144,47 @@ while ($row = mysqli_fetch_assoc($result)) {
   $imc = $row['Imc_User'];
   $password = $row['Password'];
 
-          echo ' <div class="card1" style="width: 100%;">
+          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
           <div class="card-body">
-            <h5 class="card-title">Cliente: ' . $id . '</h5>
+            <h5 class="card-title text-light">Cliente: ' . $id . '</h5>
             <div class="py-2">
             </div>
-            <button type="button" class="btn btn-dark  detalles toggle-details">Mostrar Detalles</button> 
+            <button type="button" class="btn btn-light  detalles toggle-details">Mostrar Detalles</button> 
             <div class="details" style="display: none;" >
             <div class="py-3">
           </div>
           <form class="row g-3 py-2">
           <div class="col-md-6 input-container">
           <label for="inputEmail4" class="form-label">Nombres</label>
-          <input type="text" class="form-control" id="inputPrimernom" value="' . $nombre . '"   disabled>
+          <input type="text" class="form-control text-light" id="inputPrimernom" value="' . $nombre . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" id="inputPrimerape" value="' . $apellido . '"   disabled>
+            <input type="text" class="form-control text-light" id="inputPrimerape" value="' . $apellido . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="inputCorreo" value="' . $correo. '"  disabled>
+            <input type="email" class="form-control text-light" id="inputCorreo" value="' . $correo. '"  disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Genero</label>
-            <input type="text" class="form-control" id="inputGenero" value="' . $genero . '"  disabled>
+            <input type="text" class="form-control text-light" id="inputGenero" value="' . $genero . '"  disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Contraseña</label>
-            <input type="text" class="form-control" id="inputContraseña" value="'.$password.'"  disabled>
+            <input type="text" class="form-control text-light" id="inputContraseña" value="'.$password.'"  disabled>
           </div>
             <div class="col-md-6 input-container">
                         <label for="inputEmail4" class="form-label">Peso</label>
-                        <input type="text" class="form-control" id="inputPeso" value="' . $peso . '"  disabled>
+                        <input type="text" class="form-control text-light" id="inputPeso" value="' . $peso . '"  disabled>
                       </div>
                       <div class="col-md-6 input-container">
                       <label for="inputEmail4" class="form-label">Altura</label>
-                      <input type="text" class="form-control" id="inputAltura" value="' . $altura. '"  disabled>
+                      <input type="text" class="form-control text-light" id="inputAltura" value="' . $altura. '"  disabled>
                     </div>
                     <div class="col-md input-container">
                     <label for="inputEmail4" class="form-label">IMC</label>
-                    <input type="text" class="form-control" id="inputImc" value="' . $imc . '"  disabled>
+                    <input type="text" class="form-control text-light" id="inputImc" value="' . $imc . '"  disabled>
                   </div>
           <div class="py-5">
           </div>
@@ -236,53 +236,53 @@ while ($row = mysqli_fetch_assoc($result)) {
   $imc = $row['Imc_User'];
   $password = $row['Password'];
 
-          echo ' <div class="card1" style="width: 100%;">
+          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
           <div class="card-body">
-            <h5 class="card-title">Cliente: ' . $id . '</h5>
+            <h5 class="card-title text-light">Cliente: ' . $id . '</h5>
             <div class="py-2">
             </div>
-            <button type="button" class="btn btn-dark  detalles toggle-details">Mostrar Detalles</button> 
+            <button type="button" class="btn btn-light  detalles toggle-details">Mostrar Detalles</button> 
             <div class="details" style="display: none;" >
             <div class="py-3">
           </div>
           <form class="row g-3 py-2">
           <div class="col-md-6 input-container">
           <label for="inputEmail4" class="form-label">Nombres</label>
-          <input type="text" class="form-control" id="inputPrimernom" value="' . $nombre . '"   disabled>
+          <input type="text" class="form-control text-light" id="inputPrimernom" value="' . $nombre . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" id="inputPrimerape" value="' . $apellido . '"   disabled>
+            <input type="text" class="form-control text-light" id="inputPrimerape" value="' . $apellido . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="inputCorreo" value="' . $correo. '"  disabled>
+            <input type="email" class="form-control text-light" id="inputCorreo" value="' . $correo. '"  disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Genero</label>
-            <input type="text" class="form-control" id="inputGenero" value="' . $genero . '"  disabled>
+            <input type="text" class="form-control text-light" id="inputGenero" value="' . $genero . '"  disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label">Contraseña</label>
-            <input type="text" class="form-control" id="inputContraseña" value="'.$password.'"  disabled>
+            <input type="text" class="form-control text-light" id="inputContraseña" value="'.$password.'"  disabled>
           </div>
             <div class="col-md-6 input-container">
                         <label for="inputEmail4" class="form-label">Peso</label>
-                        <input type="text" class="form-control" id="inputPeso" value="' . $peso . '"  disabled>
+                        <input type="text" class="form-control text-light" id="inputPeso" value="' . $peso . '"  disabled>
                       </div>
                       <div class="col-md-6 input-container">
                       <label for="inputEmail4" class="form-label">Altura</label>
-                      <input type="text" class="form-control" id="inputAltura" value="' . $altura. '"  disabled>
+                      <input type="text" class="form-control text-light" id="inputAltura" value="' . $altura. '"  disabled>
                     </div>
                     <div class="col-md input-container">
                     <label for="inputEmail4" class="form-label">IMC</label>
-                    <input type="text" class="form-control" id="inputImc" value="' . $imc . '"  disabled>
+                    <input type="text" class="form-control text-light" id="inputImc" value="' . $imc . '"  disabled>
                   </div>
           <div class="py-5">
           </div>
           <div class="col-12 ">
-          <a href="users_dashboard/routine_user.php?id_personal=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
-          <a href="update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
+          <a href="users_dashboard/routine_user.php?id_personal=' . $id . '" class="text-light"><input type="button" class="btn btn-light mr-3" value="Rutinas"></a>
+          <a href="update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-light mr-3" value="Actualizar"></a>
           <a href="#" class="text-light"  onclick="confirmacion(' . $id . ')""><input type="button" class="btn btn-danger" id="delete" value="Eliminar"></a>
           
           </div>
@@ -321,6 +321,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 <body>
 
     <style>
+    body{
+        background-color: #202020;  
+    }
     .search {
         width: 100%;
         height: 30px;
@@ -335,9 +338,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         padding: 20px 45px 20px 20px;
     }
     </style>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+    <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-dark">Jefe</a>
+            <a class="navbar-brand text-light"><strong>Jefe</strong></a>
             <form class="d-flex" role="search" method="post">
                 <div class="input_box">
                     <span class="icon">
@@ -347,7 +350,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         placeholder="Ingrese ID" name="search" aria-label="Search" required>
                 </div>
                 <div class="input_box">
-                    <button class="btn btn-outline-secondary  detalles toggle-details" type="submit"
+                    <button class="btn btn-outline-light  detalles toggle-details" type="submit"
                         name="buscar">Buscar</button>
                 </div>
             </form>
@@ -359,7 +362,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="container my-5">
             <button class="btn btn-danger my-5" name="refresh"><a class="text-light">Refresh</a></button>
 
-            <a href="create_user.php" class="text-light"><input type="button" class="btn btn-secondary my-5"
+            <a href="create_user.php" class="text-light"><input type="button" class="btn btn-light my-5"
                     value="Agregar Usuario"></a>
     </form>
     <div class="container">

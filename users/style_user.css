@@ -11,12 +11,10 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
+    
   }
-  nav {
-    background-color: #f2f2f2;
-  }
-  
+
   .card1 {
     background: #f2f2f2;
     padding: 40px 50px;
@@ -189,6 +187,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    color: #cccccc;
     transform: translateY(10%);
     background: linear-gradient(to bottom, #f2f2f2 98%, #dbdbdb 2%);
     padding: 0 20px;

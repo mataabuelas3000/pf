@@ -11,6 +11,7 @@ html {
 }
 body {
   background-color: white;
+
 }
 
 .form-control {
@@ -51,9 +52,10 @@ body {
 
 .input-container input {
   padding: 15px;
-  border: 1px solid #111;
+  border: 1px solid #ffffff;
   margin-top: 26px;
   font-size: 15px;
+  color: #b6b6b6;
 }
 
 .input_box {

@@ -458,7 +458,7 @@ if (isset($_POST['agregarejer'])) {
                     $hora_actual_servidor = $rowHoraActual['hora_actual'];
 
                     // Verificar si la hora actual está dentro del rango de 10:00 PM a 5:00 AM
-                    if ($completionTime >= '23:10:00' && $hora_deseada_manana <='05:00:00') {
+                    if ($completionTime >= '22:00:00') {
                         echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM y antes de las 5:00 AM. Espere hasta la hora deseada.'); window.location.href = 'interface.php';</script>";
                         exit; // Terminar la ejecución del script para evitar que se continúe con el resto del código
                     } else {

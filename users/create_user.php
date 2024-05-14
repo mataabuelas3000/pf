@@ -42,7 +42,7 @@ if (isset($_POST['enviar'])) {
             $result_data = mysqli_query($con, $sql_data);
 
             if ($result_data) {
-                echo "<script>alert('Usuario insertado correctamente en la tabla data.')</script>";
+                echo '<script>alert("Usuario insertado correctamente en la tabla data."); window.location.href = "crud_users.php";</script>"';
             } 
         } 
     } else {
@@ -63,24 +63,61 @@ if (isset($_POST['enviar'])) {
 <link rel="stylesheet" href="style.css">
     <title>usuario</title>
 </head>
-
+<style>
+    body {
+        background-color: #202020;
+    }
+    .container{
+        position: relative;
+        top: 100px;
+    }
+    .form{
+        padding: 35px;
+        border: 2px solid #cccc;
+        border-radius: 8px;
+    }
+    .input-container input {
+    padding: 15px;
+    border: 1px solid #ffffff;
+    margin-top: 26px;
+    font-size: 20px;
+    }
+    .input-container input::placeholder {
+        color: #b6b6b6;
+    }
+    .titulo{
+        text-align: center;
+        color:white;
+        font-size: 25px;
+    }
+    hr{
+        background-color: #ffffff;
+    }
+    select option {
+    color: black;
+    /* Color oscuro en hexadecimal */
+}
+</style>
 <body>
-    
-    <div class=" container my-5" style="width:70%">
-        <form method="post" class="form">
+    <div class=" container my-5" style="width:100%;">
+        <form method="post" class="form bg-dark" data-bs-theme="dark">
+            <div class="titulo">
+                <h1>REGISTRO DE USUARIO</h1>
+            </div>
+            <hr>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Id</label>
                         <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                            class="form-control" id="id" name="id" placeholder="Ingrese su Numero de documento" required
+                            class="form-control text-light" id="id" name="id" placeholder="Ingrese su Numero de documento" required
                             value="<?php if (isset($_POST['id'])) echo $_POST['id']; ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Primer nombre</label>
-                        <input type="text" class="form-control" id="primernombre" name="primernombre"
+                        <input type="text" class="form-control text-light" id="primernombre" name="primernombre"
                             placeholder="Ingrese su nombre"
                             value="<?php if (isset($_POST['primernombre'])) echo $_POST['primernombre']; ?>" required>
                     </div>
@@ -91,7 +128,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Segundo nombre</label>
-                        <input type="text" class="form-control" id="segundonombre" name="segundonombre"
+                        <input type="text" class="form-control text-light" id="segundonombre" name="segundonombre"
                             placeholder="Ingrese su Segundo nombre"
                             value="<?php if (isset($_POST['segundonombre'])) echo $_POST['segundonombre']; ?>">
                     </div>
@@ -99,7 +136,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Primer apellido</label>
-                        <input type="text" class="form-control" id="primerapellido" name="primerapellido"
+                        <input type="text" class="form-control text-light" id="primerapellido" name="primerapellido"
                             placeholder="Ingrese su apellido"
                             value="<?php if (isset($_POST['primerapellido'])) echo $_POST['primerapellido']; ?>"
                             required>
@@ -111,7 +148,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Segundo apellido</label>
-                        <input type="text" class="form-control" id="segundoapellido" name="segundoapellido"
+                        <input type="text" class="form-control text-light" id="segundoapellido" name="segundoapellido"
                             placeholder="Ingrese su Segundo apellido"
                             value="<?php if (isset($_POST['segundoapellido'])) echo $_POST['segundoapellido']; ?>"
                             required>
@@ -120,7 +157,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="correo" name="correo"
+                        <input type="email" class="form-control text-light" id="correo" name="correo"
                             placeholder="Ingrese su correo"
                             value="<?php if (isset($_POST['correo'])) echo $_POST['correo']; ?>" required>
                     </div>
@@ -131,8 +168,9 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group box-select input-container">
                         <label class="form-label">Genero</label>
-                        <select class="form-select" style="width:100%;margin-top:0px" id="genero" name="genero"
+                        <select class="form-select text-light" style="width:100%;margin-top:0px" id="genero" name="genero"
                             required>
+                            <option value="" disabled selected  >Tipo de Genero</option>
                             <option value="M"
                                 <?php if (isset($_POST['genero']) && $_POST['genero'] === 'M') echo 'selected'; ?>>
                                 Masculino</option>
@@ -148,7 +186,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="contraseña" name="contraseña"
+                        <input type="password" class="form-control text-light" id="contraseña" name="contraseña"
                             placeholder="Ingrese su contraseña"
                             value="<?php if (isset($_POST['contraseña'])) echo $_POST['contraseña']; ?>" required>
                     </div>
@@ -159,7 +197,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Altura</label>
-                        <input type="number" step="0.01" class="form-control" id="altura" name="altura"
+                        <input type="number" step="0.01" class="form-control text-light" id="altura" name="altura"
                             placeholder="Ingrese su altura"
                             value="<?php if (isset($_POST['altura'])) echo $_POST['altura']; ?>" required>
                     </div>
@@ -167,7 +205,7 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Peso</label>
-                        <input type="number" step="0.01" class="form-control" id="peso" name="peso"
+                        <input type="number" step="0.01" class="form-control text-light" id="peso" name="peso"
                             placeholder="Ingrese su peso"
                             value="<?php if (isset($_POST['peso'])) echo $_POST['peso']; ?>" required>
                     </div>
@@ -178,7 +216,7 @@ if (isset($_POST['enviar'])) {
 
             <div class="row">
 
-                <div class="col-md-6 checkbox">
+                <div class="col-md-6 checkbox text-light">
                     <input type="checkbox" name="show_password" id="show_password">
                     <label for="show_password">Mostrar contraseña</label>
                 </div>
@@ -187,12 +225,10 @@ if (isset($_POST['enviar'])) {
 
             <div class="py-2">
             </div>
-            <button type="submit" class="btn btn-secondary mr-4" name="enviar">Confirmar</button>
+            <button type="submit" class="btn btn-light mr-4" name="enviar">Confirmar</button>
             <a href="crud_users.php"><button type="button" class="btn btn-danger" name="enviar">Cancelar</button></a>
         </form>
     </div>
-
-
     <script>
     document.getElementById('show_password').addEventListener('change', function() {
         var passwordField = document.getElementsByName('contraseña')[0];
