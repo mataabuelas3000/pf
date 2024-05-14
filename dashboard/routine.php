@@ -4,14 +4,13 @@ include('C:\xampp\htdocs\pf\database\connect.php');
 session_start();
 
 // Verificar si no hay una sesión activa de personal o de rutina
-if (empty($_SESSION['id_personal']) && empty($_SESSION['IdRutina'])) {
-    // Obtener los IDs de personal y de rutina de la URL
-    $id = $_GET['id_personal'];
-    $idrutina = $_GET['IdRutina'];
-} else {
-    // Redirigir a la página de interfaz si hay una sesión activa
+if (empty($_SESSION['id']) && empty($_SESSION['idrutina'])) {
     header('Location: interface.php');
     exit();
+} else {
+    // Redirigir a la página de interfaz si hay una sesión activa
+    $id = $_SESSION['id'];
+    $idrutina = $_SESSION['idrutina'];
 }
 
 // Consultar la base de datos para obtener los detalles de la rutina seleccionada
@@ -267,7 +266,7 @@ if (isset($_POST['agregarejer'])) {
     <nav class="navbar bg-dark">
         <div class="container-fluid">
             <h5 class="nav-link text-light"><?php echo $nombrerutina ?></h5>
-            <a class="nav-link text-light" href="interface.php?id_personal=<?php echo $id; ?>">
+            <a class="nav-link text-light" href="interface.php">
                Logout <i class='bx bx-log-out bx-logout'></i>
             </a>
         </div>
@@ -299,13 +298,13 @@ if (isset($_POST['agregarejer'])) {
                     // Iterar sobre los ejercicios y mostrarlos
                     foreach ($ejercicios as $ejercicio) {
                         echo '
-                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #24baae;">
+                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #24baae; color: white; font-size: 20px">
                         <i class="bx bx-dialpad-alt draggable-handle justify-content-center align-items-center d-flex"></i>
                         <form method="post">
-                            <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-center align-items-center d-flex" style="background: none; border: none; cursor: pointer;"></button>
+                            <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-end align-items-center d-flex" style="background: none;color: white; border: none; cursor: pointer;"></button>
                         </form>
-                        <div class="card-header" style="">' . utf8_encode($ejercicio['NombreEjercicio']) . '</div>
-                        <div class="card-body">
+                        <div class="card-header" style="background: #13756d">' . utf8_encode($ejercicio['NombreEjercicio']) . '</div>
+                        <div class="card-body" style="background: #178b82">
                             <p>Descripcion: ' . utf8_encode($ejercicio['DescripcionEjercicio']) . '</p>
                             <p>Duracion: ' . utf8_encode($ejercicio['DuracionEjercicio']) . ' Minutos</p>
                         </div>
@@ -317,9 +316,6 @@ if (isset($_POST['agregarejer'])) {
         </div>
     </div>
 </body>
-
-
-<br>
 
         <?php
 
@@ -335,8 +331,6 @@ if (isset($_POST['agregarejer'])) {
             }
 
         ?>
-<div class="card1">
-    <div class="card-body">
         <?php
         // Establecer el conjunto de caracteres a UTF-8
         // Obtener ejercicios de la rutina
@@ -354,11 +348,12 @@ if (isset($_POST['agregarejer'])) {
                 echo '<h1 class="modal-title fs-5" id="exampleModalToggleLabel">' . $ejercicio['NombreEjercicio'] . '</h1>';
                 echo '<button type="button" class="btn-close" id="closebtn' . $modalId . '" data-dismiss="modal" aria-label="Close" onclick="limpiarEstado(\'' . $modalId . '\')"></button>';
                 echo '</div>';
-                echo '<div class="modal-body text-center">';
-                echo '<p>' . $ejercicio['DescripcionEjercicio'] . '</p>';
-                echo '<video autoplay muted loop>
+                echo '<div class="modal-body text-center" style="display:flex; flex-direction: column; align-items: center;justify-content: center ">';
+                echo '<p style="font-size:30px; margin-bottom: 80px" >' . $ejercicio['DescripcionEjercicio'] . '</p>';
+                echo '<video autoplay muted loop width="900">
                 <source src="'.$ejercicio['Video'].'" type="video/mp4">
-              </video>';
+              </video>
+              </div>';
                 echo '<div class="modal-footer">';
                 if ($key < $totalEjercicios - 1) {
                     $nextModalId = 'modal' . ($key + 2);
@@ -376,9 +371,10 @@ if (isset($_POST['agregarejer'])) {
                     echo '<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Descanso</h1>';
                     echo '<button type="button" class="btn-close" id="closebtn' . $descansoModalId . '" data-dismiss="modal" aria-label="Close"></button>';
                     echo '</div>';
-                    echo '<div class="modal-body text-center">';
-                    echo '<p>Es hora de tomar un descanso.</p>';
-                    echo '<img src="https://via.placeholder.com/900x500">';
+                    echo '<div class="modal-body text-center"  style="display:flex; flex-direction: column; align-items: center;justify-content: center ">';
+                    echo '<p style="font-size:30px; margin-bottom: 80px" >Es hora de tomar un descanso.</p>';
+                    echo '<img src="../images/img4.svg">
+                    </div>';
                     echo '<div class="modal-footer">';
                     echo '<p id="pEliminado' . $descansoModalId . '">Descansa   <span id="contadorSiguiente' . $descansoModalId . '">60</span> segundos</p>';
                     echo '<button type="button" id="btnSiguiente2' . $descansoModalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $nextModalId . '">Siguiente</button>';
@@ -532,8 +528,6 @@ if (isset($_POST['agregarejer'])) {
             </div>
         </div>
 
-    </div>
-</div>
 
 <script>
     var intervalos = {}; // Objeto para almacenar los intervalos de cada cuenta regresiva
@@ -724,7 +718,6 @@ if (isset($_POST['agregarejer'])) {
         $("#ejercicios-lista").disableSelection();
     });
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

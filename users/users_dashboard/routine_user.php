@@ -215,9 +215,13 @@ if (isset($_POST['updaterutina'])) {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
-
+<style>
+    body{
+        background-color: #202020;  
+    }
+</style>
 <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
             <h5>Rutina</h5>
             <a href="../crud_users.php"><input type="button" value="regresar" class="btn btn-danger"></a>

@@ -3,7 +3,17 @@
 include ('C:\xampp\htdocs\pf\database\connect.php');
 $con->set_charset('utf8');
 // Obtener el ID del usuario a actualizar de los parámetros GET
-$idviejo = $_GET['updateid'];
+
+session_start();
+// Verificar si no hay una sesión activa de personal o de rutina
+if (empty($_SESSION['id'])) {
+    header('Location: interface.php');
+    exit();
+} else {
+    // Redirigir a la página de interfaz si hay una sesión activa
+    $idviejo = $_SESSION['id'];
+    
+}
 
 // Consultar los datos del usuario a actualizar utilizando INNER JOIN
 $sql = "SELECT login.*, user_info.*, data.Height_User, data.Weight_User, data.Imc_User 

@@ -44,7 +44,7 @@ function imprimir($id, $con)
         <hr>
         <div class="py-3">
         </div>
-        <form class="row"> 
+        <div class="row"> 
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Primer Nombre</label>
         <input type="text" class="form-control" style="background-color: white" id="inputPrimernom" value="' . $nombre . '"   disabled>
@@ -80,9 +80,12 @@ function imprimir($id, $con)
         <div class="py-5">
         </div>
         <div class="col-12 ">
-        <a href="update_profile.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-dark mr-3" value="Actualizar"></a>
-        </div>
+        <form method="post">
+        <input type="hidden" name="id" value="' . $id . '">
+        <button type="submit" name="updateinfo" class="btn btn-primary" style="margin-right: 10px;">Editar</button>
         </form>
+        </div>
+        </div>
         </div>
         </div>
 
@@ -156,8 +159,13 @@ function imprimirRutina($con, $id)
 
             $bloquearEnlace = ($id_check == 1) ? 'disabled' : '';
             // Enlace para iniciar la rutina y botón para actualizar la rutina
-            echo '<div><a  href="routine.php?id_personal=' . $id . '&IdRutina=' . $id_rutina . '" style="text-decoration: none;'.$bloquearEnlace.'"><box-icon name="play"></box-icon>Iniciar</a>';
-            echo '</div>
+                echo '<div>
+                <form method="post">
+                <input type="hidden" name="id" value="'.$id.'">
+                <input type="hidden" name="idrutina" value="'.$id_rutina.'">
+                <button type="submit" name="openroutine" class="btn btn-primary" style="margin-right: 10px;'.$bloquearEnlace.'">Iniciar</button>
+                </form>';
+                echo '</div>
             </div>
             </div>';
             // Cierre de los divs card, card-body y form
@@ -170,6 +178,35 @@ function imprimirRutina($con, $id)
 
 ?>
 <?php
+
+function obtenerurlroutine($id, $idrutina){
+    session_start();
+    $_SESSION['id'] = $id;
+    $_SESSION['idrutina'] = $idrutina;
+    header('Location: routine.php');
+    exit();
+}
+
+function obtenerurlinfo($id){
+    session_start();
+    $_SESSION['id'] = $id;
+    header('Location: update_profile.php');
+    exit();
+}
+
+
+if (isset($_POST['updateinfo'])){
+    $id = $_POST['id'];
+    obtenerurlinfo($id);
+}
+
+
+if (isset($_POST['openroutine'])){
+    $id = $_POST['id'];
+    $idrutina = $_POST['idrutina'];
+    obtenerurlroutine($id, $idrutina);
+}
+
 
 if (isset($_POST['guardarcalendario'])) {
     // Suponiendo que $conexion es tu conexión a la base de datos // Debes definir cómo obtener el ID del personal aquí

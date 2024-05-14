@@ -5,25 +5,56 @@ html {
 }
 
 body {
-    background-color: white;
+    background-color: rgb(20, 20, 20);
+    background-image: linear-gradient(to bottom left , #24baae 49%, #111 49%);/* fallback for old browsers */
     width: 100%;
 }
 
-nav {
-    background-color: #f2f2f2;
-}
-
 .card1 {
-    background: #f2f2f2;
     padding: 40px 120px;
     border: none;
 }
-
+.details{
+    width: 100%;
+}
 .card {
     padding: 40px 120px;
     border: none;
 }
+#boton-chatbot {
+    position: fixed;
+    top: 50%; 
+    right: 0; 
+    margin-right: 30px;
+    z-index: 999;
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+#boton-chatbot:hover{
+    transform: scale(1.1);
+}
+#boton-chatbot:hover::after {
+    content: "Inicia tu rutina";
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: -280%;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white ;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
 
+.bx-play{
+    font-size: 40px;
+}
+.bx-logout{
+    font-size: 30px;
+    margin-left: 5px;
+    transform: translateY(5px);
+    margin-bottom: 10px
+}
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
 
 * {

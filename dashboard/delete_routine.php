@@ -19,7 +19,6 @@ if (isset($_GET['idrutina']) && isset($_GET['id_interfaz'])) {
         $delete_calendar_statement->bind_param('i', $idrutina);
         if ($delete_calendar_statement->execute()) {
         } else {
-            echo '<script>alert("Error al eliminar la rutina del calendario.");</script>';
             echo '<script>window.location.href = "interface.php";</script>';
         }
         $delete_calendar_statement->close();
@@ -35,15 +34,12 @@ if (isset($_GET['idrutina']) && isset($_GET['id_interfaz'])) {
         $delete_rutina_statement = $con->prepare($delete_rutina_query);
         $delete_rutina_statement->bind_param('i', $idrutina);
         if ($delete_rutina_statement->execute()) {
-            echo '<script>alert("La rutina se elimino correctamente.");</script>';
             echo '<script>window.location.href = "interface.php";</script>';
         } else {
-            echo '<script>alert("Error al eliminar la rutina y sus ejercicios asociados.");</script>';
             echo '<script>window.location.href = "interface.php";</script>';
         }
         $delete_rutina_statement->close();
     } else {
-        echo '<script>alert("Error al eliminar los ejercicios asociados a la rutina.");</script>';
         echo '<script>window.location.href = "interface.php";</script>';
     }
 
