@@ -1,103 +1,110 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap");
 
 * {
-
   font-family: "Nunito", sans-serif;
   box-sizing: border-box;
 }
 
 body {
-
-  background-color: #202020; 
+  background-color: #202020;
 }
-main h1{
-    font-size: 8rem;
-    color: #1fa398;
-    text-align: left;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;   
-}
-h2{
-  font-size: 2rem;
-    color: #1fa398;
-    text-align: left;
-    letter-spacing: 0.5px;
-    margin-bottom: 40px;
-
-}
-a{
-  text-decoration: none;
-
-}
-
-hr{
-    height: 5px;
-    border: none;
-    border-radius: 10px;
-    width: 190px;
-    background: #43C6AC;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    margin-bottom: 50px;
-}
-
-
-p{
+main h1 {
+  font-size: 8rem;
   color: #1fa398;
-    margin-bottom: 60px;
-    
+  text-align: left;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+h2 {
+  font-size: 2rem;
+  color: #1fa398;
+  text-align: left;
+  letter-spacing: 0.5px;
+  margin-bottom: 40px;
+}
+a {
+  text-decoration: none;
 }
 
-.img-content{
+hr {
+  height: 5px;
+  border: none;
+  border-radius: 10px;
+  width: 190px;
+  background: #43c6ac; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #191654,
+    #43c6ac
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #191654,
+    #43c6ac
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  margin-bottom: 50px;
+}
+
+p {
+  color: #1fa398;
+  margin-bottom: 60px;
+}
+
+.img-content {
   transform: translateX(30px);
   width: 100%;
   height: 100%;
-
 }
 
-.img-principal{
+.img-principal {
   width: 100%;
 }
 
 .btn {
-    color: #1fa398;
-    width: 30%;
-    padding: 10px 30px;
-    border: 2px solid #43C6AC; /* Utiliza el mismo color que el fondo */
-    outline: none;
-    border-radius: 25px;
-    font-weight: 600;
-    transition: background-color 0.3s, border-color 0.3s; /* Transición para el cambio de color de fondo y borde */
+  color: #1fa398;
+  width: 30%;
+  padding: 10px 30px;
+  border: 2px solid #43c6ac; /* Utiliza el mismo color que el fondo */
+  outline: none;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: background-color 0.3s, border-color 0.3s; /* Transición para el cambio de color de fondo y borde */
 }
 .btn:hover {
-    color: #1fa398;
-    border: 2px solid  rgba(255, 255, 255, 0.555);
+  color: #1fa398;
+  border: 2px solid rgba(255, 255, 255, 0.555);
+}
 
-  }
-  
 .btn1 {
-    color: #ffffff !important;
-    font-weight: 500;
-    padding: 10px 50px;
-    background: rgba(0,0,0,0);
-    border-radius: 25px;
-    background: #43C6AC;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    transition: all 1s ease;
-    position: relative;
-    margin-right: 10px;
-  }
-  .btn1:hover {
-    background: #ffffffd7;
-    color: #1fa398 !important;
-    transition: all 1s ease-out;
-  }
-  
+  color: #ffffff !important;
+  font-weight: 500;
+  padding: 10px 50px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 25px;
+  background: #43c6ac; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #191654,
+    #43c6ac
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #191654,
+    #43c6ac
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  transition: all 1s ease;
+  position: relative;
+  margin-right: 10px;
+}
+.btn1:hover {
+  background: #ffffffd7;
+  color: #1fa398 !important;
+  transition: all 1s ease-out;
+}
 
 .login-container {
   position: fixed;
-  z-index: 1000; 
+  z-index: 1000;
   left: 0;
   right: 0;
   width: 27%;
@@ -121,11 +128,11 @@ p{
 .container .form {
   width: 100%;
   padding: 80px;
-
 }
 .cerrar {
   margin-top: -40px;
   transform: translateX(40px);
+  background-color: #ffffff0c;
   cursor: pointer;
 }
 
@@ -201,9 +208,17 @@ select {
 .boton {
   width: 100%;
   height: 45px;
-  background: #43C6AC;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+  background: #43c6ac; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #191654,
+    #43c6ac
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #191654,
+    #43c6ac
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border: none;
   outline: none;
   border-radius: 6px;
@@ -215,7 +230,7 @@ select {
   color: #1fa398;
   transition: all 1s ease-out;
   background: #ffffff;
-  border: 1px solid  rgba(59, 59, 59, 0.37);
+  border: 1px solid rgba(59, 59, 59, 0.37);
   font-weight: 600;
   cursor: pointer;
 }

@@ -11,17 +11,16 @@ if (empty($_SESSION['id'])) {
 
 function imprimir($id, $con)
 {
-    $sql = "SELECT user_info.*, data.Height_User, data.Weight_User, data.Imc_User, login.Password, roles.Role
+    $sql = "SELECT user_info.*, data.Height_User, data.Weight_User, data.Imc_User, roles.Role
     FROM user_info 
     INNER JOIN data ON user_info.Id_User = data.Id_User 
     INNER JOIN login ON user_info.Id_User = login.Id_User
     INNER JOIN roles ON login.Id_Role_User = roles.Id_Role_User
     WHERE user_info.Id_User";
 
-    // Ejecutar la consulta
     $result = mysqli_query($con, $sql);
 
-    // Verificar si se encontraron resultados
+
     if ($result) {
         // Verificar si hay al menos un usuario encontrado
         $row = mysqli_fetch_assoc($result);
@@ -34,9 +33,8 @@ function imprimir($id, $con)
         $altura = $row['Height_User'];
         $peso = $row['Weight_User'];
         $imc = $row['Imc_User'];
-        $password = $row['Password'];
 
-        echo ' <div class="card" style="background-color:rgb(71, 180, 170);box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
+        echo ' <div class="card" style=" background-image: linear-gradient(to top right , #111 39.3%, #24baae 39.3%); border:none;box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
         <h1>Tus datos</h1>
@@ -44,7 +42,7 @@ function imprimir($id, $con)
         <hr>
         <div class="py-3">
         </div>
-        <div class="row"> 
+        <div class="row" style=""> 
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Primer Nombre</label>
         <input type="text" class="form-control" style="background-color: white" id="inputPrimernom" value="' . $nombre . '"   disabled>
@@ -60,10 +58,6 @@ function imprimir($id, $con)
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Genero</label>
         <input type="text" class="form-control" id="inputGenero" value="' . $genero . '"  disabled>
-        </div>
-        <div class="col-md-6 input-container">
-        <label for="inputEmail4" class="form-label">Contraseña</label>
-        <input type="text" class="form-control" id="inputContraseña" value="'.$password.'"  disabled>
         </div>
         <div class="col-md-6 input-container">
         <label for="inputEmail4" class="form-label">Peso</label>
@@ -379,297 +373,11 @@ function botonesrutinas($con)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="interface.css">
+    <link rel="stylesheet" href="interface_style.css">
     <title>GYM</title>
 </head>
 
 <body>
-    <style>
-    .widget {
-    position: fixed;
-    bottom: -200px; /* Cambiar a la posición inicial fuera de la pantalla */
-    right: 20px;
-    z-index: 1000;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
-    max-width: 1000px;
-    max-height: 1000px;
-}
-
-.animate-fade-in {
-    animation: slide-up 1s ease forwards; /* Duración y temporización de la animación */
-}
-@keyframes slide-down {
-    from {
-        bottom: 20px; /* Posición inicial */
-    }
-    to {
-        bottom: -800px; /* Posición final fuera de la pantalla */
-    }
-}
-
-.animate-fade-out {
-    animation: slide-down 1s ease forwards; /* Duración y temporización de la animación */
-}
-@keyframes slide-up {
-    from {
-        bottom: -800px; /* Posición inicial fuera de la pantalla */
-    }
-    to {
-        bottom: 20px; /* Posición final */
-    }
-}
-
-
-    .container-buttons {
-
-    }
-
-    .container-buttons button {
-        margin-bottom: 5px;
-    }
-
-    /* Dimensiones del contenedor del chat */
-    .chat-container {
-        height: 400px;
-        /* Altura del contenedor del chat */
-        width: 460px;
-        /* Ancho del contenedor del chat */
-        padding: 10px;
-        overflow-y: auto;
-        /* Agrega desplazamiento vertical si es necesario */
-    }
-
-    /* Márgenes para los mensajes */
-    .chat-message {
-        margin-bottom: 10px;
-        /* Espacio entre mensajes */
-    }
-
-    .user-message {
-        text-align: right;
-        color: #007bff;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 25px;
-    }
-
-    .user-message {
-        background-color: #f1f1f1;
-
-    }
-
-
-    #messege-user {
-        transform: translateX(40%);
-    }
-
-    /* Alineación y color de los mensajes del chatbot */
-    .chatbot-message {
-        text-align: left;
-        color: #333;
-        background-color: #f2f2f2;
-        padding: 20px;
-        width: 300px;
-        border-radius: 10px;
-        margin-bottom: 25px;
-    }
-
-    /* Estilos del input de texto */
-    /* Estilos del botón de enviar */
-    #chatbot-send-button {
-        padding: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
-        /* Margen izquierdo del botón */
-    }
-
-    /* Estilos del botón de cerrar */
-    #chatbot-close-button {
-        padding: 10px;
-        /* Se aumenta el relleno */
-        background-color: #ff0000;
-        color: #fff;
-        border: #007bff !important;
-        border-radius: 5px;
-        cursor: pointer;
-        position: absolute;
-        right: 20px;
-        height: 40px;
-        width: 50px;
-    }
-
-    /* Posicionamiento del contenedor de input y botón */
-    #chatbot-input {
-        display: flex;
-        /* Se usa flexbox para alinear elementos */
-        align-items: center;
-        /* Se centran verticalmente los elementos */
-        width: 460px;
-        height: 80px;
-        margin: 0px;
-        padding: 10px;
-    }
-
-    /* Estilos para el contenedor principal del widget */
-    .window {
-        background-color: #24BAAE;
-        color: #fff;
-        padding: 0px;
-        border-radius: 15px 15px 0 0;
-        text-align: center;
-        /* Borde redondeado arriba */
-    }
-    #boton-chatbot {
-        color: black;
-        position: fixed;
-        bottom: 0; /* Fijar el botón en la parte inferior */
-        right: 0; /* Fijar el botón a la derecha */
-        margin-right: 30px;
-        margin-bottom: 10px;
-        z-index: 999;
-    }
-
-    .bxs-chat{
-        color: white;
-        transform: translateY(7px);
-        font-size: 100px;
-        margin-left: -10px;
-
-    }
-
-    .message-chat {
-        background: #dee2e6;
-        padding: 5px;
-        margin: 5px;
-        width: 75%;
-        border-radius: 5px;
-    }
-    </style>
-
-    <style>
-    /* Estilos para el menú desplegable */
-
-    .container-others {
-        transform: translateX(-290px);
-    }
-
-    .card {
-        width: 70%;
-        transform: translateX(220px);
-    }
-
-
-
-    .carte {
-        width: 100%;
-        
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 15px;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        transform: translateX(35px);
-        margin-top: 25px;
-        /* Se separa un poco más de la izquierda */
-        width: 100px;
-        height: 94%;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        overflow-y: auto;
-        padding-top: 60px;
-        border-radius: 200px;
-        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.3);
-        background-color: #24baae;
-        color: white;
-        /*Color nav */
-    }
-
-    .buton-info {
-        margin-top: -40px;
-        transform: translateX(22px);
-    }
-
-    .sidebar.active {
-        left: 0;
-    }
-
-    .sidebar .nav-link {
-        display: inline-block;
-        text-decoration: none;
-        color: white ;
-        padding: 10px;
-        /* Ajusta el padding según tus necesidades */
-        transition: all 0.1s ease;
-    }
-
-    .buttons-nav {
-        transform: translateX(21px);
-        width: 20%;
-    }
-
-    .buttons-nav .nav-link {
-        margin-bottom: 20px;
-    }
-
-    .sidebar .nav-link:hover {
-        background-color: #e9ecef;
-        border-radius: 25%;
-        color: black !important;
-    }
-
-
-
-    .content {
-        margin-left: 250px;
-        transition: all 0.3s ease;
-    }
-
-    /* Estilos para el botón de toggle */
-    .toggle-btn {
-        position: fixed;
-        top: 15px;
-        cursor: pointer;
-        z-index: 1100;
-        display: flex;
-        align-items: center;
-    }
-
-    .toggle-text {
-        margin-left: 5px;
-    }
-    .chatbot-widget{
-        background: rgb(255, 255, 255);
-        width: 100%;
-        border-radius:15px;
-    }
-    .chat-container{
-        background: rgb(255, 255, 255);
-        padding: 15px;
-        border-radius:15px;
-    }
-    .window button{
-        left: 405px;
-        border-radius: 15px;
-    }
-    .window svg{
-        display:block;
-    }
-    .buttons-container {
-    display: flex;
-    justify-content: flex-end; /* Esto alinea los botones al extremo derecho */
-    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
-}
-    </style>
 
 
     <nav class="sidebar" id="sidebar">
@@ -832,6 +540,7 @@ botonChatbot.addEventListener('click', () => {
 
     // Hacer visible el chatbot antes de mostrarlo nuevamente
     chatbotWindow.style.display = 'block';
+    botonChatbot.style.display = 'none';
 
     // Opcional: Si quieres agregar una animación de entrada suave al abrir el chatbot, puedes agregar una clase y utilizar setTimeout para retrasar la aplicación de la clase
     setTimeout(() => {
@@ -848,6 +557,7 @@ chatbotCloseButton.addEventListener('click', () => {
     // Esperar a que se complete la animación y luego ocultar el chatbot
     setTimeout(() => {
         chatbotWindow.style.display = 'none';
+        botonChatbot.style.display = 'block';
     }, 100); // Ajusta este valor para que coincida con la duración de la animación en milisegundos
 });
 
@@ -856,7 +566,7 @@ chatbotCloseButton.addEventListener('click', () => {
 
 
     <div class="py-4"></div> <!-- Espacio vertical -->
-    <div class="card routine-card">
+    <div class="card routine-card mb-5">
         <div class="card-body" style='width: 110%'>
 
             <div  id="container-rutina" class="tab-content container-others container"
@@ -997,9 +707,17 @@ chatbotCloseButton.addEventListener('click', () => {
                                                         echo '<p class="ml-3">' . $nombreRutinaDia . '</p>';
                                                     } else {
                                                         echo '<a href="delete_calendar_routine.php?id_personal=' . $id . '&idRutina=' . $idRutinaDia . '&dia=' . $dia . '" style="text-decoration: none; color: black; font-size: 20px"><i class="bx bx-x"></i></a>';
-                                                        echo '<p class="ml-3"><a href="routine.php?id_personal=' . $id . '&IdRutina=' . $idRutinaDia . '" style="text-decoration: none">' . $nombreRutinaDia . '</a></p>';
+                                                        echo '<p class="ml-3">
+                                                        <form method="post">
+                                                            <input type="hidden" name="id" value="'.$id.'">
+                                                            <input type="hidden" name="idrutina" value="'.$idRutinaDia.'">
+                                                            <button type="submit" name="openroutine" class="link-like-button">'.$nombreRutinaDia.'</button>
+                                                        </form>
+                                                    </p>';
+                                                
                                                     }
                                                     echo '</div> <br>';
+                                                    
                                                 }
                                             } else {
                                                 echo "<p>No hay rutina para $diasSemana2[$index]</p>";
@@ -1052,12 +770,12 @@ chatbotCloseButton.addEventListener('click', () => {
 
                         </div>
                         <button class="carousel-control-prev position-absolute top-50 translate-middle-y"
-                            style="left: -30px; width: 50px; height: 50px; border-radius: 50%; transform: translateX(-6vh); margin-top: 17vh;"
+                            style="left: -30px; width: 50px; height: 50px; border-radius: 50%; transform: translateX(-6vh); margin-top: 17vh;background: #24baae; color: white; border: none;"
                             type="button" data-bs-target="#resultadosProductos" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         </button>
                         <button class="carousel-control-next position-absolute top-50 translate-middle-y"
-                            style="right: -30px; width: 50px; height: 50px; border-radius: 50%;  transform: translateX(6vh); margin-top: 17vh;"
+                            style="right: -30px; width: 50px; height: 50px; border-radius: 50%;  transform: translateX(6vh); margin-top: 17vh; background: #111; color: white; border: none;"
                             type="button" data-bs-target="#resultadosProductos" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         </button>
@@ -1384,5 +1102,4 @@ window.addEventListener('load', function() {
 
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
-
 </html>

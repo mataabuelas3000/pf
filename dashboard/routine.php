@@ -204,39 +204,63 @@ if (isset($_POST['eliminareje'])) {
         echo '<script>alert("Hubo un error al eliminar el ejercicio.");</script>';
     }
 }
+// Función para contar la cantidad de ejercicios en la rutina actual
+function contarEjerciciosRutina($con, $idrutina) {
+    $sql_contar = 'SELECT COUNT(*) AS total FROM rut_has_exercise WHERE Id_Routine = ?';
+    $stmt_contar = mysqli_prepare($con, $sql_contar);
+    if ($stmt_contar) {
+        mysqli_stmt_bind_param($stmt_contar, 'i', $idrutina);
+        mysqli_stmt_execute($stmt_contar);
+        mysqli_stmt_bind_result($stmt_contar, $total);
+        mysqli_stmt_fetch($stmt_contar);
+        mysqli_stmt_close($stmt_contar);
+        return $total;
+    } else {
+        return false;
+    }
+}
 
+// Verificar si se puede agregar más ejercicios a la rutina
 if (isset($_POST['agregarejer'])) {
     if (isset($_POST['seleccioncheck'])) {
         // Obtener los ejercicios seleccionados del formulario
         $ejerciciosSeleccionados = $_POST['seleccioncheck'];
 
-        // Preparar la consulta para insertar los ejercicios seleccionados en la base de datos
-        $sql_agregar = 'INSERT INTO rut_has_exercise (Id_Routine, Id_Exercise) VALUES (?, ?)';
-        $stmt_agregar = mysqli_prepare($con, $sql_agregar);
+        // Contar la cantidad actual de ejercicios en la rutina
+        $cantidadActual = contarEjerciciosRutina($con, $idrutina);
 
-        // Verificar si la preparación de la consulta fue exitosa
-        if ($stmt_agregar) {
-            // Enlazar los parámetros de la consulta
-            mysqli_stmt_bind_param($stmt_agregar, 'ii', $idrutina, $idejercicio);
+        // Verificar si se pueden agregar más ejercicios (máximo 8)
+        if ($cantidadActual !== false && $cantidadActual + count($ejerciciosSeleccionados) <= 8) {
+            // Preparar la consulta para insertar los ejercicios seleccionados en la base de datos
+            $sql_agregar = 'INSERT INTO rut_has_exercise (Id_Routine, Id_Exercise) VALUES (?, ?)';
+            $stmt_agregar = mysqli_prepare($con, $sql_agregar);
 
-            // Recorrer los ejercicios seleccionados y ejecutar la consulta para cada uno
-            foreach ($ejerciciosSeleccionados as $idejercicio) {
-                mysqli_stmt_execute($stmt_agregar);
-            }
+            // Verificar si la preparación de la consulta fue exitosa
+            if ($stmt_agregar) {
+                // Enlazar los parámetros de la consulta
+                mysqli_stmt_bind_param($stmt_agregar, 'ii', $idrutina, $idejercicio);
 
-            // Cerrar la consulta preparada
-            mysqli_stmt_close($stmt_agregar);
+                // Recorrer los ejercicios seleccionados y ejecutar la consulta para cada uno
+                foreach ($ejerciciosSeleccionados as $idejercicio) {
+                    mysqli_stmt_execute($stmt_agregar);
+                }
 
-            // Recalcular la duración total de la rutina y actualizarla en la base de datos
-            if (recalcularDuracionRutina($con, $idrutina)) {
-                echo '<script>alert("Ejercicio nuevo añadido a tu rutina"); window.history.back();</script>';
-                exit;
+                // Cerrar la consulta preparada
+                mysqli_stmt_close($stmt_agregar);
+
+                // Recalcular la duración total de la rutina y actualizarla en la base de datos
+                if (recalcularDuracionRutina($con, $idrutina)) {
+                    echo '<script>alert("Ejercicio nuevo añadido a tu rutina"); window.history.back();</script>';
+                    exit;
+                } else {
+                    echo "<script>alert('Error al actualizar la duración de la rutina')</script>";
+                }
             } else {
-                echo "<script>alert('Error al actualizar la duración de la rutina')</script>";
+                // Si hay un error en la preparación de la consulta, mostrar el mensaje de error
+                echo 'Error en la preparación de la consulta: ' . mysqli_error($con);
             }
         } else {
-            // Si hay un error en la preparación de la consulta, mostrar el mensaje de error
-            echo 'Error en la preparación de la consulta: ' . mysqli_error($con);
+            echo "<script>alert('No se pueden agregar más de 8 ejercicios a la rutina')</script>";
         }
     } else {
         // Si no se han seleccionado ejercicios, mostrar un mensaje de error
@@ -273,7 +297,7 @@ if (isset($_POST['agregarejer'])) {
     </nav>
 
     <!-- Contenido principal -->
-    <div class="card1 d-flex justify-content-end">
+    <div class="card1 d-flex justify-content-between">
         <img src="../images/img2.svg" alt="" width="900">
             <form method="post">
                 <div class="details">
@@ -293,7 +317,7 @@ if (isset($_POST['agregarejer'])) {
 
                 // Verificar si hay ejercicios en la rutina
                 if (empty($ejercicios)) {
-                    echo '<p>No hay ejercicios en esta rutina.</p>';
+                    echo '<p class="text-light">No hay ejercicios en esta rutina.</p>';
                 } else {
                     // Iterar sobre los ejercicios y mostrarlos
                     foreach ($ejercicios as $ejercicio) {
@@ -319,48 +343,51 @@ if (isset($_POST['agregarejer'])) {
 
         <?php
 
-        if (empty($ejercicios)) {
-            echo '<p>No hay ejercicios en esta rutina.</p>';
-        } else {
-                echo '
+        if (!empty($ejercicios)) {
+            echo '
                 
-                <div id="boton-chatbot">
-                <button type="button" id="btnComenzar"  class="btn btn-primary" data-toggle="modal" data-target="#modal1"><i class="bx bx-play-circle bx-play"></i></button>
-            </div>
-                ';
-            }
+            <div id="boton-chatbot">
+            <button type="button" id="btnComenzar"  class="btn btn-primary" data-toggle="modal" data-target="#modal1"><i class="bx bx-play-circle bx-play"></i></button>
+        </div>
+            ';
+        } 
 
         ?>
         <?php
         // Establecer el conjunto de caracteres a UTF-8
         // Obtener ejercicios de la rutina
+        $con->set_charset('utf8');
         $ejercicios = obtenerEjerciciosDeRutina($con, $idrutina);
         if (!empty($ejercicios)) {
             // Contar el total de ejercicios
             $totalEjercicios = count($ejercicios);
             // Iterar sobre los ejercicios y mostrarlos
+       
             foreach ($ejercicios as $key => $ejercicio) {
                 $modalId = 'modal' . ($key + 1);
                 echo '<div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
                 echo '<div class="modal-dialog modal-fullscreen">';
                 echo '<div class="modal-content">';
                 echo '<div class="modal-header">';
-                echo '<h1 class="modal-title fs-5" id="exampleModalToggleLabel">' . $ejercicio['NombreEjercicio'] . '</h1>';
+                echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva "><span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
+                echo '<h1 class="modal-title" id="exampleModalToggleLabel">' . $ejercicio['NombreEjercicio'] . '</h1>';
                 echo '<button type="button" class="btn-close" id="closebtn' . $modalId . '" data-dismiss="modal" aria-label="Close" onclick="limpiarEstado(\'' . $modalId . '\')"></button>';
                 echo '</div>';
-                echo '<div class="modal-body text-center" style="display:flex; flex-direction: column; align-items: center;justify-content: center ">';
-                echo '<p style="font-size:30px; margin-bottom: 80px" >' . $ejercicio['DescripcionEjercicio'] . '</p>';
-                echo '<video autoplay muted loop width="900">
+                echo '<div class="modal-body text-center" style="display:flex; align-items: center;justify-content: center ">';
+               
+                echo '<div style="flex-direction: column;"><p style="font-size:30px; margin-bottom: 80px" >' . $ejercicio['DescripcionEjercicio'] . '</p>';
+                echo '<video autoplay muted loop width="900" style="border-radius: 30px;">
                 <source src="'.$ejercicio['Video'].'" type="video/mp4">
               </video>
+              </div>
+           
               </div>';
                 echo '<div class="modal-footer">';
                 if ($key < $totalEjercicios - 1) {
                     $nextModalId = 'modal' . ($key + 2);
                     $descansoModalId = 'descansoModal' . ($key + 1);
                     // Ejercicio
-                    echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva d-none">Tiempo restante: <span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
-                    echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-primary" onclick="iniciarCuentaRegresiva(\'' . $modalId . "',  " . ($ejercicio['DuracionEjercicio'] * 60) . ", '" . $nextModalId . '\')">Iniciar</button>';
+                    echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-success" onclick="iniciarCuentaRegresiva(\'' . $modalId . "',  " . ($ejercicio['DuracionEjercicio'] * 60) . ", '" . $nextModalId . '\')">Iniciar</button>';
                     echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerCuentaRegresiva(\'' . $modalId . '\')">Detener</button>';
                     echo '<button type="button" id="btnSiguiente' . $modalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $descansoModalId . '" onclick="miFuncion(\'' . $descansoModalId . '\')">Siguiente</button>';
                     // Descanso
@@ -368,16 +395,19 @@ if (isset($_POST['agregarejer'])) {
                     echo '<div class="modal-dialog modal-fullscreen">';
                     echo '<div class="modal-content">';
                     echo '<div class="modal-header">';
-                    echo '<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Descanso</h1>';
+                    echo '<div  class="cuenta-regresiva" id="pEliminado' . $descansoModalId . '"><span id="contadorSiguiente' . $descansoModalId . '">60</span></div>';
+                    echo '<h1 class="modal-title" id="exampleModalToggleLabel">Descanso</h1>';
                     echo '<button type="button" class="btn-close" id="closebtn' . $descansoModalId . '" data-dismiss="modal" aria-label="Close"></button>';
                     echo '</div>';
-                    echo '<div class="modal-body text-center"  style="display:flex; flex-direction: column; align-items: center;justify-content: center ">';
+                    echo '<div class="modal-body text-center"  style="display:flex; align-items: center;justify-content: center ">';
+                    echo '<div style="flex-direction: column;">';
                     echo '<p style="font-size:30px; margin-bottom: 80px" >Es hora de tomar un descanso.</p>';
-                    echo '<img src="../images/img4.svg">
+                    echo '<img src="../images/img4.svg" width="600">
+                    </div>
                     </div>';
                     echo '<div class="modal-footer">';
-                    echo '<p id="pEliminado' . $descansoModalId . '">Descansa   <span id="contadorSiguiente' . $descansoModalId . '">60</span> segundos</p>';
-                    echo '<button type="button" id="btnSiguiente2' . $descansoModalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $nextModalId . '">Siguiente</button>';
+
+                    echo '<button type="button" id="btnSiguiente2' . $descansoModalId . '" class="btn btn-success d-none" style="margin-right: 40px" data-toggle="modal" data-target="#' . $nextModalId . '">Siguiente</button>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -391,7 +421,6 @@ if (isset($_POST['agregarejer'])) {
                     echo '    document.getElementById("contadorSiguiente" + descansoModalId).textContent = tiempoRestante;';
                     echo '    if (tiempoRestante <= 0) {';
                     echo '      clearInterval(intervalo);';
-                    echo '      document.getElementById("pEliminado" + descansoModalId).textContent = "Ya puedes pasar al siguiente ejercicio";';
                     echo '      document.getElementById("btnSiguiente2" + descansoModalId).classList.remove("d-none");';
                     echo '    }';
                     echo '  }, 10);';

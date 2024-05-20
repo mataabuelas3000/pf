@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
+
 * {
   font-family: "Prompt", sans-serif;
   margin: 0;
@@ -6,15 +7,24 @@
   box-sizing: border-box;
 }
 
-
-html {  
+html {
   scroll-behavior: smooth;
 }
-body{
-    background-color: #202020;  
+
+body {
+  background-color: #202020;
 }
 
-.card-title1{
+.hr {
+  width: 100%;
+  height: 15px;
+  top: 110px;
+  height: 20px;
+  left: 0px;
+  object-fit: cover;
+}
+
+.card-title1 {
   background-color: #114c5f;
   font-size: 42px;
   color: white;
@@ -24,10 +34,13 @@ body{
 }
 
 .routine-card {
-  background-image: linear-gradient(to bottom left , #24baae 50%, #111 50%);/* fallback for old browsers */
-    z-index: 0; 
-    border: none;
-
+  background-image: linear-gradient(
+    to bottom left,
+    #24baae 50%,
+    #111 50%
+  ); /* fallback for old browsers */
+  z-index: 0;
+  border: none;
 }
 .border-danger {
   border-color: red !important;
@@ -43,7 +56,6 @@ body{
 
 .input-container input {
   padding-right: 30px; /* Ajusta el espacio para el icono */
-  
 }
 
 .input-container i {
@@ -52,18 +64,13 @@ body{
   right: 10px;
   transform: translateY(-50%);
 }
-.container{
-  margin: 200px auto 0 auto;
+.container {
   width: 100%;
   border-radius: 15px;
-  padding:50px;
-  top: 150px;
-  background-color: #24baae;
+  padding: 50px;
 }
-.container h1{
-  text-align: center;
-}
-.card{
+
+.card {
   border-radius: 10px;
 }
 
@@ -130,7 +137,6 @@ body{
     transform: translateY(-20px);
   }
 }
-
 
 .form-select {
   background-color: rgba(41, 41, 41, 0.116) !important;
@@ -212,7 +218,6 @@ body{
 
 .reloj {
   color: #ff0000;
- 
 }
 
 .number-input {
@@ -255,7 +260,6 @@ button {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
-
 
 .form-group {
   position: relative;
@@ -346,7 +350,6 @@ button {
   outline: none;
 }
 
-
 .checkbox label {
   font-size: 20px;
   font-weight: 600;
@@ -363,10 +366,301 @@ button {
 
 .checkbox input[type="checkbox"]:checked::after {
   color: white;
-  
 }
 
 .botones {
   align-items: center;
   margin-left: 45%;
+}
+
+/*Estilos de interface.php*/
+.widget {
+  position: fixed;
+  bottom: -200px; /* Cambiar a la posición inicial fuera de la pantalla */
+  right: 20px;
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+  max-width: 1000px;
+  max-height: 1000px;
+}
+
+.animate-fade-in {
+  animation: slide-up 1s ease forwards; /* Duración y temporización de la animación */
+}
+@keyframes slide-down {
+  from {
+    bottom: 20px; /* Posición inicial */
+  }
+  to {
+    bottom: -800px; /* Posición final fuera de la pantalla */
+  }
+}
+
+.animate-fade-out {
+  animation: slide-down 1s ease forwards; /* Duración y temporización de la animación */
+}
+@keyframes slide-up {
+  from {
+    bottom: -800px; /* Posición inicial fuera de la pantalla */
+  }
+  to {
+    bottom: 20px; /* Posición final */
+  }
+}
+
+.container-buttons button {
+  margin-bottom: 5px;
+}
+
+/* Dimensiones del contenedor del chat */
+.chat-container {
+  height: 400px;
+  /* Altura del contenedor del chat */
+  width: 460px;
+  /* Ancho del contenedor del chat */
+  padding: 10px;
+  overflow-y: auto;
+  /* Agrega desplazamiento vertical si es necesario */
+}
+
+/* Márgenes para los mensajes */
+.chat-message {
+  margin-bottom: 10px;
+  /* Espacio entre mensajes */
+}
+
+.user-message {
+  text-align: right;
+  color: #007bff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.user-message {
+  background-color: #f1f1f1;
+}
+
+#messege-user {
+  transform: translateX(40%);
+}
+
+/* Alineación y color de los mensajes del chatbot */
+.chatbot-message {
+  text-align: left;
+  color: #333;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+/* Estilos del input de texto */
+/* Estilos del botón de enviar */
+#chatbot-send-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  /* Margen izquierdo del botón */
+}
+
+/* Estilos del botón de cerrar */
+#chatbot-close-button {
+  padding: 10px;
+  /* Se aumenta el relleno */
+  background-color: #ff0000;
+  color: #fff;
+  border: #007bff !important;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  height: 40px;
+  width: 50px;
+}
+
+/* Posicionamiento del contenedor de input y botón */
+#chatbot-input {
+  display: flex;
+  /* Se usa flexbox para alinear elementos */
+  align-items: center;
+  /* Se centran verticalmente los elementos */
+  width: 460px;
+  height: 80px;
+  margin: 0px;
+  padding: 10px;
+}
+
+/* Estilos para el contenedor principal del widget */
+.window {
+  background-color: #24baae;
+  color: #fff;
+  padding: 0px;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+  /* Borde redondeado arriba */
+}
+
+#boton-chatbot {
+  color: black;
+  position: fixed;
+  bottom: 0; /* Fijar el botón en la parte inferior */
+  right: 0; /* Fijar el botón a la derecha */
+  margin-right: 30px;
+  margin-bottom: 10px;
+  z-index: 999;
+}
+
+.bxs-chat {
+  color: white;
+  transform: translateY(7px);
+  font-size: 100px;
+  margin-left: -10px;
+}
+
+.message-chat {
+  background: #dee2e6;
+  padding: 5px;
+  margin: 5px;
+  width: 75%;
+  border-radius: 5px;
+}
+
+.container-others {
+  transform: translateX(-290px);
+}
+
+.card {
+  width: 70%;
+  transform: translateX(220px);
+}
+
+.carte {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  transform: translateX(35px);
+  margin-top: 25px;
+  /* Se separa un poco más de la izquierda */
+  width: 100px;
+  height: 94%;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  padding-top: 60px;
+  border-radius: 200px;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.3);
+  background-color: #24baae;
+  color: white;
+  /*Color nav */
+}
+
+.buton-info {
+  margin-top: -40px;
+  transform: translateX(22px);
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar .nav-link {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  /* Ajusta el padding según tus necesidades */
+  transition: all 0.1s ease;
+}
+
+.buttons-nav {
+  transform: translateX(21px);
+  width: 20%;
+}
+
+.buttons-nav .nav-link {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #e9ecef;
+  border-radius: 25%;
+  color: black !important;
+}
+
+.content {
+  margin-left: 250px;
+  transition: all 0.3s ease;
+}
+
+/* Estilos para el botón de toggle */
+.toggle-btn {
+  position: fixed;
+  top: 15px;
+  cursor: pointer;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-text {
+  margin-left: 5px;
+}
+.chatbot-widget {
+  background: rgb(255, 255, 255);
+  width: 100%;
+  border-radius: 15px;
+}
+
+.chat-container {
+  background: rgb(255, 255, 255);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.window button {
+  left: 405px;
+  border-radius: 15px;
+}
+
+.window svg {
+  display: block;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end; /* Esto alinea los botones al extremo derecho */
+  margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+}
+
+.link-like-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: blue; /* Cambia el color según tu diseño */
+  text-decoration: underline;
+  cursor: pointer;
+  outline: none; /* Eliminar el borde al seleccionar */
+  white-space: nowrap; /* Evitar el desbordamiento de texto */
+  overflow: hidden; /* Ocultar el texto excedente */
+  text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) cuando se recorta el texto */
+}
+
+.link-like-button:focus {
+  outline: none;
 }

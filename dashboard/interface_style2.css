@@ -6,15 +6,15 @@
   box-sizing: border-box;
 }
 
-
-html {  
+html {
   scroll-behavior: smooth;
 }
-body{
-    background-color: #121717;  
+
+body {
+  background-color: #121717;
 }
 
-.card-title1{
+.card-title1 {
   background-color: #114c5f;
   font-size: 42px;
   color: white;
@@ -24,14 +24,16 @@ body{
 }
 
 .routine-card {
-  background-image: linear-gradient(to bottom left , #24baae 50%, #111 50%);/* fallback for old browsers */
-    z-index: 0; 
-    border: none;
-
+  background-image: linear-gradient(
+    to bottom left,
+    #24baae 50%,
+    #111 50%
+  ); /* fallback for old browsers */
+  z-index: 0;
+  border: none;
 }
 
-
-.card{
+.card {
   border-radius: 10px;
 }
 
@@ -97,7 +99,6 @@ body{
     transform: translateY(-20px);
   }
 }
-
 
 .form-select {
   background-color: rgba(41, 41, 41, 0.116) !important;
@@ -222,7 +223,6 @@ button {
 
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
 
-
 .form-group {
   position: relative;
   margin-bottom: 20px;
@@ -312,7 +312,6 @@ button {
   outline: none;
 }
 
-
 .checkbox label {
   font-size: 20px;
   font-weight: 600;
@@ -329,7 +328,6 @@ button {
 
 .checkbox input[type="checkbox"]:checked::after {
   color: white;
-  
 }
 
 .botones {

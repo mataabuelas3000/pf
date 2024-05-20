@@ -39,7 +39,8 @@ $IMC = $row['Imc_User'];
 // Verificar si se ha enviado el formulario para actualizar los datos
 if (isset($_POST['mandar'])) {
     // Obtener los datos enviados por el formulario
-    $password = $_POST['pass'];
+    $passwordlast = $_POST['passlast'];
+    $passwordnew = $_POST['passnew'];
     $primernombre = $_POST['primernombre'];
     $primerapellido = $_POST['primerapellido'];
     $correo = $_POST['correo'];
@@ -50,32 +51,66 @@ if (isset($_POST['mandar'])) {
     // Validar el formato de la altura (debe ser #.##)
     if (!preg_match('/^\d+\.\d{2}$/', $altura)) {
         echo "<script>alert('La altura debe tener el formato #.##');</script>";
+        exit;
     }
 
     if (!preg_match('/^\d{2}\.\d{2}$/', $peso)) {
         echo "<script>alert('El peso debe tener el formato ##.##');</script>";
+        exit;
     }
 
     // Calcular el Índice de Masa Corporal (IMC)
     $IMC = $peso / ($altura * $altura);
+    $error = false;
+    // Verificar si se debe cambiar la contraseña
+    if (!empty($passwordlast) && empty($passwordnew)) {
+        $error = true;
+        $error_message = "Por favor, ingrese la nueva contraseña";
+    } elseif (empty($passwordlast) && !empty($passwordnew)) {
+        $error = true;
+        $error_message = "Por favor, confirme la contraseña actual";
+    } elseif (!empty($passwordlast) && !empty($passwordnew)) {
+        // Verificar si la contraseña actual es correcta
+        if (!password_verify($passwordlast, $password)) {
+            $error = true;
+            $error_message = "La contraseña actual es incorrecta";
+        } else {
+            // Hashear la nueva contraseña
+            $hashed_password = password_hash($passwordnew, PASSWORD_DEFAULT);
+        }
+    }
 
-    // Actualizar los datos del usuario en la base de datos
-    $sql = "UPDATE login 
-            INNER JOIN user_info ON login.Id_User = user_info.Id_User 
-            INNER JOIN data ON login.Id_User = data.Id_User 
-            SET login.Password = '$password', login.Id_Role_User = '$rol', 
+    // Si hay un error, mostrar el mensaje de error y evitar la actualización
+    if ($error) {
+        echo "<script>alert('$error_message');</script>";
+    } else {
+        // Actualizar los datos del usuario en la base de datos
+        $sql = "UPDATE login 
+                INNER JOIN user_info ON login.Id_User = user_info.Id_User 
+                INNER JOIN data ON login.Id_User = data.Id_User 
+                SET ";
+
+        // Añadir los campos a actualizar
+        if (!empty($passwordlast) && !empty($passwordnew)) {
+            $sql .= "login.Password = '$hashed_password', ";
+        }
+
+        $sql .= "login.Id_Role_User = '$rol', 
                 user_info.Name_User = '$primernombre', user_info.Last_Name_User = '$primerapellido', user_info.Email_User = '$correo', user_info.Gender_User = '$genero', 
                 data.Height_User = '$altura', data.Weight_User = '$peso', data.Imc_User = '$IMC' 
-            WHERE login.Id_User = '$idviejo'";
-    $result = mysqli_query($con, $sql);
-    if ($result) {
-        echo '<script>alert("Datos actualizados"); window.location.href = "interface.php#info";</script>';
-        exit;
-    } else {
-        // Mostrar un mensaje de error si la actualización falla
-        die(mysqli_error($con));
+                WHERE login.Id_User = '$idviejo'";
+
+        // Ejecutar la consulta
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            echo '<script>alert("Datos actualizados"); window.location.href = "interface.php#info";</script>';
+            exit;
+        } else {
+            // Mostrar un mensaje de error si la actualización falla
+            die(mysqli_error($con));
+        }
     }
-} else if (isset($_POST['cancelar'])) {
+} elseif (isset($_POST['cancelar'])) {
     // Redirigir de vuelta a la página de administración de usuarios si se cancela la actualización
     header('location: interface.php#info');
 }
@@ -176,19 +211,30 @@ if (isset($_POST['mandar'])) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-group input-container">
-                                <label class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" name="pass"
-                                    placeholder="Ingrese su contraseña" value="<?php echo $password ?>" required>
+                                <label class="form-label">Confirma tu Contraseña</label>
+                                <input type="password" class="form-control " name="passlast"
+                                    placeholder="Confirma tu contraseña" value="">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 checkbox">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-container">
+                                <label class="form-label">Nueva contraseña</label>
+                                <input type="password" class="form-control " name="passnew"
+                                    placeholder="Ingrese su contraseña nueva" value="">
+                            </div>
+                        </div>
+                    <div class="col-md-6 checkbox text-light">
                         <input type="checkbox" name="show_password" id="show_password">
                         <label for="show_password">Mostrar contraseña</label>
                     </div>
+                    </div>
                     <br>
-                    <button type="submit" class="btn btn-dark" name="mandar" id="updatebtn">Actualizar</button>
+                    <div class="d-flex">
+                    <button type="submit" class="btn btn-dark mr-4" name="mandar" id="updatebtn">Actualizar</button>
                     <button type="submit" class="btn btn-danger" name="cancelar">Cancelar</button>
+                    </div>
             </div>
             <div class="mr-5"></div>
             </form>
@@ -285,9 +331,11 @@ if (isset($_POST['mandar'])) {
             });
         });
             document.getElementById('show_password').addEventListener('change', function() {
-                var passwordField = document.getElementsByName('pass')[0];
-                passwordField.type = this.checked ? 'text' : 'password';
-            });
+        var passwordFields = document.querySelectorAll('[name="passlast"], [name="passnew"]');
+        for (var i = 0; i < passwordFields.length; i++) {
+            passwordFields[i].type = this.checked ? 'text' : 'password';
+        }
+    });
             </script>
 
         </body>

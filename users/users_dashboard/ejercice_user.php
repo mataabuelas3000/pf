@@ -22,6 +22,7 @@ mysqli_stmt_bind_param($stmt, 'i', $idrutina);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
+
 // Verificar si se obtuvieron resultados de la consulta
 if ($result) {
     // Recorrer los resultados y asignar los valores a las variables correspondientes
@@ -47,7 +48,7 @@ function mostrarejercicios($con, $idRutina)
 
     // Consultar los ejercicios disponibles según la dificultad de la rutina
     if ($dificultad_rutina != null) {
-        $sql = 'SELECT g.Name_Group, e.Name_Exercise, e.Id_Exercise
+        $sql = 'SELECT g.Name_Group, e.url_video, e.Name_Exercise, e.Id_Exercise
                 FROM muscle_group g 
                 INNER JOIN exercise e ON g.Id_Muscle_Group = e.Id_Muscle_Group 
                 WHERE e.Id_Exercise NOT IN (
@@ -61,7 +62,7 @@ function mostrarejercicios($con, $idRutina)
         $stmt = mysqli_prepare($con, $sql);
         mysqli_stmt_bind_param($stmt, 'is', $idRutina, $dificultad_rutina);
     } else {
-        $sql = 'SELECT g.Name_Group, e.Name_Exercise, e.Id_Exercise
+        $sql = 'SELECT g.Name_Group, e.url_video, e.Name_Exercise, e.Id_Exercise
                 FROM muscle_group g 
                 INNER JOIN exercise e ON g.Id_Muscle_Group = e.Id_Muscle_Group 
                 WHERE e.Id_Exercise NOT IN (
@@ -81,35 +82,40 @@ function mostrarejercicios($con, $idRutina)
     // Verificar si se obtuvieron resultados de la consulta
     if ($result) {
         $current_grupo = '';
-        echo '<div class="container " style="margin-top: 30px;display: flex; flex-wrap: wrap;  justify-content: center;">';
+        echo '<div class="container " style="margin-top: 30px;width: 100%;display: flex; flex-wrap: wrap;  justify-content: right;">';
         while ($row = mysqli_fetch_assoc($result)) {
             $nombregrupo = iconv('ISO-8859-1', 'UTF-8', $row['Name_Group']);
             $nombreejercicio = iconv('ISO-8859-1', 'UTF-8', $row['Name_Exercise']);
             $idejercicio = $row['Id_Exercise'];
+            $video = $row['url_video'];
             if ($nombregrupo != $current_grupo) {
                 if ($current_grupo != '') {
                     echo '</ul>';
                 }
-                echo '<ul class="list-group ml-4 mt-3" style="width: 30%">';
-                echo '<li class="list-group-item list-group-item-info" style="margin-top:20px; border-radius: 4px; padding: 15px">' . $nombregrupo . '</li>';
+                echo '<ul class="list-group ml-4 mt-3" style="width: 30%; border-radius: 20px">';
+                echo '<li class="list-group-item list-group-item-info text-light text-center bg-dark" style="margin-top:20px; padding: 15px;font-size: 20px">' . $nombregrupo . '</li>';
                 $current_grupo = $nombregrupo;
             }
 
             echo '<li class="list-group-item" style="padding: 13px; border: 1px solid rgba(41, 41, 41, 0.116)">
                     <input class="form-check-input ml-1 me-1" type="checkbox" value="' . $idejercicio . '" id="checkbox_' . $idejercicio . '" name="seleccioncheck[]">
                     <label class="form-check-label ml-5" for="checkbox_' . $idejercicio . '">' . $nombreejercicio . '</label>
+               
                 </li>';
         }
         echo '</ul></div>';
 
         // Agregar un botón para enviar el formulario después de seleccionar los ejercicios
-        echo '<button type="submit" class="btn btn-primary mt-4" name="agregarejer">Agregar Ejercicios Seleccionados</button>';
+        echo '
+        <div class="d-flex justify-content-end"><button type="submit" class="btn btn-dark mt-4" name="agregarejer">Agregar Ejercicios Seleccionados</button></div>';
     }
-}// Función para obtener los ejercicios de una rutina
+}
+
+// Función para obtener los ejercicios de una rutina
 function obtenerEjerciciosDeRutina($con, $idRutina)
 {
     $sql = 'SELECT r.Name_Routine AS NombreRutina, r.Approach_Routine AS DescripcionRutina, r.Duration_Routine AS Duracion, r.Id_Difficulty AS Dificultad,
-                   e.Id_Exercise AS IdEjercicio, e.Name_Exercise AS NombreEjercicio, e.Description_Exercise AS DescripcionEjercicio, e.Duration_Exercise AS DuracionEjercicio,
+                   e.Id_Exercise AS IdEjercicio, e.Name_Exercise AS NombreEjercicio, e.Description_Exercise AS DescripcionEjercicio, e.Duration_Exercise AS DuracionEjercicio, e.url_video AS Video,
                    g.Name_Group AS GrupoMuscular
             FROM rut_has_exercise AS re
             INNER JOIN routine AS r ON re.Id_Routine = r.Id_Routine
@@ -130,7 +136,6 @@ function obtenerEjerciciosDeRutina($con, $idRutina)
     mysqli_stmt_close($stmt);
     return $ejercicios;
 }
-
 // Función para recalcular la duración total de la rutina y actualizarla en la base de datos
 function recalcularDuracionRutina($con, $idRutina)
 {
@@ -239,7 +244,9 @@ if (isset($_POST['agregarejer'])) {
         echo "<script>alert('Selecciona al menos un ejercicio')</script>";
     }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -258,9 +265,9 @@ if (isset($_POST['agregarejer'])) {
 
 <body>
     <!-- Barra de navegación -->
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <h5><?php echo $nombrerutina ?></h5>
+            <h5 class="nav-link text-light"><?php echo $nombrerutina ?></h5>
             <a class="nav-link text-light" href="routine_user.php?id_personal=<?php echo $id; ?>">
                 <input value="Regresar" type="button" class="btn btn-danger">
             </a>
@@ -268,377 +275,251 @@ if (isset($_POST['agregarejer'])) {
     </nav>
 
     <!-- Contenido principal -->
-    <div class="card">
-        <div class="card-body mb-4">
+    <div class="card1 d-flex justify-content-end">
+        <img src=".../images/img2.svg" alt="" width="900">
             <form method="post">
-                <button type="button" class="btn btn-secondary detalles toggle-details" style="margin-left:-40px">Ver
-                    Ejercicios</button>
-                <div class="details" style="display: none;">
+                <div class="details">
                     <?php mostrarejercicios($con, $idrutina); ?>
                 </div>
             </form>
-        </div>
     </div>
 
-    <div class="card1" style="width: 100%">
+    <div class="card bg-dark" style="width: 100%;">
         <div class="card-body">
-            <h3>Mis ejercicios</h3>
+            <h3 class="text-light">Mis ejercicios</h3>
             <br>
             <div id="ejercicios-lista">
                 <?php
-                    // Obtener ejercicios de la rutina
-                    $ejercicios = obtenerEjerciciosDeRutina($con, $idrutina);
+                // Obtener ejercicios de la rutina
+                $ejercicios = obtenerEjerciciosDeRutina($con, $idrutina);
 
-                    // Verificar si hay ejercicios en la rutina
-                    if (empty($ejercicios)) {
-                        echo '<p>No hay ejercicios en esta rutina.</p>';
-                    } else {
-                        // Iterar sobre los ejercicios y mostrarlos
-                        foreach ($ejercicios as $ejercicio) {
-                            echo '
-                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px">
+                // Verificar si hay ejercicios en la rutina
+                if (empty($ejercicios)) {
+                    echo '<p>No hay ejercicios en esta rutina.</p>';
+                } else {
+                    // Iterar sobre los ejercicios y mostrarlos
+                    foreach ($ejercicios as $ejercicio) {
+                        echo '
+                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #24baae; color: white; font-size: 20px">
                         <i class="bx bx-dialpad-alt draggable-handle justify-content-center align-items-center d-flex"></i>
                         <form method="post">
-                            <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-center align-items-center d-flex" style="background: none; border: none; cursor: pointer;"></button>
+                            <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-end align-items-center d-flex" style="background: none;color: white; border: none; cursor: pointer;"></button>
                         </form>
-                        <div class="card-header" style="">' . utf8_encode($ejercicio['NombreEjercicio']) . '</div>
-                        <div class="card-body">
+                        <div class="card-header" style="background: #13756d">' . utf8_encode($ejercicio['NombreEjercicio']) . '</div>
+                        <div class="card-body" style="background: #178b82">
                             <p>Descripcion: ' . utf8_encode($ejercicio['DescripcionEjercicio']) . '</p>
                             <p>Duracion: ' . utf8_encode($ejercicio['DuracionEjercicio']) . ' Minutos</p>
                         </div>
                     </div>';
-                        }
                     }
+                }
                 ?>
             </div>
         </div>
     </div>
 </body>
 
-
-<br>
-<div class="card">
-    <div class="card-body">
-        <h3>Iniciar rutina</h3>
-        <?php
-            // Verificar si hay ejercicios en la rutina
-            if (empty($ejercicios)) {
-                echo '<p>No hay ejercicios en esta rutina.</p>';
-            } else {
-                echo '<button type="button" id="btnComenzar" class="btn btn-primary" data-toggle="modal" data-target="#modal1">Comenzar</button>';
-            }
-        ?>
-        <?php
-            // Establecer el conjunto de caracteres a UTF-8
-            // Obtener ejercicios de la rutina
-            $ejercicios = obtenerEjerciciosDeRutina($con, $idrutina);
-            if (!empty($ejercicios)) {
-                // Contar el total de ejercicios
-                $totalEjercicios = count($ejercicios);
-                // Iterar sobre los ejercicios y mostrarlos
-                foreach ($ejercicios as $key => $ejercicio) {
-                    $modalId = 'modal' . ($key + 1);
-                    echo '<div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-                    echo '<div class="modal-dialog modal-fullscreen">';
-                    echo '<div class="modal-content">';
-                    echo '<div class="modal-header">';
-                    echo '<h1 class="modal-title fs-5" id="exampleModalToggleLabel">' . $ejercicio['NombreEjercicio'] . '</h1>';
-                    echo '<button type="button" class="btn-close" id="closebtn' . $modalId . '" data-dismiss="modal" aria-label="Close" onclick="limpiarEstado(\'' . $modalId . '\')"></button>';
-                    echo '</div>';
-                    echo '<div class="modal-body text-center">';
-                    echo '<p>' . $ejercicio['DescripcionEjercicio'] . '</p>';
-                    echo '<img src="https://via.placeholder.com/900x500">';
-                    echo '<div class="modal-footer">';
-                    if ($key < $totalEjercicios - 1) {
-                        $nextModalId = 'modal' . ($key + 2);
-                        $descansoModalId = 'descansoModal' . ($key + 1);
-                        // Ejercicio
-                        echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva d-none">Tiempo restante: <span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
-                        echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-primary" onclick="iniciarCuentaRegresiva(\'' . $modalId . "',  " . ($ejercicio['DuracionEjercicio'] * 60) . ", '" . $nextModalId . '\')">Iniciar</button>';
-                        echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerCuentaRegresiva(\'' . $modalId . '\')">Detener</button>';
-                        echo '<button type="button" id="btnSiguiente' . $modalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $descansoModalId . '" onclick="miFuncion(\'' . $descansoModalId . '\')">Siguiente</button>';
-                        // Descanso
-                        echo '<div class="modal fade" id="' . $descansoModalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-                        echo '<div class="modal-dialog modal-fullscreen">';
-                        echo '<div class="modal-content">';
-                        echo '<div class="modal-header">';
-                        echo '<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Descanso</h1>';
-                        echo '<button type="button" class="btn-close" id="closebtn' . $descansoModalId . '" data-dismiss="modal" aria-label="Close"></button>';
-                        echo '</div>';
-                        echo '<div class="modal-body text-center">';
-                        echo '<p>Es hora de tomar un descanso.</p>';
-                        echo '<img src="https://via.placeholder.com/900x500">';
-                        echo '<div class="modal-footer">';
-                        echo '<p id="pEliminado' . $descansoModalId . '">Descansa   <span id="contadorSiguiente' . $descansoModalId . '">60</span> segundos</p>';
-                        echo '<button type="button" id="btnSiguiente2' . $descansoModalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $nextModalId . '">Siguiente</button>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '<script>';
-                        echo 'function miFuncion(descansoModalId) {';
-                        echo '  var tiempoRestante = 60;';
-                        echo '  var intervalo = setInterval(function() {';
-                        echo '    tiempoRestante--;';
-                        echo '    document.getElementById("contadorSiguiente" + descansoModalId).textContent = tiempoRestante;';
-                        echo '    if (tiempoRestante <= 0) {';
-                        echo '      clearInterval(intervalo);';
-                        echo '      document.getElementById("pEliminado" + descansoModalId).textContent = "Ya puedes pasar al siguiente ejercicio";';
-                        echo '      document.getElementById("btnSiguiente2" + descansoModalId).classList.remove("d-none");';
-                        echo '    }';
-                        echo '  }, 10);';
-                        echo '}';
-                        echo '</script>';
-                    } else {
-                        // Descanso final (no se muestra el botón de siguiente)
-                        echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva d-none">Tiempo restante: <span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
-                        echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-primary" onclick="iniciarUltimoEjercicio(\'' . $modalId . "', " . ($ejercicio['DuracionEjercicio'] * 60) . ')">Iniciar</button>';
-                        echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerUltimoEjercicio(\'' . $modalId . '\')">Detener</button>';
-                        echo '<button type="button" id="btnFelicitaciones" class="btn btn-primary d-none" data-toggle="modal" data-target="#modalFelicitaciones">Felicitaciones</button>';
-                    }
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-            }
-        ?>
-
-
-        <!-- Modal de felicitaciones -->
-        <div class="modal fade" id="modalFelicitaciones" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Felicitaciones</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¡Has completado tu rutina con éxito! ¡Excelente trabajo!
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <script>
-var intervalos = {}; // Objeto para almacenar los intervalos de cada cuenta regresiva
-var tiemposRestantes = {}; // Objeto para almacenar los tiempos restantes de cada cuenta regresiva
+    var intervalos = {}; // Objeto para almacenar los intervalos de cada cuenta regresiva
+    var tiemposRestantes = {}; // Objeto para almacenar los tiempos restantes de cada cuenta regresiva
 
-function iniciarCuentaRegresiva(modalId, duracion, nextModalId) {
-    var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
-    var btnIniciar = document.getElementById("btnIniciar" + modalId);
-    var btnDetener = document.getElementById("btnDetener" + modalId);
-    var btnSiguiente = document.getElementById("btnSiguiente" + modalId);
-    var btnClose = document.getElementById("closebtn" + modalId);
+    function iniciarCuentaRegresiva(modalId, duracion, nextModalId, id_rutina) {
+        var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
+        var btnIniciar = document.getElementById("btnIniciar" + modalId);
+        var btnDetener = document.getElementById("btnDetener" + modalId);
+        var btnSiguiente = document.getElementById("btnSiguiente" + modalId);
+        var btnClose = document.getElementById("closebtn" + modalId);
 
-    // Detener cualquier cuenta regresiva en curso
-    detenerCuentaRegresiva(modalId);
+        // Detener cualquier cuenta regresiva en curso
+        detenerCuentaRegresiva(modalId);
 
-    // Verificar si hay un tiempo restante almacenado para reanudar la cuenta regresiva
-    var tiempoRestante = tiemposRestantes[modalId] || duracion;
+        // Verificar si hay un tiempo restante almacenado para reanudar la cuenta regresiva
+        var tiempoRestante = tiemposRestantes[modalId] || duracion;
 
-    // Ocultar el botón de cierre al iniciar la cuenta regresiva
-    btnClose.style.display = "none";
+        // Ocultar el botón de cierre al iniciar la cuenta regresiva
+        btnClose.style.display = "none";
 
-    // Función para actualizar la cuenta regresiva
-    function actualizarCuentaRegresiva() {
-        var minutos = Math.floor(tiempoRestante / 60);
-        var segundos = tiempoRestante % 60;
-        cuentaRegresiva.querySelector("span").innerText = minutos.toString().padStart(2, '0') + ":" + segundos
-            .toString().padStart(2, '0');
-    }
+        // Función para actualizar la cuenta regresiva
+        function actualizarCuentaRegresiva() {
+            var minutos = Math.floor(tiempoRestante / 60);
+            var segundos = tiempoRestante % 60;
+            cuentaRegresiva.querySelector("span").innerText = minutos.toString().padStart(2, '0') + ":" + segundos
+                .toString().padStart(2, '0');
+        }
 
-    // Función para iniciar la cuenta regresiva
-    function iniciarCuentaRegresiva() {
-        intervalos[modalId] = setInterval(function() {
-            tiempoRestante--;
-            actualizarCuentaRegresiva();
-            if (tiempoRestante <= 0) {
-                clearInterval(intervalos[modalId]);
-                if (nextModalId.startsWith("descanso")) {
-                    // Si es un descanso, abrir el siguiente ejercicio automáticamente
-                    $('#' + nextModalId).modal('show');
-                } else {
-                    // Si es el último ejercicio, mostrar los botones correspondientes
-                    btnSiguiente.classList.remove(
-                        "d-none"); // Mostrar botón "Siguiente" cuando termine el tiempo
-                    btnClose.style.display = "block"; // Mostrar el botón de cierre cuando termine el tiempo
-                    btnIniciar.style.display = "none"; // Ocultar el botón de iniciar
-                    btnDetener.style.display = "none"; // Ocultar el botón de detener
-                    cuentaRegresiva.classList.add("d-none");
+        // Función para iniciar la cuenta regresiva
+        function iniciarCuentaRegresiva() {
+            intervalos[modalId] = setInterval(function() {
+                tiempoRestante--;
+                actualizarCuentaRegresiva();
+                if (tiempoRestante <= 0) {
+                    clearInterval(intervalos[modalId]);
+                    if (nextModalId.startsWith("descanso")) {
+                        // Si es un descanso, abrir el siguiente ejercicio automáticamente
+                        $('#' + nextModalId).modal('show');
+                    } else {
+                        // Si es el último ejercicio, mostrar los botones correspondientes
+                        btnSiguiente.classList.remove(
+                            "d-none"); // Mostrar botón "Siguiente" cuando termine el tiempo
+                        btnClose.style.display = "block"; // Mostrar el botón de cierre cuando termine el tiempo
+                        btnIniciar.style.display = "none"; // Ocultar el botón de iniciar
+                        btnDetener.style.display = "none"; // Ocultar el botón de detener
+                        cuentaRegresiva.classList.add("d-none");
+                    }
                 }
-            }
-        }, 1);
+            }, 1);
+        }
+
+        // Mostrar botón de detener y ocultar botón de iniciar
+        btnDetener.classList.remove("d-none");
+        btnIniciar.classList.add("d-none");
+        cuentaRegresiva.classList.remove("d-none");
+        iniciarCuentaRegresiva();
+        actualizarIdRutina(id_rutina);
     }
 
-    // Mostrar botón de detener y ocultar botón de iniciar
-    btnDetener.classList.remove("d-none");
-    btnIniciar.classList.add("d-none");
-    cuentaRegresiva.classList.remove("d-none");
-    iniciarCuentaRegresiva();
-}
+    function actualizarIdRutina(id_rutina) {
+        var inputIdRutina = document.getElementById('id_rutina');
+        if (inputIdRutina) {
+            inputIdRutina.value = id_rutina;
+        }
+    }
 
-function detenerCuentaRegresiva(modalId) {
-    var btnDetener = document.getElementById("btnDetener" + modalId);
-    var btnIniciar = document.getElementById("btnIniciar" + modalId);
-    var btnClose = document.getElementById("closebtn" + modalId);
+    function detenerCuentaRegresiva(modalId) {
+        var btnDetener = document.getElementById("btnDetener" + modalId);
+        var btnIniciar = document.getElementById("btnIniciar" + modalId);
+        var btnClose = document.getElementById("closebtn" + modalId);
 
-    // Detener la cuenta regresiva si está en curso
-    clearInterval(intervalos[modalId]);
+        // Detener la cuenta regresiva si está en curso
+        clearInterval(intervalos[modalId]);
 
-    // Almacenar el tiempo restante
-    tiemposRestantes[modalId] = calcularTiempoRestante(modalId);
+        // Almacenar el tiempo restante
+        tiemposRestantes[modalId] = calcularTiempoRestante(modalId);
 
-    // Ocultar el botón de detener y mostrar el botón de iniciar
-    btnDetener.classList.add("d-none");
-    btnIniciar.classList.remove("d-none");
+        // Ocultar el botón de detener y mostrar el botón de iniciar
+        btnDetener.classList.add("d-none");
+        btnIniciar.classList.remove("d-none");
 
-    // Mostrar el botón de cierre
-    btnClose.style.display = "block";
-}
+        // Mostrar el botón de cierre
+        btnClose.style.display = "block";
+    }
 
-// Función para calcular el tiempo restante en segundos
-function calcularTiempoRestante(modalId) {
-    var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
-    var tiempoTexto = cuentaRegresiva.querySelector("span").innerText;
-    var partesTiempo = tiempoTexto.split(":");
-    var minutos = parseInt(partesTiempo[0]);
-    var segundos = parseInt(partesTiempo[1]);
-    return minutos * 60 + segundos;
-}
+    // Función para calcular el tiempo restante en segundos
+    function calcularTiempoRestante(modalId) {
+        var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
+        var tiempoTexto = cuentaRegresiva.querySelector("span").innerText;
+        var partesTiempo = tiempoTexto.split(":");
+        var minutos = parseInt(partesTiempo[0]);
+        var segundos = parseInt(partesTiempo[1]);
+        return minutos * 60 + segundos;
+    }
 
-// Función para iniciar el último ejercicio
-function iniciarUltimoEjercicio(modalId, duracion) {
-    var btnIniciar = document.getElementById("btnIniciar" + modalId);
-    var btnDetener = document.getElementById("btnDetener" + modalId);
-    var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
-    var btnClose = document.getElementById("closebtn" + modalId);
-    // Mostrar cuenta regresiva y botón de detener
-    cuentaRegresiva.classList.remove("d-none");
-    btnDetener.classList.remove("d-none");
-    btnClose.style.display = "none";
-    // Ocultar botón de iniciar
-    btnIniciar.classList.add("d-none");
+    // Función para iniciar el último ejercicio
+    function iniciarUltimoEjercicio(modalId, duracion) {
+        var btnIniciar = document.getElementById("btnIniciar" + modalId);
+        var btnDetener = document.getElementById("btnDetener" + modalId);
+        var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
+        var btnClose = document.getElementById("closebtn" + modalId);
+        // Mostrar cuenta regresiva y botón de detener
+        cuentaRegresiva.classList.remove("d-none");
+        btnDetener.classList.remove("d-none");
+        btnClose.style.display = "none";
+        // Ocultar botón de iniciar
+        btnIniciar.classList.add("d-none");
 
-    // Iniciar cuenta regresiva
-    iniciarCuentaRegresiva(modalId, duracion, "");
-}
+        // Iniciar cuenta regresiva
+        iniciarCuentaRegresiva(modalId, duracion, "");
+    }
 
-function detenerUltimoEjercicio(modalId) {
-    var btnIniciar = document.getElementById("btnIniciar" + modalId);
-    var btnDetener = document.getElementById("btnDetener" + modalId);
-    var btnSiguiente = document.getElementById("btnSiguiente" + modalId);
-    var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
-    var btnFelicitaciones = document.getElementById("btnFelicitaciones"); // Botón de felicitaciones con ID único
-    var btnClose = document.getElementById("closebtn" + modalId);
+    function detenerUltimoEjercicio(modalId) {
+        var btnIniciar = document.getElementById("btnIniciar" + modalId);
+        var btnDetener = document.getElementById("btnDetener" + modalId);
+        var btnSiguiente = document.getElementById("btnSiguiente" + modalId);
+        var cuentaRegresiva = document.getElementById("cuentaRegresiva" + modalId);
+        var btnFelicitaciones = document.getElementById("btnFelicitaciones"); // Botón de felicitaciones con ID único
+        var btnClose = document.getElementById("closebtn" + modalId);
 
-    // Ocultar cuenta regresiva y botón de detener
-    cuentaRegresiva.classList.add("d-none");
-    btnDetener.classList.add("d-none");
-
-    // Mostrar botón de iniciar
-    btnIniciar.classList.remove("d-none");
-
-    // Limpiar el intervalo y el tiempo restante
-    clearInterval(intervalos[modalId]);
-    tiemposRestantes[modalId] = null;
-    btnClose.style.display = "block";
-
-    // Verificar si el tiempo restante es menor o igual a cero para mostrar el botón de felicitaciones
-    var tiempoRestante = calcularTiempoRestante(modalId);
-    if (tiempoRestante <= 0) {
-        btnFelicitaciones.classList.remove("d-none");
+        // Ocultar cuenta regresiva y botón de detener
         cuentaRegresiva.classList.add("d-none");
         btnDetener.classList.add("d-none");
-        btnIniciar.classList.add("d-none");
-    }
-}
-//-------------------------------------------------
 
+        // Mostrar botón de iniciar
+        btnIniciar.classList.remove("d-none");
 
+        // Limpiar el intervalo y el tiempo restante
+        clearInterval(intervalos[modalId]);
+        tiemposRestantes[modalId] = null;
+        btnClose.style.display = "block";
 
-const toggleButtons = document.querySelectorAll('.toggle-details');
-
-toggleButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const details = button.nextElementSibling;
-
-        if (details.style.display === 'none' || details.style.display === '') {
-            details.style.display = 'block';
-            button.textContent = 'Cerrar ';
-        } else {
-            details.style.display = 'none';
-            button.textContent = 'Ver Ejercicios';
-        }
-    });
-});
-
-window.onload = function() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-};
-
-
-var inputs = document.querySelectorAll('input[type="number"]');
-
-inputs.forEach(function(input) {
-    input.addEventListener('input', function() {
-        var valor = this.value.trim();
-        var soloNumeros = valor.replace(/[^0-9]/g, '');
-        this.value = soloNumeros;
-    });
-});
-
-
-$(function() {
-    $("#ejercicios-lista").sortable({
-        handle: '.draggable-handle', // especifica que el icono es el mango para arrastrar
-        update: function(event, ui) {
-            // Obtener el nuevo orden de los ejercicios
-            var nuevoOrden = $(this).sortable('toArray').toString();
-
-            // Almacenar el nuevo orden en el almacenamiento local
-            localStorage.setItem('nuevoOrden', nuevoOrden);
-        }
-    });
-
-    var ordenGuardado = localStorage.getItem('nuevoOrden');
-    if (ordenGuardado) {
-        var ejerciciosLista = $("#ejercicios-lista");
-        var ejercicios = ordenGuardado.split(',');
-        for (var i = 0; i < ejercicios.length; i++) {
-            var ejercicio = $("#" + ejercicios[i]);
-            ejerciciosLista.append(ejercicio);
+        // Verificar si el tiempo restante es menor o igual a cero para mostrar el botón de felicitaciones
+        var tiempoRestante = calcularTiempoRestante(modalId);
+        if (tiempoRestante <= 0) {
+            btnFelicitaciones.classList.remove("d-none");
+            cuentaRegresiva.classList.add("d-none");
+            btnDetener.classList.add("d-none");
+            btnIniciar.classList.add("d-none");
         }
     }
+    //-------------------------------------------------
 
-    $("#ejercicios-lista").disableSelection();
-});
+
+
+    window.onload = function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+    };
+
+
+    var inputs = document.querySelectorAll('input[type="number"]');
+
+    inputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            var valor = this.value.trim();
+            var soloNumeros = valor.replace(/[^0-9]/g, '');
+            this.value = soloNumeros;
+        });
+    });
+
+
+    $(function() {
+        $("#ejercicios-lista").sortable({
+            handle: '.draggable-handle', // especifica que el icono es el mango para arrastrar
+            update: function(event, ui) {
+                // Obtener el nuevo orden de los ejercicios
+                var nuevoOrden = $(this).sortable('toArray').toString();
+
+                // Almacenar el nuevo orden en el almacenamiento local
+                localStorage.setItem('nuevoOrden', nuevoOrden);
+            }
+        });
+
+        var ordenGuardado = localStorage.getItem('nuevoOrden');
+        if (ordenGuardado) {
+            var ejerciciosLista = $("#ejercicios-lista");
+            var ejercicios = ordenGuardado.split(',');
+            for (var i = 0; i < ejercicios.length; i++) {
+                var ejercicio = $("#" + ejercicios[i]);
+                ejerciciosLista.append(ejercicio);
+            }
+        }
+
+        $("#ejercicios-lista").disableSelection();
+    });
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Asegúrate de tener jQuery cargado -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
 </script>
 
 </body>

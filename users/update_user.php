@@ -49,14 +49,29 @@ if (isset($_POST['mandar'])) {
     // Calcular el Índice de Masa Corporal (IMC)
     $IMC = $peso / ($altura * $altura);
 
-    // Actualizar los datos del usuario en la base de datos
-    $sql = "UPDATE login 
-            INNER JOIN user_info ON login.Id_User = user_info.Id_User 
-            INNER JOIN data ON login.Id_User = data.Id_User 
-            SET login.Password = '$password', login.Id_Role_User = '$rol', 
-                user_info.Name_User = '$primernombre', user_info.Last_Name_User = '$primerapellido', user_info.Email_User = '$correo', user_info.Gender_User = '$genero', 
-                data.Height_User = '$altura', data.Weight_User = '$peso', data.Imc_User = '$IMC' 
-            WHERE login.Id_User = '$idviejo'";
+    // Verificar si la contraseña está vacía
+    if (!empty($password)) {
+        // Hashear la nueva contraseña
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Actualizar la contraseña y los otros datos del usuario en la base de datos
+        $sql = "UPDATE login 
+                INNER JOIN user_info ON login.Id_User = user_info.Id_User 
+                INNER JOIN data ON login.Id_User = data.Id_User 
+                SET login.Password = '$hashed_password', 
+                    user_info.Name_User = '$primernombre', user_info.Last_Name_User = '$primerapellido', user_info.Email_User = '$correo', user_info.Gender_User = '$genero', 
+                    data.Height_User = '$altura', data.Weight_User = '$peso', data.Imc_User = '$IMC' 
+                WHERE login.Id_User = '$idviejo'";
+    } else {
+        // Actualizar solo los otros datos del usuario en la base de datos sin la contraseña
+        $sql = "UPDATE login 
+                INNER JOIN user_info ON login.Id_User = user_info.Id_User 
+                INNER JOIN data ON login.Id_User = data.Id_User 
+                SET user_info.Name_User = '$primernombre', user_info.Last_Name_User = '$primerapellido', user_info.Email_User = '$correo', user_info.Gender_User = '$genero', 
+                    data.Height_User = '$altura', data.Weight_User = '$peso', data.Imc_User = '$IMC' 
+                WHERE login.Id_User = '$idviejo'";
+    }
+
+    // Ejecutar la consulta
     $result = mysqli_query($con, $sql);
     if ($result) {
         echo '<script>alert("Datos actualizados"); window.location.href = "crud_users.php";</script>';
@@ -65,7 +80,7 @@ if (isset($_POST['mandar'])) {
         // Mostrar un mensaje de error si la actualización falla
         die(mysqli_error($con));
     }
-} else if (isset($_POST['cancelar'])) {
+} elseif (isset($_POST['cancelar'])) {
     // Redirigir de vuelta a la página de administración de usuarios si se cancela la actualización
     header('location: crud_users.php');
 }
@@ -217,9 +232,9 @@ if (isset($_POST['mandar'])) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-group input-container">
-                                <label class="form-label">Contraseña</label>
+                                <label class="form-label">Contraseña nueva</label>
                                 <input type="password" class="form-control text-light" name="pass"
-                                    placeholder="Ingrese su contraseña" value="<?php echo $password ?>" required>
+                                    placeholder="Ingrese su nueva contraseña" value="">
                             </div>
                         </div>
                     </div>

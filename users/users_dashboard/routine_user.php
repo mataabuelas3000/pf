@@ -80,16 +80,25 @@ if (isset($_GET['id_personal'])) {
             echo '<a href="delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina" style="position: absolute; top: 5px; right: 5px; color: white; font-size: 30px"><i class="bx bx-x"></i></a>';
 
             // Imprimir imagen de la rutina
-            echo '<div class="card-img-top" style="background-image: linear-gradient(to bottom right, #3399ff, #ff66cc); height: 200px;"></div>';
-            echo '<div class="card-body" style="padding: 35px;">';
+            echo '<div class="card-img-top" style="background-image: linear-gradient(to bottom right, #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;
+            border-top-left-radius: 8px; "></div>';
+            echo '<div class="card-body bg-dark" data-bs-theme="dark" style="padding: 35px;';
 
             // Campos para editar nombre y descripción de la rutina
+
             echo '<input type="text" class="card-title" name="updatenombre" value="' . $nombre_rutina . '">';
             echo '<textarea class="card-text" name="updatedescripcion">' . $descripcion_rutina . '</textarea> <br>';
 
             // Enlace para iniciar la rutina y botón para actualizar la rutina
-            echo '<div class="d-flex justify-content-center"><a href="ejercice_user.php?id_personal=' . $id . '&IdRutina=' . $id_rutina . '" style="text-decoration: none; "><box-icon name="play" ></box-icon>Iniciar</a>';
-            echo '<input type="submit" class="btn btn-secondary ml-5" name="updaterutina" value="Actualizar">';
+            
+            echo '<div class="d-flex justify-content-center">';
+            echo '<a href="ejercice_user.php?id_personal=' . $id . '&IdRutina=' . $id_rutina . '" style="text-decoration: none;">
+                <button type="button" class="btn btn-danger" style="cursor: pointer;">
+                    <span>Iniciar</span>
+                </button>
+            </a>
+            ';
+            echo '<input type="submit" class="btn btn-secondary ml-5" style="position: relative; left:-15px" name="updaterutina" value="Actualizar">';
             echo '</div></div></div>';  // Cierre de los divs card, card-body y form
             echo '</form>';  // Cierre del formulario
 
@@ -217,24 +226,40 @@ if (isset($_POST['updaterutina'])) {
 </head>
 <style>
     body{
-        background-color: #202020;  
+        background: #202020;  
+        width: 100%;
+        height: 100%;
+    }
+    .card{
+        background-color: #202020;
+        position: relative;
+        top: 20px;
+    }
+    .card-img-top{
+        border: white solid 1px;
+    }
+    .card-body{
+        border: white solid 1px;
+        padding: 15px;
+        
     }
 </style>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <h5>Rutina</h5>
+            <h5 class="navbar-brand text-light"><strong>Rutinas</strong></h5>
             <a href="../crud_users.php"><input type="button" value="regresar" class="btn btn-danger"></a>
         </div>
     </nav>
-    <div class="card" style="width: 100%;">
+    <div class="card" style='width: 100%'  >
         <div class="container" style="padding: 20px; display: flex; flex-wrap: wrap;  justify-content: center;">
             <form action="" method="post" style="width:30%; margin-right: 20px;">
                 <div class="card"
                     style="border: 1px solid black; width: 100%; padding: 0px; margin-bottom: 20px; margin-right: 0px;  position: relative;">
                     <div
                         style="position: absolute; top: 10px; left: 5%; display: flex; align-items: center; color: white">
-                        <div class="mr-2"></div> <select class="form-select form-select-bg-dark"
+                        <div class="mr-2"></div> 
+                        <select class="form-select form-select-bg-dark"
                             aria-label="Default select example" name="selecciondificultad" style="border-radius: 5px; "
                             required>
                             <option disabled selected>Nivel de Dificultad</option>
@@ -245,13 +270,14 @@ if (isset($_POST['updaterutina'])) {
                         </select>
                     </div>
                     <div
-                        style="position: absolute; top: 70px; left: 38%; display: flex; align-items: center; color: white;font-size: 90px">
-                        <i class='bx bxs-plus-circle bx-flashing-hover'></i>
-                    </div>
-                    <div class="card-img-top"
-                        style="background-image: linear-gradient(to bottom right, #3399ff, #ff66cc); height: 200px;">
-                    </div>
-                    <div class="card-body" style="padding:35px">
+                            style="position: absolute; top: 70px; left: 38%; display: flex; align-items: center; color: white;font-size: 90px">
+                            <!-- Ícono de agregar -->
+                            <i class='bx bxs-plus-circle bx-flashing-hover'></i> <!-- Ícono de más -->
+                        </div>
+                        <div class="card-img-top" style="background-image: linear-gradient(to bottom right,  #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;
+    border-top-left-radius: 8px;">
+                        </div> 
+                    <div class="card-body  bg-dark" data-bs-theme="dark" style="padding:35px">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Nombre</span>
                             <input type="text" class="form-control" name="namerutina" value=""
