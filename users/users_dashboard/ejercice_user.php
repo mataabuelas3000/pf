@@ -286,7 +286,7 @@ if (isset($_POST['agregarejer'])) {
 
     <div class="card bg-dark" style="width: 100%;">
         <div class="card-body">
-            <h3 class="text-light">Mis ejercicios</h3>
+            <h3 class="text-light">Ejercicios</h3>
             <br>
             <div id="ejercicios-lista">
                 <?php

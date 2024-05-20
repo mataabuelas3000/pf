@@ -1,67 +1,7 @@
 <?php
-// Iniciamos la sesión y destruimos cualquier sesión existente para asegurarnos de un inicio limpio.
-session_start();
-session_destroy();
 
-// Incluimos el archivo de conexión a la base de datos.
-include ('C:\xampp\htdocs\pf\database\connect.php');
-
-// Verificamos si se ha enviado el formulario de inicio de sesión.
-if (isset($_POST['enviar'])) {
-    // Obtenemos el ID de usuario y la contraseña proporcionados por el formulario.
-    $id = $_POST['id'];
-    $password = $_POST['password'];
-
-    // Consulta SQL para obtener el hash de contraseña almacenado en la base de datos.
-    $query = 'SELECT Password, Id_Role_User FROM login WHERE Id_User = ?';
-    $statement = $con->prepare($query);
-
-    // Ligamos el parámetro y ejecutamos la consulta.
-    $statement->bind_param('i', $id);
-    $statement->execute();
-    
-    // Obtenemos el resultado de la consulta.
-    $result = $statement->get_result();
-
-    // Verificamos si se encontró el usuario.
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $stored_password = $row['Password'];
-        $rol = $row['Id_Role_User'];
-
-        // Verificamos si la contraseña proporcionada coincide con el hash almacenado.
-        if (password_verify($password, $stored_password)) {
-            // Redirigimos según el rol del usuario.
-            if ($rol == 1) {
-                // Iniciamos la sesión y establecemos la variable de sesión.
-                session_start();
-                $_SESSION['id'] = $id;
-
-                // Redirigimos al dashboard de usuarios.
-                header('Location: dashboard/interface.php');
-                exit;
-            } else if ($rol == 2) {
-                // Iniciamos la sesión y establecemos la variable de sesión.
-                session_start();
-                $_SESSION['id'] = $id;
-
-                // Redirigimos al panel de administración de usuarios.
-                header('Location: users/crud_users.php');
-                exit;
-            }
-        } else {
-            // Si la contraseña no coincide, mostramos un mensaje de error.
-            echo "<script> alert('Contraseña incorrecta'); </script>";
-        }
-    } else {
-        // Si no se encuentra el usuario, mostramos un mensaje de error.
-        echo "<script> alert('El usuario no existe'); </script>";
-    }
-}
-
+include ('C:\xampp\htdocs\pf\star\sesion.php');
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -71,7 +11,7 @@ if (isset($_POST['enviar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
 
 </head>
 
@@ -255,36 +195,12 @@ if (isset($_POST['enviar'])) {
 
 
             <div class="col-lg-6">
-    <div class="card" style="background-color: #ffffff0c; border-radius: 20px; color: white ">
-        <div class="card-body">
-            <form class="p-5">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                <div class="card" style="background-color: #ffffff0c; border-radius: 20px; color: white ">
+                    <div class="card-body map">
+                    <iframe style="border-radius: 10px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.677959239184!2d-75.27047018835216!3d2.9087374545689513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b73ed87208a97%3A0xa861323af6a982ea!2sCl.%2018h%20Sur%20%2332-04%2C%20Neiva%2C%20Huila!5e0!3m2!1ses-419!2sco!4v1716223119581!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="correo" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="correo" placeholder="Correo electrónico">
-                </div>
-                <div class="mb-3">
-                    <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea class="form-control" id="mensaje" rows="3" placeholder="Mensaje"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary d-block mx-auto" style="padding: 8px 35px; color: white; width: fit-content;">Enviar</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
+            </div>
         </div>
     </div>
     <br><br>

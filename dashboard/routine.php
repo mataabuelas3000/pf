@@ -551,7 +551,7 @@ if (isset($_POST['agregarejer'])) {
                         ¡Has completado tu rutina con éxito! ¡Excelente trabajo!
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.reload();">Cerrar</button>
                     </div>
                 </div>
             </div>

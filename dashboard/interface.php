@@ -803,11 +803,11 @@ chatbotCloseButton.addEventListener('click', () => {
     <ul style="list-style-type: none; padding-left: 0;">
         <!-- Lista de información de contacto -->
         <li style="margin-bottom: 10px;"><strong style="color: #343a40;">Teléfono:</strong> <span
-                style="color: #6c757d;">+123456789</span></li> <!-- Elemento de lista: Teléfono -->
+                style="color: #6c757d;">3162352634 - 3155748135</span></li> <!-- Elemento de lista: Teléfono -->
         <li style="margin-bottom: 10px;"><strong style="color: #343a40;">Correo electrónico:</strong> <span
-                style="color: #6c757d;">info@gym.com</span></li> <!-- Elemento de lista: Correo electrónico -->
+                style="color: #6c757d;">Santiago_gonzalezbe@fet.edu.co</span></li> <!-- Elemento de lista: Correo electrónico -->
         <li style="margin-bottom: 10px;"><strong style="color: #343a40;">Dirección:</strong> <span
-                style="color: #6c757d;">Av. Principal #123, Ciudad, País</span></li>
+                style="color: #6c757d;">Calle 18H sur #32-88</span></li>
         <!-- Elemento de lista: Dirección -->
     </ul>
 

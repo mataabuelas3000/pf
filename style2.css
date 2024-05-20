@@ -8,7 +8,6 @@
 body {
   background-color: #202020;
 }
-
 main h1 {
   font-size: 8rem;
   color: #1fa398;
@@ -16,7 +15,6 @@ main h1 {
   letter-spacing: 0.5px;
   margin-bottom: 20px;
 }
-
 h2 {
   font-size: 2rem;
   color: #1fa398;
@@ -24,7 +22,6 @@ h2 {
   letter-spacing: 0.5px;
   margin-bottom: 40px;
 }
-
 a {
   text-decoration: none;
 }
@@ -33,7 +30,7 @@ hr {
   height: 5px;
   border: none;
   border-radius: 10px;
-  width: 120px;
+  width: 190px;
   background: #43c6ac; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -73,7 +70,6 @@ p {
   font-weight: 600;
   transition: background-color 0.3s, border-color 0.3s; /* Transición para el cambio de color de fondo y borde */
 }
-
 .btn:hover {
   color: #1fa398;
   border: 2px solid rgba(255, 255, 255, 0.555);
@@ -100,7 +96,6 @@ p {
   position: relative;
   margin-right: 10px;
 }
-
 .btn1:hover {
   background: #ffffffd7;
   color: #1fa398 !important;
@@ -114,13 +109,12 @@ p {
   right: 0;
   width: 27%;
   height: 600px;
-  background: #6bc4bd49;
+  background: #1a1a1a49;
   border-radius: 20px;
   backdrop-filter: blur(20px);
   display: none;
   color: rgb(255, 255, 255);
 }
-
 .overlay {
   position: fixed;
   top: 0;
@@ -131,7 +125,6 @@ p {
   z-index: 999; /* Asegura que el overlay esté encima de todo */
   display: none; /* Inicialmente oculto */
 }
-
 .container .form {
   width: 100%;
   padding: 80px;
@@ -139,6 +132,7 @@ p {
 .cerrar {
   margin-top: -40px;
   transform: translateX(40px);
+  background-color: #ffffff0c;
   cursor: pointer;
 }
 
@@ -149,7 +143,6 @@ p {
   text-align: center;
   letter-spacing: 0.5px;
 }
-
 .input_box {
   position: relative;
   width: 100%;
@@ -157,7 +150,6 @@ p {
   margin: 40px 0;
   border-bottom: 2px solid rgb(0, 0, 0);
 }
-
 .input_box label {
   position: absolute;
   top: 50%;
@@ -169,7 +161,6 @@ p {
   pointer-events: none;
   transition: 0.5s;
 }
-
 .input_box input[type="number"] {
   appearance: none;
   -moz-appearance: textfield;
@@ -207,7 +198,6 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
-
 .input_box .icon {
   position: absolute;
   right: 8px;
@@ -236,7 +226,6 @@ select {
   font-weight: 600;
   transition: background-color 0.3s, border-color 0.3s; /* Transición para el cambio de color de fondo y borde */
 }
-
 .boton:hover {
   color: #1fa398;
   transition: all 1s ease-out;
@@ -245,15 +234,53 @@ select {
   font-weight: 600;
   cursor: pointer;
 }
-
 option {
   background-color: #eaeaea;
 }
-
 .img-body {
   margin-left: 40px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+/* Animación para mostrar el contenedor de inicio de sesión */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación para ocultar el contenedor de inicio de sesión */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Aplicamos las animaciones a los elementos */
+#login-container {
+  animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#overlay {
+  animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#login-container.cerrar {
+  animation: fadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#overlay.cerrar {
+  animation: fadeOut 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
