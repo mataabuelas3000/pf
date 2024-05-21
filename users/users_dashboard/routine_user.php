@@ -35,7 +35,7 @@ if (isset($_GET['id_personal'])) {
             $dificultad = $row['Id_Difficulty'];
 
             // Imprimir el formulario para cada rutina
-            echo '<form method="post" style="width: 30%; margin-right:20px" >';
+            echo '<form method="post" style="width: 30%; margin-right:20px;" >';
             echo '<div class="card" style="border: 1px solid black; width: 100%; height: 440px; padding: 0px; margin-bottom: 20px; margin-right: 20px; position: relative;">';
             echo '<input type="hidden" name="idrutina" value="' . $id_rutina . '">';
 
@@ -123,6 +123,7 @@ if (isset($_POST['crearrutina'])) {
         echo "<script>alert('Por favor, seleccione la dificultad de la rutina.'); window.history.back();</script>";
         exit;
     }
+    
     // Obtener el último ID de rutina insertado
     $sql_last_routine_id = "SELECT MAX(Id_Routine) AS last_id FROM routine";
     $result_last_routine_id = mysqli_query($con, $sql_last_routine_id);
@@ -224,26 +225,7 @@ if (isset($_POST['updaterutina'])) {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
-<style>
-    body{
-        background: #202020;  
-        width: 100%;
-        height: 100%;
-    }
-    .card{
-        background-color: #202020;
-        position: relative;
-        top: 20px;
-    }
-    .card-img-top{
-        border: white solid 1px;
-    }
-    .card-body{
-        border: white solid 1px;
-        padding: 15px;
-        
-    }
-</style>
+
 <body>
     <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
@@ -274,8 +256,7 @@ if (isset($_POST['updaterutina'])) {
                             <!-- Ícono de agregar -->
                             <i class='bx bxs-plus-circle bx-flashing-hover'></i> <!-- Ícono de más -->
                         </div>
-                        <div class="card-img-top" style="background-image: linear-gradient(to bottom right,  #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;
-    border-top-left-radius: 8px;">
+                        <div class="card-img-top" style="background-image: linear-gradient(to bottom right,  #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;border-top-left-radius: 8px;">
                         </div> 
                     <div class="card-body  bg-dark" data-bs-theme="dark" style="padding:35px">
                         <div class="input-group mb-3">

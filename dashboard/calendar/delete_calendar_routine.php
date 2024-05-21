@@ -42,6 +42,6 @@ if (isset($_GET['id_personal']) && isset($_GET['idRutina']) && isset($_GET['dia'
 }
 
 // Redirigir de vuelta a la interfaz u otra página, incluyendo el id_personal en la URL
-echo '<script>window.location.href = "interface.php#calendar";</script>';
+echo '<script>window.location.href = "../interface.php#calendar";</script>';
 
 ?>

@@ -35,7 +35,7 @@ if (isset($_GET['id']) && isset($_GET['idpersonal'])) {
 
                     echo '</div>';
                 }
-                echo "<a class='mb-1 btn btn-success' href='registrar_rutina.php?id=" . $rutinaID . "&idpersonal=" . $idPersonal . "'>Agregar</a><br>";
+                echo "<a class='mb-1 btn btn-success' href='chatbot/registrar_rutina.php?id=" . $rutinaID . "&idpersonal=" . $idPersonal . "'>Agregar</a><br>";
             } else {
                 echo "<p>No se encontraron ejercicios para esta rutina.</p>";
             }

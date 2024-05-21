@@ -10,8 +10,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background-color: white;
-
+    background-color: #202020;
 }
 
 .form-control {
@@ -54,9 +53,8 @@ body {
   padding: 15px;
   border: 1px solid #ffffff;
   margin-top: 26px;
-  font-size: 15px;
-  color: #b6b6b6;
-}
+  font-size: 20px;
+  }
 
 .input_box {
   position: relative;
@@ -108,4 +106,57 @@ form {
   border-top: 1px solid #111;
   border-left: 1px solid #111;
   border-right: 1px solid #111;
+}
+
+.container{
+  position: relative;
+  top: 100px;
+}
+.form{
+  padding: 35px;
+  border: 2px solid #cccc;
+  border-radius: 8px;
+}
+
+.input-container input::placeholder {
+  color: #b6b6b6;
+}
+.titulo{
+  text-align: center;
+  color:white;
+  font-size: 25px;
+}
+hr{
+  background-color: #ffffff;
+}
+select option {
+color: black;
+/* Color oscuro en hexadecimal */
+}
+.border-danger {
+    border-color: red !important;
+}
+
+.border-success {
+    border-color: green !important;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-container input {
+    padding-right: 70px;
+    /* Ajusta el espacio para el icono */
+
+}
+
+.input-container i {
+    position: absolute;
+    top: 40%;
+    right: 30px;
+}
+
+select option {
+    color: black;
 }

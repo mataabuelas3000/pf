@@ -1,6 +1,6 @@
 <?php
 
-include ('C:\xampp\htdocs\pf\star\sesion.php');
+include ('C:\xampp\htdocs\pf\start\sesion.php');
 ?>
 
 <!DOCTYPE html>
@@ -80,27 +80,28 @@ include ('C:\xampp\htdocs\pf\star\sesion.php');
                 <button name="enviar" class="boton">Ingresar</button>
             </form>
         </div>
-       
     </div>
 
 <main class="container d-flex">
-<div class="container mt-5">
-<h1>GYM JS</h1>
-<h2>El mundo del ejercicio</h2>
-<hr>
-<p>Gym JS es una plataforma interactiva que permite a los usuarios crear, personalizar y seguir rutinas de ejercicio de manera sencilla y eficiente. Con una interfaz intuitiva y funcionalidades avanzadas, Gym JS se adapta tanto a principiantes que buscan orientación como a atletas experimentados que necesitan un seguimiento detallado de su progreso.</p>
+    <div class="container mt-5">
+        <h1>GYM JS</h1>
+        <h2>El mundo del ejercicio</h2>
+        <hr>
+        <p>Gym JS es una plataforma interactiva que permite a los usuarios crear, personalizar y seguir rutinas de ejercicio de manera sencilla y eficiente. Con una interfaz intuitiva y funcionalidades avanzadas, Gym JS se adapta tanto a principiantes que buscan orientación como a atletas experimentados que necesitan un seguimiento detallado de su progreso.</p>
 
-<a class="btn1" href="https://api.whatsapp.com/send?phone=3162352634&text=¡Hola! quiero registrarme" target="_blank">
-    Registrate
-</a>
-<a class="btn" href="#nosotros">
-   Nosotros
-</a>
-</div>
-<div class="img-content">
-<img class="img-principal" src="images/img1.svg" alt="">
-</div>
+        <div class="btn-container">
+            <a class="btn btn1" href="#registrate">
+                Regístrate
+            </a>
+            <a class="btn" href="#nosotros">
+                Nosotros
+            </a>
+        </div>
 
+    </div>
+    <div class="img-content">
+        <img class="img-principal" src="images/img1.svg" alt="">
+    </div>
 </main>
 
 <section id="entrenamiento" class="py-5 my-5 bg-dark" >
@@ -212,7 +213,7 @@ include ('C:\xampp\htdocs\pf\star\sesion.php');
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <script src="script.js"></script>
     <script src="SmoothScroll.js"></script>
 
 </body>

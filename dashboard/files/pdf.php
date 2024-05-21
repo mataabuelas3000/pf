@@ -12,8 +12,8 @@ if (isset($_GET['id'])) {
     $user_result = mysqli_query($con, $user_query);
     $user_info = mysqli_fetch_assoc($user_result);
 
-    // Modifica la consulta SQL para obtener todos los días de la semana y las rutinas asociadas
-    $query = "SELECT d.Id_Day, d.Day, r.Name_Routine, e.Name_Exercise
+    // Modifica la consulta SQL para obtener todos los días de la semana, las rutinas asociadas y los videos de los ejercicios
+    $query = "SELECT d.Id_Day, d.Day, r.Name_Routine, e.Name_Exercise, e.url_video
     FROM days AS d
     LEFT JOIN calendar AS c ON d.Id_Day = c.Id_Day AND c.Id_User = $id
     LEFT JOIN routine AS r ON c.Id_Routine = r.Id_Routine
@@ -34,6 +34,7 @@ if (isset($_GET['id'])) {
         $day = $row['Day'];
         $rutina = $row['Name_Routine'];
         $ejercicio = $row['Name_Exercise'];
+        $url_video = $row['url_video'];
 
         if ($primera_pagina && $day === "Lunes") {
             // Crear instancia de FPDF
@@ -47,7 +48,7 @@ if (isset($_GET['id'])) {
             $pdf->SetTitle('Rutinas de Ejercicio');
         
             // Título centrado
-            $pdf->Cell(0,10,utf8_decode('LLeva tu Rutina a todas partes'),0,1,'C');
+            $pdf->Cell(0,10,utf8_decode('Lleva tu Rutina a todas partes'),0,1,'C');
             $pdf->Ln(); // Salto de línea
         
             // Imprimir información del usuario centrada en la mitad de la página
@@ -67,18 +68,22 @@ if (isset($_GET['id'])) {
                 // Si la rutina tiene el ID 0, significa que es un día de descanso
                 $rutina = "Descanso";
                 $ejercicio = "";
+                $url_video = "";
             } else {
                 // Si la rutina es nula y no tiene el ID 0, significa que no hay rutina asignada
                 $rutina = "No hay rutina asignada";
                 $ejercicio = "";
+                $url_video = "";
             }
         } elseif ($rutina === "0") {
             // Si la rutina tiene el ID 0, también es un día de descanso
             $rutina = "Descanso";
             $ejercicio = "";
+            $url_video = "";
         } elseif ($rutina !== null && $ejercicio === null) {
             // Si la rutina no es nula pero no hay ejercicios asociados
             $ejercicio = "No se han asignado ejercicios";
+            $url_video = "";
         }
 
         // Agrega la rutina y el ejercicio al día correspondiente
@@ -89,7 +94,7 @@ if (isset($_GET['id'])) {
             $rutinas_por_dia[$day][$rutina] = array();
         }
         if (!empty($ejercicio)) {
-            $rutinas_por_dia[$day][$rutina][] = $ejercicio;
+            $rutinas_por_dia[$day][$rutina][] = array('ejercicio' => $ejercicio, 'url_video' => $url_video);
         }
     }
 
@@ -108,9 +113,16 @@ if (isset($_GET['id'])) {
                 $pdf->Cell(0,10,utf8_decode("Rutina: $rutina"),0,1); // Imprimir nombre de la rutina
                 $pdf->SetFont('Arial','',12); // Restaurar la fuente regular para los ejercicios
                 if (!empty($ejercicios)) {
-                    // Imprimir ejercicios en líneas separadas
+                    // Imprimir ejercicios y videos en líneas separadas
                     foreach ($ejercicios as $ejercicio) {
-                        $pdf->Cell(0,10,utf8_decode("- $ejercicio"),0,1);
+                        $pdf->Cell(0,10,utf8_decode("- {$ejercicio['ejercicio']}"),0,1);
+                        if (!empty($ejercicio['url_video'])) {
+                            $pdf->SetFont('Arial','I',10); // Establecer la fuente en cursiva para el URL del video
+                            $pdf->SetTextColor(0, 0, 255); // Cambiar el color de texto a azul para el hipervínculo
+                            $pdf->Cell(0,10,utf8_decode("  Video: {$ejercicio['url_video']}"),0,1, 'L', false, $ejercicio['url_video']);
+                            $pdf->SetFont('Arial','',12); // Restaurar la fuente regular para los ejercicios
+                            $pdf->SetTextColor(0, 0, 0); // Restaurar el color de texto a negro
+                        }
                     }
                 } else {
                     // Si no hay ejercicios, imprimir mensaje correspondiente
@@ -129,4 +141,3 @@ if (isset($_GET['id'])) {
 
 $con->close();
 ?>
-
