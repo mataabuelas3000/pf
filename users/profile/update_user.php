@@ -10,7 +10,7 @@ include('C:\xampp\htdocs\pf\users\files_php\update.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style_update.css">
+    <link rel="stylesheet" href="css/style_update.css">
     <title>actualizar</title>
 </head>
 <body>
@@ -29,7 +29,7 @@ include('C:\xampp\htdocs\pf\users\files_php\update.php');
                 </div>
                 <div class="col-md-6">
                     <div class="form-group input-container">
-                        <label class="form-label">Primer nombre</label>
+                        <label class="form-label">Nombres</label>
                         <input type="text" class="form-control text-light" name="primernombre" onkeypress="return soloLetras(event)" placeholder="Ingrese su nombre" value="<?php echo $primernombre ?>" required>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ include('C:\xampp\htdocs\pf\users\files_php\update.php');
     <div class="mr-5"></div>
     </form>
     </div>
-    <script src="script_update.js"></script>
+    <script src="js/script_update.js"></script>
 </body>
 
 </html>

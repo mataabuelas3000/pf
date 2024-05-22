@@ -1,6 +1,5 @@
 <?php
 include('C:\xampp\htdocs\pf\database\connect.php');
-
 session_start();
 
 // Verificar si no hay una sesión activa de personal o de rutina
@@ -82,8 +81,8 @@ function mostrarejercicios($con, $idRutina)
         $current_grupo = '';
         echo '<div class="container " style="margin-top: 30px;width: 100%;display: flex; flex-wrap: wrap;  justify-content: right;">';
         while ($row = mysqli_fetch_assoc($result)) {
-            $nombregrupo = iconv('ISO-8859-1', 'UTF-8', $row['Name_Group']);
-            $nombreejercicio = iconv('ISO-8859-1', 'UTF-8', $row['Name_Exercise']);
+            $nombregrupo =  $row['Name_Group'];
+            $nombreejercicio = $row['Name_Exercise'];
             $idejercicio = $row['Id_Exercise'];
             $video = $row['url_video'];
             if ($nombregrupo != $current_grupo) {
@@ -269,7 +268,7 @@ if (isset($_POST['agregarejer'])) {
 }
 
 
-function misjercicios($con, $idrutina){
+function misjercicios($con, $idrutina, $ejercicios){
 
     // Verificar si hay ejercicios en la rutina
     if (empty($ejercicios)) {
@@ -283,10 +282,10 @@ function misjercicios($con, $idrutina){
             <form method="post">
                 <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-end align-items-center d-flex" style="background: none;color: white; border: none; cursor: pointer;"></button>
             </form>
-            <div class="card-header" style="background: #13756d">' . utf8_encode($ejercicio['NombreEjercicio']) . '</div>
+            <div class="card-header" style="background: #13756d">' .$ejercicio['NombreEjercicio'] . '</div>
             <div class="card-body" style="background: #178b82">
-                <p>Descripcion: ' . utf8_encode($ejercicio['DescripcionEjercicio']) . '</p>
-                <p>Duracion: ' . utf8_encode($ejercicio['DuracionEjercicio']) . ' Minutos</p>
+                <p>Descripcion: ' . $ejercicio['DescripcionEjercicio'] . '</p>
+                <p>Duracion: ' . $ejercicio['DuracionEjercicio'] . ' Minutos</p>
             </div>
         </div>';
         }
@@ -314,74 +313,69 @@ function modals($con, $idrutina, $ejercicios){
         $totalEjercicios = count($ejercicios);
         // Iterar sobre los ejercicios y mostrarlos
    
-        foreach ($ejercicios as $key => $ejercicio) {
-            $modalId = 'modal' . ($key + 1);
-            echo '<div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-            echo '<div class="modal-dialog modal-fullscreen">';
-            echo '<div class="modal-content">';
-            echo '<div class="modal-header">';
-            echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva "><span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
-            echo '<h1 class="modal-title" id="exampleModalToggleLabel">' . $ejercicio['NombreEjercicio'] . '</h1>';
-            echo '<button type="button" class="btn-close" id="closebtn' . $modalId . '" data-dismiss="modal" aria-label="Close" onclick="limpiarEstado(\'' . $modalId . '\')"></button>';
-            echo '</div>';
-            echo '<div class="modal-body text-center" style="display:flex; align-items: center;justify-content: center ">';
-           
-            echo '<div style="flex-direction: column;"><p style="font-size:30px; margin-bottom: 80px" >' . $ejercicio['DescripcionEjercicio'] . '</p>';
-            echo '<video autoplay muted loop width="900" style="border-radius: 30px;">
-            <source src="'.$ejercicio['Video'].'" type="video/mp4">
-          </video>
-          </div>
-       
-          </div>';
-            echo '<div class="modal-footer">';
-            if ($key < $totalEjercicios - 1) {
-                $nextModalId = 'modal' . ($key + 2);
-                $descansoModalId = 'descansoModal' . ($key + 1);
-                // Ejercicio
-                echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-success" onclick="iniciarCuentaRegresiva(\'' . $modalId . "',  " . ($ejercicio['DuracionEjercicio'] * 60) . ", '" . $nextModalId . '\')">Iniciar</button>';
-                echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerCuentaRegresiva(\'' . $modalId . '\')">Detener</button>';
-                echo '<button type="button" id="btnSiguiente' . $modalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $descansoModalId . '" onclick="miFuncion(\'' . $descansoModalId . '\')">Siguiente</button>';
-                // Descanso
-                echo '<div class="modal fade" id="' . $descansoModalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-                echo '<div class="modal-dialog modal-fullscreen">';
-                echo '<div class="modal-content">';
-                echo '<div class="modal-header">';
-                echo '<div  class="cuenta-regresiva" id="pEliminado' . $descansoModalId . '"><span id="contadorSiguiente' . $descansoModalId . '">60</span></div>';
-                echo '<h1 class="modal-title" id="exampleModalToggleLabel">Descanso</h1>';
-                echo '<button type="button" class="btn-close" id="closebtn' . $descansoModalId . '" data-dismiss="modal" aria-label="Close"></button>';
-                echo '</div>';
-                echo '<div class="modal-body text-center"  style="display:flex; align-items: center;justify-content: center ">';
-                echo '<div style="flex-direction: column;">';
-                echo '<p style="font-size:30px; margin-bottom: 80px" >Es hora de tomar un descanso.</p>';
-                echo '<img src="../images/img4.svg" width="600">
-                </div>
-                </div>';
-                echo '<div class="modal-footer">';
+      foreach ($ejercicios as $key => $ejercicio) {
+    $modalId = 'modal' . ($key + 1);
+    echo '<div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+    echo '<div class="modal-dialog modal-fullscreen">';
+    echo '<div class="modal-content">';
+    echo '<div class="modal-header">';
+    echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva "><span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
+    echo '<h1 class="modal-title" id="exampleModalToggleLabel">' . $ejercicio['NombreEjercicio'] . '</h1>';
+    echo '<button type="button" class="btn-close" id="closebtn' . $modalId . '" data-dismiss="modal" aria-label="Close" onclick="cerrarTodosLosModals()"></button>';
+    echo '</div>';
+    echo '<div class="modal-body text-center" style="display:flex; align-items: center;justify-content: center ">';
+    echo '<div style="flex-direction: column;"><p style="font-size:30px; margin-bottom: 80px" >' . $ejercicio['DescripcionEjercicio'] . '</p>';
+    echo '<video autoplay muted loop width="900" style="border-radius: 30px;">
+    <source src="'.$ejercicio['Video'].'" type="video/mp4">
+    </video>
+    </div>';
+    echo '</div>';
+    echo '<div class="modal-footer">';
+    if ($key < $totalEjercicios - 1) {
+        $nextModalId = 'modal' . ($key + 2);
+        $descansoModalId = 'descansoModal' . ($key + 1);
+        echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-success" onclick="iniciarCuentaRegresiva(\'' . $modalId . "',  " . ($ejercicio['DuracionEjercicio'] * 60) . ", '" . $nextModalId . '\')">Iniciar</button>';
+        echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerCuentaRegresiva(\'' . $modalId . '\')">Detener</button>';
+        echo '<button type="button" id="btnSiguiente' . $modalId . '" class="btn btn-primary d-none" data-toggle="modal" data-target="#' . $descansoModalId . '" onclick="miFuncion(\'' . $descansoModalId . '\')">Siguiente</button>';
+        echo '<div class="modal fade" id="' . $descansoModalId . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+        echo '<div class="modal-dialog modal-fullscreen">';
+        echo '<div class="modal-content">';
+        echo '<div class="modal-header">';
+        echo '<div class="cuenta-regresiva" id="pEliminado' . $descansoModalId . '"><span id="contadorSiguiente' . $descansoModalId . '">60</span></div>';
+        echo '<h1 class="modal-title" id="exampleModalToggleLabel">Descanso</h1>';
+        echo '<button type="button" class="btn-close" id="closebtn' . $descansoModalId . '" onclick="cerrarTodosLosModals()" data-dismiss="modal" aria-label="Close"></button>';
+        echo '</div>';
+        echo '<div class="modal-body text-center" style="display:flex; align-items: center;justify-content: center ">';
+        echo '<div style="flex-direction: column;">';
+        echo '<p style="font-size:30px; margin-bottom: 80px">Es hora de tomar un descanso.</p>';
+        echo '<img src="../../images/img4.svg" width="600">';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="modal-footer">';
+        echo '<button type="button" id="btnSiguiente2' . $descansoModalId . '" class="btn btn-success d-none" style="margin-right: 40px" data-toggle="modal" data-target="#' . $nextModalId . '">Siguiente</button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '<script>';
+        echo 'function miFuncion(descansoModalId) {';
+        echo '  var tiempoRestante = 60;';
+        echo '  var intervalo = setInterval(function() {';
+        echo '    tiempoRestante--;';
+        echo '    document.getElementById("contadorSiguiente" + descansoModalId).textContent = tiempoRestante;';
+        echo '    if (tiempoRestante <= 0) {';
+        echo '      clearInterval(intervalo);';
+        echo '      document.getElementById("btnSiguiente2" + descansoModalId).classList.remove("d-none");';
+        echo '    }';
+        echo '  }, 10);';
+        echo '}';
+        echo '</script>';
+    } else {
+        echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva d-none">Tiempo restante: <span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
+        echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-primary" onclick="iniciarUltimoEjercicio(\'' . $modalId . "', " . ($ejercicio['DuracionEjercicio'] * 60) . ')">Iniciar</button>';
+        echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerUltimoEjercicio(\'' . $modalId . '\')">Detener</button>';
 
-                echo '<button type="button" id="btnSiguiente2' . $descansoModalId . '" class="btn btn-success d-none" style="margin-right: 40px" data-toggle="modal" data-target="#' . $nextModalId . '">Siguiente</button>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '<script>';
-                echo 'function miFuncion(descansoModalId) {';
-                echo '  var tiempoRestante = 60;';
-                echo '  var intervalo = setInterval(function() {';
-                echo '    tiempoRestante--;';
-                echo '    document.getElementById("contadorSiguiente" + descansoModalId).textContent = tiempoRestante;';
-                echo '    if (tiempoRestante <= 0) {';
-                echo '      clearInterval(intervalo);';
-                echo '      document.getElementById("btnSiguiente2" + descansoModalId).classList.remove("d-none");';
-                echo '    }';
-                echo '  }, 10);';
-                echo '}';
-                echo '</script>';
-            } else {
-                // Descanso final (no se muestra el botón de siguiente)
-                echo '<div id="cuentaRegresiva' . $modalId . '" class="cuenta-regresiva d-none">Tiempo restante: <span>' . $ejercicio['DuracionEjercicio'] . ':00</span></div>';
-                echo '<button type="button" id="btnIniciar' . $modalId . '" class="btn btn-primary" onclick="iniciarUltimoEjercicio(\'' . $modalId . "', " . ($ejercicio['DuracionEjercicio'] * 60) . ')">Iniciar</button>';
-                echo '<button type="button" id="btnDetener' . $modalId . '" class="btn btn-danger d-none" onclick="detenerUltimoEjercicio(\'' . $modalId . '\')">Detener</button>';
                  // Mostrar el botón "Felicitaciones" 
                    $sqlCheck = "SELECT Id_Check FROM routine WHERE Id_Routine = ?";
                 $stmtCheck = mysqli_prepare($con, $sqlCheck);
@@ -436,7 +430,7 @@ function modals($con, $idrutina, $ejercicios){
 
                 // Verificar si la hora actual está dentro del rango de 10:00 PM a 5:00 AM
                 if ($completionTime >= '23:10:00' && $hora_deseada_manana <='05:00:00') {
-                    echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM y antes de las 5:00 AM. Espere hasta la hora deseada.'); window.location.href = 'interface.php';</script>";
+                    echo "<script>alert('No se puede comenzar la rutina después de las 10:00 PM y antes de las 5:00 AM. Espere hasta la hora deseada.'); window.location.href = '../interface.php';</script>";
                     exit; // Terminar la ejecución del script para evitar que se continúe con el resto del código
                 } else {
                     // Verificar si la hora actual es mayor que la hora deseada para cambiar el id_check a 0
@@ -476,7 +470,7 @@ function modals($con, $idrutina, $ejercicios){
                 </script>';
              } else {
 
-                 echo "<script>alert('Esta rutina ya está completada.'); window.location.href = 'interface.php';</script>";
+                 echo "<script>alert('Esta rutina ya está completada.'); window.location.href = '../interface.php';</script>";
              }
         
         }

@@ -222,23 +222,15 @@ select {
 .boton {
   width: 100%;
   height: 45px;
-  background: #43c6ac;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right,
-      #191654,
-      #43c6ac);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right,
-      #191654,
-      #43c6ac);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #43c6ac; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #191654, #43c6ac); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #191654, #43c6ac); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border: none;
   outline: none;
   border-radius: 6px;
   color: white;
   font-weight: 600;
-  transition: background-color 0.3s, border-color 0.3s;
-  /* Transición para el cambio de color de fondo y borde */
+  transition: background-color 0.3s, border-color 0.3s; /* Transición para el cambio de color de fondo y borde */
 }
 
 .boton:hover {
@@ -304,3 +296,167 @@ option {
 #overlay.cerrar {
   animation: fadeOut 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+/* Asegúrate de que la imagen sea responsive */
+.logo-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Centrar la imagen en pantallas pequeñas */
+@media (max-width: 992px) {
+  #nosotros .col-lg-6 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+}
+
+.card {
+  background-color: #ffffff0c;
+  border-radius: 20px;
+  color: white;
+}
+
+.card-body {
+  padding: 20px; /* Ajusta el relleno interno */
+  border-radius: 10px; /* Ajusta el radio del borde */
+  background-color: #1a1a1a49; /* Ajusta el color de fondo */
+  color: white; /* Ajusta el color del texto */
+}
+
+.card-body iframe {
+  border-radius: 10px; /* Mantén el radio del borde del iframe */
+  width: 100%; /* Asegura que el iframe ocupe todo el ancho disponible */
+  height: 450px; /* Ajusta la altura del iframe */
+  border: none; /* Quita el borde predeterminado del iframe */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .card-body iframe {
+    height: 300px; /* Reduce la altura del iframe en pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 992px) {
+  .img-content {
+    display: none; /* Oculta la imagen principal en pantallas medianas y pequeñas */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px; /* Ajusta el padding de los contenedores en pantallas pequeñas */
+  }
+
+  main h1 {
+    font-size: 2.5rem; /* Reduce el tamaño del encabezado principal en pantallas pequeñas */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Reduce el tamaño de los subencabezados en pantallas pequeñas */
+  }
+
+  .btn, .btn1 {
+    width: 100%; /* Asegura que los botones ocupen el ancho completo en pantallas pequeñas */
+  }
+}
+@media (max-width: 1200px) {
+  .login-container {
+    width: 50%;
+    padding: 20px;
+  }
+
+  .form h1 {
+    font-size: 2rem;
+  }
+
+  .input_box input {
+    font-size: 1rem;
+  }
+
+  .boton {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .login-container {
+    width: 60%;
+    padding: 15px;
+  }
+
+  .form h1 {
+    font-size: 1.8rem;
+  }
+
+  .input_box input {
+    font-size: 0.95rem;
+  }
+
+  .boton {
+    padding: 9px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    width: 70%;
+    padding: 10px;
+  }
+
+  .form h1 {
+    font-size: 1.5rem;
+  }
+
+  .input_box input {
+    font-size: 0.9rem;
+  }
+
+  .boton {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .form h1 {
+    font-size: 1.2rem;
+  }
+
+  .input_box input {
+    font-size: 0.8rem;
+  }
+
+  .boton {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 320px) {
+  .login-container {
+    width: 100%; /* Cambiado para adaptarse mejor a pantallas más pequeñas */
+    padding: 1px; /* Reducido el padding para un mejor ajuste */
+  }
+
+  .form h1 {
+    font-size: 1rem; /* Reducido aún más el tamaño del título */
+  }
+
+  .input_box input {
+    font-size: 0.7rem; /* Ajustado el tamaño de fuente del input */
+  }
+
+  .boton {
+    padding: 5px; /* Reducido el padding del botón */
+    font-size: 0.7rem; /* Ajustado el tamaño de fuente del botón */
+  }
+}
+

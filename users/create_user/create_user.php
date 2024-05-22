@@ -10,7 +10,7 @@ include ('C:\xampp\htdocs\pf\users\files_php\create.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="style1.css">
+<link rel="stylesheet" href="css/style1.css">
     <title>usuario</title>
 </head>
 <body>
@@ -24,48 +24,27 @@ include ('C:\xampp\htdocs\pf\users\files_php\create.php');
                 <div class="col-md-6">
                     <div class="form-group input-container">
                         <label class="form-label">Id</label>
-                        <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                        <input type="number" oninput="limitInput(this)"  minlength="7" maxlength="10"
                             class="form-control text-light" id="id" name="id" placeholder="Ingrese su Numero de documento" required
                             value="<?php if (isset($_POST['id'])) echo $_POST['id']; ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group input-container">
-                        <label class="form-label">Primer nombre</label>
-                        <input type="text" class="form-control text-light" id="primernombre" name="primernombre"
+                        <label class="form-label">Nombres</label>
+                        <input type="text" class="form-control text-light" id="nombres" name="nombres"
                             placeholder="Ingrese su nombre"
-                            value="<?php if (isset($_POST['primernombre'])) echo $_POST['primernombre']; ?>" required>
+                            value="<?php if (isset($_POST['nombres'])) echo $_POST['nombres']; ?>" required>
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group input-container">
-                        <label class="form-label">Segundo nombre</label>
-                        <input type="text" class="form-control text-light" id="segundonombre" name="segundonombre"
-                            placeholder="Ingrese su Segundo nombre"
-                            value="<?php if (isset($_POST['segundonombre'])) echo $_POST['segundonombre']; ?>">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group input-container">
-                        <label class="form-label">Primer apellido</label>
-                        <input type="text" class="form-control text-light" id="primerapellido" name="primerapellido"
+                        <label class="form-label">Apellidos</label>
+                        <input type="text" class="form-control text-light" id="apellidos" name="apellidos"
                             placeholder="Ingrese su apellido"
-                            value="<?php if (isset($_POST['primerapellido'])) echo $_POST['primerapellido']; ?>"
-                            required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group input-container">
-                        <label class="form-label">Segundo apellido</label>
-                        <input type="text" class="form-control text-light" id="segundoapellido" name="segundoapellido"
-                            placeholder="Ingrese su Segundo apellido"
-                            value="<?php if (isset($_POST['segundoapellido'])) echo $_POST['segundoapellido']; ?>"
+                            value="<?php if (isset($_POST['apellidos'])) echo $_POST['apellidos']; ?>"
                             required>
                     </div>
                 </div>
@@ -122,7 +101,7 @@ include ('C:\xampp\htdocs\pf\users\files_php\create.php');
                         <label class="form-label">Peso</label>
                         <input type="text" step="0.01" class="form-control text-light" id="peso" name="peso"
                             placeholder="Ingrese su peso (##.# o ##.##)"
-                            value="<?php if (isset($_POST['peso'])) echo number_format($_POST['peso'], 1, '.', ''); ?>" required>
+                            value="<?php if (isset($_POST['peso'])) echo number_format($_POST['peso'], 2, '.', ''); ?>" required>
                     </div>
                 </div>
             </div>
@@ -140,9 +119,9 @@ include ('C:\xampp\htdocs\pf\users\files_php\create.php');
             <div class="py-2">
             </div>
             <button type="submit" class="btn btn-light mr-4" name="enviar">Confirmar</button>
-            <a href="crud_users.php"><button type="button" class="btn btn-danger" name="enviar">Cancelar</button></a>
+            <a href="../crud_users.php"><button type="button" class="btn btn-danger" name="enviar">Cancelar</button></a>
         </form>
     </div>
-    <script src="script_create.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

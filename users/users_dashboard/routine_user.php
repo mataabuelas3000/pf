@@ -86,8 +86,9 @@ if (isset($_GET['id_personal'])) {
 
             // Campos para editar nombre y descripción de la rutina
 
-            echo '<input type="text" class="card-title" name="updatenombre" value="' . $nombre_rutina . '">';
-            echo '<textarea class="card-text" name="updatedescripcion">' . $descripcion_rutina . '</textarea> <br>';
+            echo '<input type="text" class="card-text" name="updatenombre" value="' . $nombre_rutina . '">';
+            echo '<input type="text" class="card-text mb-3" name="updatenombre" value="' . $nombre_rutina . '">';
+            echo '<textarea class="card-text mb-4" name="updatedescripcion">' . $descripcion_rutina . '</textarea> <br>';
 
             // Enlace para iniciar la rutina y botón para actualizar la rutina
             
@@ -221,7 +222,7 @@ if (isset($_POST['updaterutina'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="routine_user_styles.css">
+    <link rel="stylesheet" href="routine.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
@@ -233,7 +234,7 @@ if (isset($_POST['updaterutina'])) {
             <a href="../crud_users.php"><input type="button" value="regresar" class="btn btn-danger"></a>
         </div>
     </nav>
-    <div class="card" style='width: 100%'  >
+    <div class="card" style='width: 100%;'  >
         <div class="container" style="padding: 20px; display: flex; flex-wrap: wrap;  justify-content: center;">
             <form action="" method="post" style="width:30%; margin-right: 20px;">
                 <div class="card"

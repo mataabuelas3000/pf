@@ -10,19 +10,18 @@ include ('C:\xampp\htdocs\pf\users\files_php\crud.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jefe</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style_user2.css">
+    <link rel="stylesheet" href="crud.css">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-light"><strong>Jefe</strong></a>
+            <a class="navbar-brand text-light"><strong>Administrador</strong></a>
             <form class="d-flex" role="search" method="post">
                 <div class="input_box">
                     <span class="icon">
                         <box-icon name='search' style="margin-top: 10px"></box-icon>
                     </span>
-                    <input class="search" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                    <input class="search" type="text" 
                         placeholder="Ingrese ID" name="search" aria-label="Search" required>
                 </div>
                 <div class="input_box">
@@ -30,14 +29,14 @@ include ('C:\xampp\htdocs\pf\users\files_php\crud.php');
                         name="buscar">Buscar</button>
                 </div>
             </form>
-            <a href="../auth/logout.php" class="text-light"><input type="button" class="btn btn-danger"
+            <a href="../auth/logout.php" class="text-light"><input type="button" class="btcerrar btn btn-danger"
                     value="Cerrar sesion"></a>
         </div>
     </nav>
     <form method="post">
     <div class="container my-5">
       <button class="btn btn-danger my-5" name="refresh"><a class="text-light">Refresh</a></button>
-      <a href="create_user.php" class="text-light"><input type="button" class="btn btn-light my-5"
+      <a href="create_user/create_user.php" class="text-light"><input type="button" class="btn btn-light my-5"
           value="Agregar Usuario"></a>
     </div>
     </form>
@@ -49,7 +48,7 @@ include ('C:\xampp\htdocs\pf\users\files_php\crud.php');
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="script_users.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -16,7 +16,7 @@ function imprimir($id, $con)
     INNER JOIN data ON user_info.Id_User = data.Id_User 
     INNER JOIN login ON user_info.Id_User = login.Id_User
     INNER JOIN roles ON login.Id_Role_User = roles.Id_Role_User
-    WHERE user_info.Id_User";
+    WHERE user_info.Id_User = $id";
 
     $result = mysqli_query($con, $sql);
 
@@ -105,65 +105,44 @@ function imprimirol($id, $con)
 }
 function imprimirRutina($con, $id)
 {
-    // Consulta para seleccionar las rutinas del usuario
     $sql = "SELECT r.Id_Routine, r.Name_routine, r.Approach_Routine, r.Duration_Routine, d.Difficulty, r.Id_Check
-    FROM routine r
-    LEFT JOIN difficulty d ON r.Id_Difficulty = d.Id_Difficulty
-    WHERE r.Id_User = $id";
+            FROM routine r
+            LEFT JOIN difficulty d ON r.Id_Difficulty = d.Id_Difficulty
+            WHERE r.Id_User = $id";
     $result = mysqli_query($con, $sql);
 
-    // Verificar si la consulta se ejecutó correctamente
     if ($result) {
-        // Contador para las rutinas
         $count = 0;
-        // Iterar sobre cada fila de resultados
         while ($row = mysqli_fetch_assoc($result)) {
-            // Obtener los datos de la rutina
             $id_rutina = $row['Id_Routine'];
             $nombre_rutina = $row['Name_routine'];
             $descripcion_rutina = $row['Approach_Routine'];
             $duracion_rutina = $row['Duration_Routine'];
-            $dificultad = ($row['Difficulty']) ? $row['Difficulty'] : 'Sin dificultad'; // Verificar si hay dificultad o establecer "Sin dificultad"
+            $dificultad = ($row['Difficulty']) ? $row['Difficulty'] : 'Sin dificultad';
             $id_check = $row['Id_Check'];
-            // Imprimir el formulario para cada rutina
-            echo '<form method="post" style="width: 30%; margin-right:20px" >';
-            echo '<div class="card" style="border: 1px solid black; width: 100%; height: 440px; padding: 0px; margin-bottom: 20px; margin-right: 20px; position: relative;">';
 
-            // Selector de dificultad
-            echo '<div style="position: absolute; top: 10px; left: 5%; display: flex; align-items: center;"><div class="mr-2"></div>';
-            echo '<p style="border-radius: 5px; "> '.$dificultad.'';
-            echo '</p></div>';
+            echo '<form method="post" class="col-12 col-md-6 col-lg-4 mb-4">';
+            echo '<div class="card2">';
+            echo '<div class="card-header d-flex justify-content-between align-items-center">';
+            echo '<p>' . $dificultad . '</p>';
+            echo '<a href="routine/delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina text-danger"><i class="bx bx-x"></i></a>';
+            echo '</div>';
 
-            // Imprimir duración de la rutina si está presente
-            if (!empty($duracion_rutina)) {
-                echo '<div style="position: absolute; top: 160px; left: 60%; display: flex; align-items: center; "><box-icon name="stopwatch" class="reloj"></box-icon><div class="mr-2"></div> ' . $duracion_rutina . ' Minutos</div>';
-            }
-
-            // Enlace para eliminar la rutina
-            echo '<a href="routine/delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina" style="position: absolute; top: 5px; right: 5px; color: white; font-size: 30px"><i class="bx bx-x"></i></a>';
-
-            // Imprimir imagen de la rutina
-            echo '<div class="card-img-top" style="background-image: linear-gradient(to bottom right, #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;
-            border-top-left-radius: 8px; "></div>';
-            echo '<div class="card-body" style="padding: 35px;">';
-
-            // Campos para editar nombre y descripción de la rutina
-            echo '<p class="card-title">' . $nombre_rutina . '</p>';
-            echo '<p >' . $descripcion_rutina . '</p> <br>';
+            echo '<div class="card-img-top bg-gradient-primary-to-secondary" style="height: 200px;"></div>';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' . $nombre_rutina . '</h5>';
+            echo '<p>' . $descripcion_rutina . '</p>';
+            echo '<p><box-icon name="stopwatch"></box-icon> ' . $duracion_rutina . ' Minutos</p>';
 
             $bloquearEnlace = ($id_check == 1) ? 'disabled' : '';
-            // Enlace para iniciar la rutina y botón para actualizar la rutina
-                echo '<div>
-                <form method="post">
-                <input type="hidden" name="id" value="'.$id.'">
-                <input type="hidden" name="idrutina" value="'.$id_rutina.'">
-                <button type="submit" name="openroutine" class="btn btn-primary" style="margin-right: 10px;'.$bloquearEnlace.'">Iniciar</button>
-                </form>';
-                echo '</div>
-            </div>
-            </div>';
-            // Cierre de los divs card, card-body y form
-            echo '</form>'; // Cierre del formulario
+            echo '<form method="post">';
+            echo '<input type="hidden" name="id" value="' . $id . '">';
+            echo '<input type="hidden" name="idrutina" value="' . $id_rutina . '">';
+            echo '<button type="submit" name="openroutine" class="btn btn-primary" ' . $bloquearEnlace . '>Iniciar</button>';
+            echo '</form>';
+            echo '</div>';
+            echo '</div>';
+            echo '</form>';
 
             $count++;
         }

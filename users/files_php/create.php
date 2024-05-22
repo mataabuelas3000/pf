@@ -5,10 +5,8 @@ $con->set_charset('utf8');
 if (isset($_POST['enviar'])) {
     // Obtener los datos del formulario
     $id = $_POST['id'];
-    $primernombre = $_POST['primernombre'];
-    $segundonombre = $_POST['segundonombre'];
-    $primerapellido = $_POST['primerapellido'];
-    $segundoapellido = $_POST['segundoapellido'];
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
     $correo = $_POST['correo'];
     $genero = $_POST['genero'];
     $contrasena = $_POST['contraseña'];
@@ -62,7 +60,7 @@ if (!preg_match('/^\d{2}\.\d{2}$/', $peso)) {
         }
 
         // Insertar en la tabla 'user_info'
-        $sql_user_info = "INSERT INTO user_info (Id_User, Name_User, Last_Name_User, Email_User, Gender_User) VALUES ('$id', '$primernombre $segundonombre', '$primerapellido $segundoapellido', '$correo', '$genero')";
+        $sql_user_info = "INSERT INTO user_info (Id_User, Name_User, Last_Name_User, Email_User, Gender_User) VALUES ('$id', '$nombres', '$apellidos', '$correo', '$genero')";
         $result_user_info = mysqli_query($con, $sql_user_info);
 
         if ($result_user_info) {
@@ -82,7 +80,7 @@ if (!preg_match('/^\d{2}\.\d{2}$/', $peso)) {
             $result_data = mysqli_query($con, $sql_data);
 
             if ($result_data) {
-                echo '<script>alert("Usuario insertado correctamente en la tabla data."); window.location.href = "crud_users.php";</script>';
+                echo '<script>alert("Usuario insertado correctamente en la tabla data."); window.location.href = "../crud_users.php";</script>';
             } else {
                 echo "Error al insertar en la tabla 'data': " . mysqli_error($con) . "<br>";
             }

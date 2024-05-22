@@ -160,28 +160,6 @@ inputs.forEach(function(input) {
     });
 });
 
-
-$(function() {
-    $("#ejercicios-lista").sortable({
-        handle: '.draggable-handle', // especifica que el icono es el mango para arrastrar
-        update: function(event, ui) {
-            // Obtener el nuevo orden de los ejercicios
-            var nuevoOrden = $(this).sortable('toArray').toString();
-
-            // Almacenar el nuevo orden en el almacenamiento local
-            localStorage.setItem('nuevoOrden', nuevoOrden);
-        }
-    });
-
-    var ordenGuardado = localStorage.getItem('nuevoOrden');
-    if (ordenGuardado) {
-        var ejerciciosLista = $("#ejercicios-lista");
-        var ejercicios = ordenGuardado.split(',');
-        for (var i = 0; i < ejercicios.length; i++) {
-            var ejercicio = $("#" + ejercicios[i]);
-            ejerciciosLista.append(ejercicio);
-        }
-    }
-
-    $("#ejercicios-lista").disableSelection();
-});
+function cerrarTodosLosModals() {
+    $('.modal').modal('hide'); // Cierra todos los modales usando jQuery
+}

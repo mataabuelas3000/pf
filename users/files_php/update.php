@@ -74,7 +74,7 @@ if (isset($_POST['mandar'])) {
     // Ejecutar la consulta
     $result = mysqli_query($con, $sql);
     if ($result) {
-        echo '<script>alert("Datos actualizados"); window.location.href = "crud_users.php";</script>';
+        echo '<script>alert("Datos actualizados"); window.location.href = "../crud_users.php";</script>';
         exit;
     } else {
         // Mostrar un mensaje de error si la actualización falla
@@ -82,6 +82,6 @@ if (isset($_POST['mandar'])) {
     }
 } elseif (isset($_POST['cancelar'])) {
     // Redirigir de vuelta a la página de administración de usuarios si se cancela la actualización
-    header('location: crud_users.php');
+    header('location: ../crud_users.php');
 }
 ?>

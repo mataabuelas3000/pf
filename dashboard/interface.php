@@ -10,11 +10,14 @@ include('files/index.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
     <title>GYM</title>
 </head>
 
 <body>
+    <div class="box-menu" id="box-menu">
+    <i class='bx bx-menu' style="font-size: 35px"></i>
+    </div>
     <nav class="sidebar" id="sidebar">
         <!-- Logo de usuario -->
         <a href="#info" class="nav-link buton-info " onclick="setActiveLink(this); openTab('info');">
@@ -48,7 +51,7 @@ include('files/index.php');
             </a>
         </div>
     </nav>
-
+    <div class="overlay" id="overlay"></div>
     <!-- Widget del chatbot -->
     <div id="boton-chatbot">
         <i class='bx bxs-chat btn'></i>
@@ -195,50 +198,39 @@ include('files/index.php');
 
     <div class="py-4"></div> <!-- Espacio vertical -->
     <div class="card routine-card mb-5">
-        <div class="card-body" style='width: 110%'>
-            <div id="container-rutina" class="tab-content container-others container" style="padding: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="width:30%; margin-right: 20px;">
-                    <!-- Formulario -->
-                    <div class="card" style="border: 1px solid black; width: 100%; padding: 0px; margin-bottom: 20px; margin-right: 0px;  position: relative;">
-                        <!-- Tarjeta del formulario -->
-                        <div style="position: absolute; top: 10px; left: 5%; display: flex; align-items: center; color: white">
-                            <!-- Selector de dificultad -->
-                            <div class="mr-2"></div>
-                            <select class="form-select form-select-bg-dark" aria-label="Default select example" name="selecciondificultad" style="border-radius: 5px;" required>
-                                <!-- Menú desplegable -->
-                                <option disabled selected>Nivel de Dificultad</option> <!-- Opción por defecto -->
-                                <option value="">Sin dificultad</option> <!-- Opciones de dificultad -->
-                                <option value="1">Facil</option>
-                                <option value="2">Intermedio</option>
-                                <option value="3">Avanzado</option>
-                            </select>
-                        </div>
-                        <div style="position: absolute; top: 70px; left: 38%; display: flex; align-items: center; color: white;font-size: 90px">
-                            <!-- Ícono de agregar -->
-                            <i class='bx bxs-plus-circle bx-flashing-hover'></i> <!-- Ícono de más -->
-                        </div>
-                        <div class="card-img-top" style="background-image: linear-gradient(to bottom right,  #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px; border-top-left-radius: 8px;"></div> <!-- Imagen de fondo -->
-                        <div class="card-body" style="padding:35px">
-                            <!-- Cuerpo de la tarjeta del formulario -->
-                            <div class="input-group mb-3">
-                                <!-- Grupo de entrada para el nombre de la rutina -->
-                                <span class="input-group-text" id="basic-addon1">Nombre</span> <!-- Etiqueta del nombre -->
-                                <input type="text" class="form-control" name="namerutina" value="<?php if (isset($_POST['namerutina'])) echo $_POST['namerutina']; ?>" required> <!-- Entrada para el nombre de la rutina -->
-                            </div>
-                            <div class="input-group mb-3">
-                                <!-- Grupo de entrada para la descripción de la rutina -->
-                                <span class="input-group-text">Descripcion</span> <!-- Etiqueta de la descripción -->
-                                <textarea class="form-control" name="descripcion" required><?php if (isset($_POST['descripcion'])) echo $_POST['descripcion']; ?></textarea> <!-- Área de texto para la descripción -->
-                            </div>
-                            <input class="btn btn-secondary" type="submit" value="Crear" name="crearrutina"> <!-- Botón para crear la rutina -->
-                        </div>
+    <div class="card-body routine-body">
+        <div id="container-rutina" class="tab-content container2">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card2">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <select class="form-select" name="selecciondificultad" required>
+                            <option disabled selected>Nivel de Dificultad</option>
+                            <option value="">Sin dificultad</option>
+                            <option value="1">Facil</option>
+                            <option value="2">Intermedio</option>
+                            <option value="3">Avanzado</option>
+                        </select>
                     </div>
-                </form>
-                <!-- Rutinas existentes -->
-                <?php
-                imprimirRutina($con, $id);  // Función para imprimir las rutinas existentes
-                ?>
-            </div>
+                    <div class="card-img-top bg-gradient-primary-to-secondary d-flex justify-content-center align-items-center" style="height: 200px;">
+                        <i class='bx bxs-plus-circle bx-flashing-hover'></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="input-group-text">Nombre</span>
+                            <input type="text" class="form-control" name="namerutina" required>
+                        </div>
+                        <div class="mb-3">
+                            <span class="input-group-text">Descripcion</span>
+                            <textarea class="form-control" name="descripcion" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" name="crearrutina">Crear</button>
+                    </div>
+                </div>
+            </form>
+            <?php imprimirRutina($con, $id); ?>
+        </div>
+    
+
 
             <div class="saas" id="calendar">
                 <div class="card-body tab-content" id="container-calendario" style="display:none; ">
@@ -323,7 +315,7 @@ include('files/index.php');
         </div>
     </div>
 </div>   
-<script src="script.js">
+<script src="js.js">
 </script>
 
     <script type="text/javascript" src="jspdf.min.js"></script>
@@ -334,8 +326,6 @@ include('files/index.php');
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

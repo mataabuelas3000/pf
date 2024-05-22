@@ -49,7 +49,7 @@ if (isset($_GET['deleteid'])) {
             // Verificar si se eliminaron los registros de las otras tablas correctamente
             if ($result_data && $result_user_info && $result_login) {
                 // Redirigir a la página de administración de usuarios
-                echo '<script>alert("Persona eliminada correctamente"); window.location.href = "crud_users.php";</script>';
+                echo '<script>alert("Persona eliminada correctamente"); window.location.href = "../crud_users.php";</script>';
                 exit;
             } else {
                 // Si hubo un error al eliminar de alguna de las otras tablas, mostrar el mensaje de error

@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
     $user_info = mysqli_fetch_assoc($user_result);
 
     // Modifica la consulta SQL para obtener todos los días de la semana, las rutinas asociadas y los videos de los ejercicios
-    $query = "SELECT d.Id_Day, d.Day, r.Name_Routine, e.Name_Exercise, e.url_video
+    $query = "SELECT d.Id_Day, d.Day, r.Name_Routine, e.Name_Exercise, e.url_video, e.url_image
     FROM days AS d
     LEFT JOIN calendar AS c ON d.Id_Day = c.Id_Day AND c.Id_User = $id
     LEFT JOIN routine AS r ON c.Id_Routine = r.Id_Routine
@@ -35,6 +35,7 @@ if (isset($_GET['id'])) {
         $rutina = $row['Name_Routine'];
         $ejercicio = $row['Name_Exercise'];
         $url_video = $row['url_video'];
+        $url_image = $row['url_image'];
 
         if ($primera_pagina && $day === "Lunes") {
             // Crear instancia de FPDF
@@ -50,6 +51,13 @@ if (isset($_GET['id'])) {
             // Título centrado
             $pdf->Cell(0,10,utf8_decode('Lleva tu Rutina a todas partes'),0,1,'C');
             $pdf->Ln(); // Salto de línea
+
+            // Agregar logo centrado
+            $logoPath = '../../images/Logo.jpg';
+            $logoWidth = 50; // Ancho deseado para el logo
+            $logoX = ($pdf->GetPageWidth() - $logoWidth) / 2; // Calcular la posición X para centrar el logo
+            $pdf->Image($logoPath, $logoX, $pdf->GetY(), $logoWidth);
+            $pdf->Ln(20); // Ajustar la posición después de agregar el logo
         
             // Imprimir información del usuario centrada en la mitad de la página
             $pdf->SetY($pdf->GetPageHeight()/2 - 10);
@@ -94,7 +102,7 @@ if (isset($_GET['id'])) {
             $rutinas_por_dia[$day][$rutina] = array();
         }
         if (!empty($ejercicio)) {
-            $rutinas_por_dia[$day][$rutina][] = array('ejercicio' => $ejercicio, 'url_video' => $url_video);
+            $rutinas_por_dia[$day][$rutina][] = array('ejercicio' => $ejercicio,'url_image' => $url_image);
         }
     }
 
@@ -116,12 +124,16 @@ if (isset($_GET['id'])) {
                     // Imprimir ejercicios y videos en líneas separadas
                     foreach ($ejercicios as $ejercicio) {
                         $pdf->Cell(0,10,utf8_decode("- {$ejercicio['ejercicio']}"),0,1);
-                        if (!empty($ejercicio['url_video'])) {
-                            $pdf->SetFont('Arial','I',10); // Establecer la fuente en cursiva para el URL del video
-                            $pdf->SetTextColor(0, 0, 255); // Cambiar el color de texto a azul para el hipervínculo
-                            $pdf->Cell(0,10,utf8_decode("  Video: {$ejercicio['url_video']}"),0,1, 'L', false, $ejercicio['url_video']);
-                            $pdf->SetFont('Arial','',12); // Restaurar la fuente regular para los ejercicios
-                            $pdf->SetTextColor(0, 0, 0); // Restaurar el color de texto a negro
+                        if (!empty($ejercicio['url_image'])) {
+                            $url = $ejercicio['url_image'];
+                            $extension = strtolower(pathinfo($url, PATHINFO_EXTENSION));
+                            if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                                // Si la URL es una imagen, agregar la imagen al PDF
+                                $imgWidth = 50; // Ancho deseado para la imagen
+                                $imgX = ($pdf->GetPageWidth() - $imgWidth) / 2; // Calcular la posición X para centrar la imagen
+                                $pdf->Image($url, $imgX, $pdf->GetY(), $imgWidth);
+                                $pdf->Ln(52); // Ajustar la posición después de agregar la imagen
+                            }
                         }
                     }
                 } else {

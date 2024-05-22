@@ -90,7 +90,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
         <p>Gym JS es una plataforma interactiva que permite a los usuarios crear, personalizar y seguir rutinas de ejercicio de manera sencilla y eficiente. Con una interfaz intuitiva y funcionalidades avanzadas, Gym JS se adapta tanto a principiantes que buscan orientación como a atletas experimentados que necesitan un seguimiento detallado de su progreso.</p>
 
         <div class="btn-container">
-            <a class="btn btn1" href="#registrate">
+            <a class="btn btn1" href="https://api.whatsapp.com/send?phone=3162352634&text=¡Hola! quiero registrarme" target="_blank">
                 Regístrate
             </a>
             <a class="btn" href="#nosotros">

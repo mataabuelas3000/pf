@@ -226,3 +226,49 @@ window.addEventListener('load', function() {
         openTab('info');
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const boxMenu = document.getElementById('box-menu');
+    const sidebar = document.getElementById('sidebar');
+
+    // Función para abrir el sidebar
+    function openSidebar() {
+        sidebar.style.display = 'block';
+        setTimeout(() => {
+            sidebar.classList.add('open');
+            sidebar.classList.remove('close');
+        }, 10); // Pequeño retraso para permitir que el navegador aplique la transición
+    }
+
+    // Función para cerrar el sidebar
+    function closeSidebar() {
+        sidebar.classList.add('close');
+        sidebar.classList.remove('open');
+        // Esperar a que termine la animación antes de ocultar el sidebar
+        setTimeout(() => {
+            sidebar.style.display = 'none';
+        }, 300); // Debe coincidir con la duración de la transición en CSS
+    }
+
+    // Event listener para abrir el sidebar al hacer clic en el icono del menú
+    boxMenu.addEventListener('click', function(event) {
+        event.stopPropagation(); // Evitar que el clic en el botón de menú cierre el sidebar
+        if (sidebar.style.display === 'block' && sidebar.classList.contains('open')) {
+            closeSidebar(); // Si el sidebar está abierto, ciérralo
+            boxMenu.style.display = 'block'; // Volver a mostrar el botón de menú
+        } else {
+            openSidebar(); // Si el sidebar está cerrado, ábrelo
+            boxMenu.style.display = 'none'; // Ocultar el botón de menú
+        }
+    });
+
+    // Event listener para cerrar el sidebar cuando se hace clic fuera de él
+    document.addEventListener('click', function(event) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        if (!isClickInsideSidebar) {
+            closeSidebar(); // Cerrar el sidebar si el clic no está dentro de él
+            boxMenu.style.display = 'block'; // Volver a mostrar el botón de menú
+        }
+    });
+});

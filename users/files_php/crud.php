@@ -27,7 +27,7 @@ function mostrar($con)
     INNER JOIN data ON user_info.Id_User = data.Id_User 
     INNER JOIN login ON user_info.Id_User = login.Id_User
     INNER JOIN roles ON login.Id_Role_User = roles.Id_Role_User
-    WHERE user_info.Id_User LIKE '%$search%'";
+    WHERE user_info.Id_User LIKE '%$search%' OR user_info.Name_User LIKE '%$search%' OR user_info.Last_Name_User LIKE '%$search%'";
 
 // Ejecutar la consulta
 $result = mysqli_query($con, $sql);
@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
           echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
           <div class="card-body">
-            <h5 class="card-title text-light">Cliente: ' . $id . '</h5>
+          <h5 class="card-title text-light">' . $nombre . ' - '.$id.'</h5>
             <div class="py-2">
             </div>
             <button type="button" class="btn btn-light  detalles toggle-details ">Mostrar Detalles</button> 
@@ -90,7 +90,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
           <div class="col-12 ">
           <a href="users_dashboard/routine_user.php?id=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
-          <a href="update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
+          <a href="profile/update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
           <a href="#" class="text-light"  onclick="confirmacion(' . $id . ')""><input type="button" class="btn btn-danger" id="delete" value="Eliminar"></a>
           
           </div>
@@ -140,7 +140,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
           echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
           <div class="card-body">
-            <h5 class="card-title text-light">Cliente: ' . $id . '</h5>
+          <h5 class="card-title text-light">' . $nombre . ' - '.$id.'</h5>
             <div class="py-2">
             </div>
             <button type="button" class="btn btn-light  detalles toggle-details">Mostrar Detalles</button> 
@@ -180,7 +180,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
           <div class="col-12 ">
           <a href="users_dashboard/routine_user.php?id=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
-          <a href="update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
+          <a href="profile/update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
           <a href="#" class="text-light"  onclick="confirmacion(' . $id . ')""><input type="button" class="btn btn-danger" id="delete" value="Eliminar"></a>
           
           </div>
@@ -225,9 +225,9 @@ while ($row = mysqli_fetch_assoc($result)) {
   $peso = $row['Weight_User'];
   $imc = $row['Imc_User'];
 
-          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
+          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%; ">
           <div class="card-body">
-            <h5 class="card-title text-light">Cliente: ' . $id . '</h5>
+            <h5 class="card-title text-light">' . $nombre . ' - '.$id.'</h5>
             <div class="py-2">
             </div>
             <button type="button" class="btn btn-light  detalles toggle-details">Mostrar Detalles</button> 
@@ -268,7 +268,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
           <div class="col-12 ">
           <a href="users_dashboard/routine_user.php?id_personal=' . $id . '" class="text-light"><input type="button" class="btn btn-light mr-3" value="Rutinas"></a>
-          <a href="update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-light mr-3" value="Actualizar"></a>
+          <a href="profile/update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-light mr-3" value="Actualizar"></a>
           <a href="#" class="text-light"  onclick="confirmacion(' . $id . ')""><input type="button" class="btn btn-danger" id="delete" value="Eliminar"></a>
           
           </div>
