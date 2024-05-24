@@ -48,7 +48,6 @@ if (!preg_match('/^\d{2}\.\d{2}$/', $peso)) {
     $result_login = mysqli_query($con, $sql_login);
 
     if ($result_login) {
-        echo "Usuario insertado correctamente en la tabla 'login'.<br>";
 
         // Verificar si el ID ya existe en la tabla 'user_info'
         $check_user_info = "SELECT * FROM user_info WHERE Id_User = '$id'";
@@ -64,7 +63,6 @@ if (!preg_match('/^\d{2}\.\d{2}$/', $peso)) {
         $result_user_info = mysqli_query($con, $sql_user_info);
 
         if ($result_user_info) {
-            echo "Usuario insertado correctamente en la tabla 'user_info'.<br>";
 
             // Verificar si el ID ya existe en la tabla 'data'
             $check_data = "SELECT * FROM data WHERE Id_User='$id'";
@@ -79,9 +77,7 @@ if (!preg_match('/^\d{2}\.\d{2}$/', $peso)) {
             $sql_data = "INSERT INTO data (Id_User, Height_User, Weight_User, Imc_User) VALUES ('$id', $altura, $peso, $imc)";
             $result_data = mysqli_query($con, $sql_data);
 
-            if ($result_data) {
-                echo '<script>alert("Usuario insertado correctamente en la tabla data."); window.location.href = "../crud_users.php";</script>';
-            } else {
+            if (!$result_data) {
                 echo "Error al insertar en la tabla 'data': " . mysqli_error($con) . "<br>";
             }
         } else {

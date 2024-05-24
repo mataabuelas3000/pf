@@ -33,32 +33,32 @@ rangoPrecio.addEventListener("input", function() {
 var productos = [{
         nombre: "camiseta",
         imagen: "../images/camiseta.jpg",
-        precio: 20.0,
+        precio: 20000,
     },
     {
         nombre: "licras",
         imagen: "../images/licras.jpg",
-        precio: 30.0,
+        precio: 30000,
     },
     {
         nombre: "sudaderas",
         imagen: "../images/sudadera.jpg",
-        precio: 25.0,
+        precio: 25000,
     },
     {
         nombre: "suplementos",
         imagen: "../images/suplementos.jpg",
-        precio: 20.0,
+        precio: 20000,
     },
     {
         nombre: "mancuernas",
         imagen: "../images/mancuernas.jpg",
-        precio: 30.0,
+        precio: 30000,
     },
     {
         nombre: "tennis",
         imagen: "../images/zapatos.jpg",
-        precio: 25.0,
+        precio: 25000,
     },
 ];
 
@@ -116,7 +116,8 @@ function mostrarProductos(productosAMostrar) {
 
             var pPrecio = document.createElement("p");
             pPrecio.classList.add("card-text");
-            pPrecio.textContent = "Precio: $" + producto.precio.toFixed(2);
+            pPrecio.textContent = "Precio: $" + producto.precio.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
 
             var btnComprar = document.createElement("button");
             btnComprar.classList.add("btn", "btn-primary", "mt-4");
@@ -171,6 +172,9 @@ document.getElementById("rangoPrecio").addEventListener("input", function() {
     });
     mostrarProductos(productosFiltrados);
 });
+
+
+
 
 const toggleButtons = document.querySelectorAll('.toggle-details');
 

@@ -11,7 +11,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -49,16 +49,15 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
     </div>
   </div>
 </nav>
-
 <div class="overlay" id="overlay"></div>
-    <div class="container login-container" style="display:none" id="login-container" >
-        <div class="form">
-        <div class="cerrar d-flex justify-content-end" id="cerrar">
-        <box-icon name='x' color='#fff'></box-icon>
-          </div>
-            <h1>Iniciar Sesión</h1>
-            <br>
-            <form method="post">
+<div class="container login-container" style="display:none" id="login-container">
+    <div class="form">
+        <div class="cerrar d-flex justify-content-end">
+            <box-icon name='x' color='#fff' id="cerrar-login"></box-icon>
+        </div>
+        <h1>Iniciar Sesión</h1>
+        <br>
+        <form method="post">
                 <div class="input_box">
                     <span class="icon">
                         <box-icon color='#fff' name='id-card'></box-icon>
@@ -73,14 +72,75 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
                     </span>
                     <input type="password" name="password" placehorder="Ingrese contraseña" required>
                     <label>Contraseña</label>
+                    
                 </div>
                 <input type="checkbox" name="show_password" id="show_password"> Mostrar Contraseña
                 <br><br>
                 <br>
                 <button name="enviar" class="boton">Ingresar</button>
+            
             </form>
-        </div>
     </div>
+</div>
+
+<div class="container register-container" style="display:none" id="register-container">
+    <div class="form">
+        <div class="cerrar d-flex justify-content-end">
+            <box-icon name='x' color='#fff' id="cerrar-register"></box-icon>
+        </div>
+        <h1>Registrate</h1>
+        <br>
+        <form method="post">
+                <div class="input_box">
+                    <span class="icon">
+                        <box-icon color='#fff' name='id-card'></box-icon>
+                    </span>
+                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
+                        placehorder="Ingrese cedula" required>
+                    <label>Cedula</label>
+                </div>
+                <div class="input_box">
+                    <span class="icon">
+                        <box-icon color='#fff' name='id-card'></box-icon>
+                    </span>
+                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
+                        placehorder="Ingrese cedula" required>
+                    <label>Nombres</label>
+                </div>
+                <div class="input_box">
+                    <span class="icon">
+                        <box-icon color='#fff' name='id-card'></box-icon>
+                    </span>
+                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
+                        placehorder="Ingrese cedula" required>
+                    <label>Cedula</label>
+                </div>
+                <div class="input_box">
+                    <span class="icon">
+                        <box-icon color='#fff' name='id-card'></box-icon>
+                    </span>
+                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
+                        placehorder="Ingrese cedula" required>
+                    <label>Cedula</label>
+                </div>
+                <div class="input_box">
+                    <span class="icon">
+                        <box-icon name='lock-alt' color="#fff"></box-icon>
+                    </span>
+                    <input type="password" name="password" placehorder="Ingrese contraseña" required>
+                    <label>Contraseña</label>
+                    
+                </div>
+                <input type="checkbox" name="show_password" id="show_password"> Mostrar Contraseña
+                <br><br>
+                <br>
+                <button name="enviar" class="boton">Ingresar</button>
+            
+            </form>
+    </div>
+</div>
+
+
 
 <main class="container d-flex">
     <div class="container mt-5">
@@ -90,7 +150,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
         <p>Gym JS es una plataforma interactiva que permite a los usuarios crear, personalizar y seguir rutinas de ejercicio de manera sencilla y eficiente. Con una interfaz intuitiva y funcionalidades avanzadas, Gym JS se adapta tanto a principiantes que buscan orientación como a atletas experimentados que necesitan un seguimiento detallado de su progreso.</p>
 
         <div class="btn-container">
-            <a class="btn btn1" href="https://api.whatsapp.com/send?phone=3162352634&text=¡Hola! quiero registrarme" target="_blank">
+            <a class="btn " href="#"  id="register-link">
                 Regístrate
             </a>
             <a class="btn" href="#nosotros">
@@ -124,43 +184,8 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
 </section>
 
 
-<section id="planes" class="py-5 my-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Planes</h2>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card bg-dark" data-bs-theme="dark">
-                    <div class="card-body">
-                        <h5 class="card-title">Plan Principiante</h5>
-                        <p class="card-text">Este programa está diseñado para aquellos que están dando sus primeros pasos en el mundo del fitness y desean establecer una base sólida para un estilo de vida más activo y saludable.</p>
-                        <a href="#" class="">Más información</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card bg-dark" data-bs-theme="dark">
-                    <div class="card-body">
-                        <h5 class="card-title">Plan Perdida de Peso</h5>
-                        <p class="card-text">Este programa busca quemar grasa, tonificar el cuerpo y mejorar la salud en general con entrenamiento cardiovascular, ejercicios de fuerza y sesiones de entrenamiento funcional.</p>
-                        <a href="#" class="">Más información</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card bg-dark" data-bs-theme="dark">
-                    <div class="card-body">
-                        <h5 class="card-title">Plan Ganancia</h5>
-                        <p class="card-text">Este programa fortalece y tonifica el cuerpo mediante ejercicios de fuerza para el crecimiento muscular, combinados con una dieta alta en proteínas.</p>
-                        <a href="#" class="">Más información</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-
-<section id="nosotros" class="py-5 my-5 bg-dark">
+<section id="nosotros" class="py-5 my-5">
     <div class="container">
         <h2 class="text-center mb-4">Nosotros</h2>
         <div class="row">
@@ -179,7 +204,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
 
 
 
-<section id="contacto" class="py-5 my-5">
+<section id="contacto" class="py-5 my-5 bg-dark">
     <div class="container">
         <h2 class="text-center " style="margin-bottom: 130px">Contacto</h2>
         <div class="row">
@@ -214,6 +239,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script src="index.js"></script>
     <script src="SmoothScroll.js"></script>
 
 </body>

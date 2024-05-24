@@ -33,32 +33,32 @@ rangoPrecio.addEventListener("input", function() {
 var productos = [{
         nombre: "camiseta",
         imagen: "../images/camiseta.jpg",
-        precio: 20.0,
+        precio: 20.000,
     },
     {
         nombre: "licras",
         imagen: "../images/licras.jpg",
-        precio: 30.0,
+        precio: 30.000,
     },
     {
         nombre: "sudaderas",
         imagen: "../images/sudadera.jpg",
-        precio: 25.0,
+        precio: 25.000,
     },
     {
         nombre: "suplementos",
         imagen: "../images/suplementos.jpg",
-        precio: 20.0,
+        precio: 20.000,
     },
     {
         nombre: "mancuernas",
         imagen: "../images/mancuernas.jpg",
-        precio: 30.0,
+        precio: 30.000,
     },
     {
         nombre: "tennis",
         imagen: "../images/zapatos.jpg",
-        precio: 25.0,
+        precio: 25.000,
     },
 ];
 

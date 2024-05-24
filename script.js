@@ -20,6 +20,24 @@ document.getElementById('login-link').addEventListener('click', function() {
     loginContainer.classList.add('abrir');
 });
 
+
+document.getElementById('register-link').addEventListener('click', function() {
+    var overlay = document.getElementById('overlay');
+    var loginContainer = document.getElementById('register-container');
+
+    // Mostrar overlay y contenedor de inicio de sesión
+    overlay.style.display = 'block';
+    loginContainer.style.display = 'flex';
+
+    // Aplicar clase para animación de fadeIn
+    overlay.classList.remove('cerrar');
+    loginContainer.classList.remove('cerrar');
+
+    // Agregar clase para animación de fadeIn
+    overlay.classList.add('abrir');
+    loginContainer.classList.add('abrir');
+});
+
 document.getElementById('cerrar').addEventListener('click', function() {
     var overlay = document.getElementById('overlay');
     var loginContainer = document.getElementById('login-container');

@@ -109,7 +109,21 @@ p {
 
 .login-container {
   position: fixed;
-  z-index: 1000;
+  z-index: 1002;
+  left: 0;
+  right: 0;
+  width: 27%;
+  height: 600px;
+  background: #1a1a1a49;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  display: none;
+  color: rgb(255, 255, 255);
+}
+
+.register-container {
+  position: fixed;
+  z-index: 1003;
   left: 0;
   right: 0;
   width: 27%;
@@ -122,6 +136,19 @@ p {
 }
 
 .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.767);
+  /* Color de fondo semi-transparente */
+  z-index: 999;
+  /* Asegura que el overlay esté encima de todo */
+  display: none;
+  /* Inicialmente oculto */
+}
+.overlay2{
   position: fixed;
   top: 0;
   left: 0;

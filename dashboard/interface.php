@@ -265,7 +265,7 @@ include('files/index.php');
                             <h5 class="mt-2">Filtrar por precio</h5>
                         </div>
                         <div class="col-md-6">
-                            <input type="range" id="rangoPrecio" min="0" max="100" step="5" value="0" class="form-range">
+                            <input type="range" id="rangoPrecio" min="0" max="100000" step="10000" value="0" class="form-range">
                             <div class="d-flex justify-content-between mt-2">
                                 <div id="rangoPrecioValor"></div>
                             </div>
@@ -315,7 +315,7 @@ include('files/index.php');
         </div>
     </div>
 </div>   
-<script src="js.js">
+<script src="script.js">
 </script>
 
     <script type="text/javascript" src="jspdf.min.js"></script>

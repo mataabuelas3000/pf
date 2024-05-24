@@ -1,7 +1,7 @@
 <?php
-// Iniciamos la sesión y destruimos cualquier sesión existente para asegurarnos de un inicio limpio.
 session_start();
 session_destroy();
+
 
 // Incluimos el archivo de conexión a la base de datos.
 include ('C:\xampp\htdocs\pf\database\connect.php');
