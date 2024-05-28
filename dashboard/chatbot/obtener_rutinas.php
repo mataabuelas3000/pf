@@ -2,7 +2,10 @@
 include ('C:\xampp\htdocs\pf\database\connect.php');
 $con->set_charset('utf8');
 
-$sql = "SELECT Name_Chat_Routine as nombre, Description_Chat_Routine as Descripcion, Id_Chat_Routine FROM chat_routine"; // Cambia el nombre de la tabla y el campo según tu base de datos
+// Consulta para obtener solo las primeras 9 rutinas
+$sql = "SELECT Name_Chat_Routine as nombre, Description_Chat_Routine as Descripcion, Id_Chat_Routine 
+        FROM chat_routine 
+        LIMIT 9"; // Limitar a 9 resultados
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
@@ -14,3 +17,4 @@ if ($result->num_rows > 0) {
     echo "No se encontraron rutinas.";
 }
 ?>
+

@@ -10,10 +10,60 @@ include('files/index.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/dashboard/style.css">
     <title>GYM</title>
 </head>
+<style>
+.chat-container {
+        background: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width:500px;
+        height: 620px;
+        max-width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 
+    .chat-box {
+        padding: 10px;
+        height: 400px;
+        overflow-y: scroll;
+        margin-bottom: 0px;
+        border-radius:5px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .user-input {
+        width: 300px;
+        padding: 10px;
+        margin-right: 1px;
+        border-radius:5px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        border:none;
+    }
+
+    button {
+        padding: 10px 20px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .user-message {
+        text-align: right;
+        margin: 10px 0;
+    }
+
+    .bot-message {
+        text-align: left;
+        margin: 0px;
+        color: blue;
+    }
+    
+</style>
 <body>
     <div class="box-menu" id="box-menu">
     <i class='bx bx-menu' style="font-size: 35px"></i>
@@ -51,9 +101,11 @@ include('files/index.php');
             </a>
         </div>
     </nav>
+
     <div class="overlay" id="overlay"></div>
     <!-- Widget del chatbot -->
-    <div id="boton-chatbot">
+    
+    <div onclick="openChatWidget()" id="boton-chatbot">
         <i class='bx bxs-chat btn'></i>
     </div>
     <!-- Widget del chatbot -->
@@ -68,24 +120,166 @@ include('files/index.php');
             </svg>
         </div>
         <div class="chatbot-widget" id="chatbot-widget">
-            <div class="chat-container" id="chat-box">
-                <div class="message-chat">¡Hola! Soy Jhon tu entrenador personal y estoy para ayudarte a crear tus rutinas.</div>
-                <div class="message-chat">En que estas interesado?</div>
+            
+        <div class="chat-container">
+                <div id="chat-box" class="chat-box"></div>
                 <br>
-                <div class="container-buttons">
+                <div class="user-input-container">
+                    <input type="text" id="user-input" class="user-input" placeholder="Escribe tu pregunta..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()">Enviar</button>
+                </div>
+                <br>
+                <div class="suggested-options-1" style="display: none;">
+                    <p>Opciones sugeridas:</p>
+                    <button onclick="sendMessage('servicios')">¿Qué servicios ofrecen?</button>
+                    <button onclick="sendMessage('ofertas')">¿Qué ofertas tienen?</button>
+                </div>
+
+                <div class="suggested-options-2" style="display: none;">
+                    <p>Opciones sugeridas:</p>
+                    <button onclick="sendMessage('Cuando estan abiertos')">¿Cuándo están abiertos?</button>
+                    <button onclick="sendMessage('Que horarios tienen')">¿Qué horarios tienen?</button>
+                </div>
+
+                <div class="suggested-options-3" style="display: none;">
+                    <p>Opciones sugeridas:</p>
+                    <button onclick="sendMessage(' Cuanto cuesta')">¿Cuánto cuesta?</button>
+                    <button onclick="sendMessage('Que precios tienen')">¿Qué precios tienen?</button>
+                </div>
+
+                <div class="suggested-options-4" style="display: none;">
+                    <p>Opciones sugeridas:</p>
+                    <button onclick="sendMessage('plan de entrenamiento')">Plan de entrenamiento</button>
+                    <button onclick="sendMessage('ejercicios')">Rutina de ejercicios</button>
+                </div>
+
+                <div class="suggested-routines" style="display: none;">
+                <p>Rutinas y Alimmentacion:</p>
                     <button onclick="mostrarRutinas()" class="mb-1 btn btn-primary">Rutina</button>
                     <button onclick="mostrarAlimentacion()" class="mb-1 btn btn-primary">Alimentación</button>
                 </div>
                 <div id="rutinas-container" class="mt-3" style="display: none;">
                     <hr>
                 </div>
-                <div class="mb-3"></div>
+                
             </div>
         </div>
+    
     </div>
+    <!-- -->
     <script>
+
+    function openChatWidget() {
+        // Crear el contenedor del widget de chat
+        var chatWidgetContainer = document.createElement('div');
+        chatWidgetContainer.classList.add('chat-widget-container');
+        // Agregar el widget de chat al cuerpo del documento
+        document.body.appendChild(chatWidgetContainer);
+
+        // Enviar un saludo automáticamente al abrir el widget de chat
+        sendMessageToBot("Hola");
+    }
+
+    function sendMessage(message) {
+        if (!message) {
+            var userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
+            message = userInput;
+        }
+        sendMessageToBot(message);
+    }
+
+    function handleKeyPress(event) {
+        if (event.keyCode === 13) { // 13 is the key code for "Enter" key
+            sendMessage();
+        }
+    }
+
+    function sendMessageToBot(message) {
+    var chatBox = document.getElementById("chat-box");
+    var isScrolledToBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 1;
+
+    chatBox.innerHTML += "<div class='user-message'>" + message + "</div>";
+    document.getElementById("user-input").value = "";
+
+    // Ocultar los botones de sugerencias al enviar un mensaje
+    document.querySelector(".suggested-routines").style.display = "none";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "chatbot/chat.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function() {
+        if (this.status === 200) {
+            var botResponse = this.responseText;
+            chatBox.innerHTML += "<div class='bot-message'>" + botResponse + "</div>";
+
+            // Mostrar los botones de sugerencias si la respuesta contiene la solicitud de rutina
+            if (botResponse.includes("Aquí tienes algunas rutinas populares para empezar.")) {
+                document.querySelector(".suggested-routines").style.display = "block";
+            }
+
+            // Mostrar los botones de sugerencias si la respuesta contiene las palabras clave para sugerencias
+            if (botResponse.includes("¡Hola! Bienvenido al gimnasio. Soy el asistente virtual del gimnasio. ¿En qué puedo ayudarte?")) {
+                document.querySelector(".suggested-options-1").style.display = "block";
+                document.querySelector(".suggested-options-2").style.display = "none";
+            }
+
+            if (botResponse.includes("Gym JS ofrece una plataforma integral que fusiona tecnología y conocimiento en fitness para mejorar la experiencia de entrenamiento. Nuestra misión es transformar la forma en que las personas abordan su bienestar físico.")) {
+                document.querySelector(".suggested-options-2").style.display = "block";
+                document.querySelector(".suggested-options-1").style.display = "none";
+            }
+
+            if (botResponse.includes("Nuestro aplicativo web, Gym JS, está disponible las 24 horas del día, los 7 días de la semana. Esto te ofrece acceso continuo a nuestra plataforma de entrenamiento y bienestar, permitiéndote disfrutar de nuestros servicios y recursos en cualquier momento que se ajuste a tu horario.")) {
+                document.querySelector(".suggested-options-3").style.display = "block";
+                document.querySelector(".suggested-options-2").style.display = "none";
+                document.querySelector(".suggested-options-1").style.display = "none";
+            }
+
+            if (botResponse.includes("¡En Gym JS, todo es gratis! Accede a entrenamiento personalizado, seguimiento de progreso, asesoramiento y comunidad en línea sin costo alguno. Únete ahora para una vida más activa sin preocupaciones por cargos adicionales.")) {
+                document.querySelector(".suggested-options-4").style.display = "block";
+                document.querySelector(".suggested-options-3").style.display = "none";
+                document.querySelector(".suggested-options-2").style.display = "none";
+                document.querySelector(".suggested-options-1").style.display = "none";
+            }
+
+            if (botResponse.includes("Ofrecemos rutinas específicas para entrenar en casa, que incluyen ejercicios de peso corporal y el uso de equipamiento básico. Aquí tienes algunas rutinas populares para empezar. Selecciona una para más detalles:")) {
+                document.querySelector(".suggested-options-4").style.display = "none";
+                document.querySelector(".suggested-options-3").style.display = "none";
+                document.querySelector(".suggested-options-2").style.display = "none";
+                document.querySelector(".suggested-options-1").style.display = "none";
+            }
+
+            // Desplazar automáticamente el scroll hacia abajo si estaba en el fondo antes de agregar el nuevo mensaje
+            if (isScrolledToBottom) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            // Guardar el historial de chat en el almacenamiento local
+            localStorage.setItem('chatHistory', chatBox.innerHTML);
+        }
+    };
+    xhr.send("message=" + encodeURIComponent(message));
+}
+
+
+    function selectRoutine(routine) {
+        // Mostrar qué rutina se seleccionó
+        var chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += "<div class='user-message'>Seleccionaste la rutina: " + routine + "</div>";
+
+        // Enviar la selección de la rutina al servidor
+        sendMessageToBot("Quiero más detalles sobre la rutina: " + routine);
+
+        // Desplazar automáticamente el scroll hacia abajo después de seleccionar una rutina
+        setTimeout(function() {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 100);
+    }
+
+
+        // --------------------------------
         function mostrarRutinas() {
-            const rutinasContainer = document.getElementById('rutinas-container');
+            const rutinasContainer = document.getElementById('chat-box');
             rutinasContainer.innerHTML = ''; // Limpiar contenido previo
             rutinasContainer.style.display = 'block'; // Mostrar contenedor
 
@@ -100,18 +294,13 @@ include('files/index.php');
         }
 
         function mostrarEjercicios(rutinaID) {
-            const ejerciciosContainer = document.getElementById('rutinas-container');
-            const backButton = document.createElement('button');
-            backButton.textContent = 'Atrás';
-            backButton.classList.add('mb-1', 'btn', 'btn-info');
-            backButton.onclick = mostrarMenuPrincipal;
+            const ejerciciosContainer = document.getElementById('chat-box');
             ejerciciosContainer.innerHTML = '';
 
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     ejerciciosContainer.innerHTML = this.responseText;
-                    ejerciciosContainer.appendChild(backButton); // Añadir el botón de atrás
                     ejerciciosContainer.style.display = 'block';
                 }
             };
@@ -120,18 +309,13 @@ include('files/index.php');
         }
 
         function mostrarAlimentacion(alimentacion) {
-            const alimentacionContainer = document.getElementById('rutinas-container');
+            const alimentacionContainer = document.getElementById('chat-box');
             alimentacionContainer.innerHTML = '';
-            const backButton = document.createElement('button');
-            backButton.textContent = 'Atrás';
-            backButton.classList.add('mb-1', 'btn', 'btn-info');
-            backButton.onclick = mostrarMenuPrincipal;
 
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     alimentacionContainer.innerHTML = this.responseText;
-                    alimentacionContainer.appendChild(backButton);
                     alimentacionContainer.style.display = 'block';
                 }
             };
@@ -139,9 +323,10 @@ include('files/index.php');
             xhttp.send();
         }
 
+
         function mostrarMenuPrincipal() {
-            document.getElementById('rutinas-container').style.display = 'none';
-            document.getElementById('ejercicios-container').style.display = 'none';
+            document.getElementById('suggested-routines').style.display = 'none';
+            document.getElementById('suggested-routines').style.display = 'none';
             document.getElementById('chat-box').style.display = 'block';
         }
 
@@ -166,41 +351,34 @@ include('files/index.php');
         }
 
         const botonChatbot = document.getElementById('boton-chatbot');
-        const chatbotWindow = document.getElementById('widget');
+    const chatbotWindow = document.getElementById('widget');
 
-        botonChatbot.addEventListener('click', () => {
-            // Eliminar la clase de animación de salida si está presente
-            chatbotWindow.classList.remove('animate-fade-out');
+    botonChatbot.addEventListener('click', () => {
+        chatbotWindow.classList.remove('animate-fade-out');
+        chatbotWindow.style.display = 'block';
+        chatbotWindow.classList.add('animate-fade-in');
+        botonChatbot.style.display = 'none';
+    });
 
-            // Hacer visible el chatbot antes de mostrarlo nuevamente
-            chatbotWindow.style.display = 'block';
-            botonChatbot.style.display = 'none';
+    const chatbotCloseButton = document.getElementById('chatbot-close-button');
 
-            // Opcional: Si quieres agregar una animación de entrada suave al abrir el chatbot, puedes agregar una clase y utilizar setTimeout para retrasar la aplicación de la clase
-            setTimeout(() => {
-                chatbotWindow.classList.add('animate-fade-in');
-            }, 100); // Ajusta este valor según sea necesario
-        });
+    chatbotCloseButton.addEventListener('click', () => {
+        chatbotWindow.classList.remove('animate-fade-in');
+        chatbotWindow.classList.add('animate-fade-out');
 
-        const chatbotCloseButton = document.getElementById('chatbot-close-button');
+        setTimeout(() => {
+            chatbotWindow.style.display = 'none';
+            botonChatbot.style.display = 'block';
+        }, 500); // Duración de la animación de salida
+    });
 
-        chatbotCloseButton.addEventListener('click', () => {
-            // Agregar la clase de animación de salida
-            chatbotWindow.classList.add('animate-fade-out');
-
-            // Esperar a que se complete la animación y luego ocultar el chatbot
-            setTimeout(() => {
-                chatbotWindow.style.display = 'none';
-                botonChatbot.style.display = 'block';
-            }, 100); // Ajusta este valor para que coincida con la duración de la animación en milisegundos
-        });
     </script>
 
     <div class="py-4"></div> <!-- Espacio vertical -->
     <div class="card routine-card mb-5">
     <div class="card-body routine-body">
         <div id="container-rutina" class="tab-content container2">
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="col-12 col-md-6 col-lg-4 mb-4">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="col-12 col-md-6 col-lg-4 mb-5">
                 <div class="card2">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <select class="form-select" name="selecciondificultad" required>
@@ -212,7 +390,6 @@ include('files/index.php');
                         </select>
                     </div>
                     <div class="card-img-top bg-gradient-primary-to-secondary d-flex justify-content-center align-items-center" style="height: 200px;">
-                        <i class='bx bxs-plus-circle bx-flashing-hover'></i>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">

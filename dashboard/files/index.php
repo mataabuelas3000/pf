@@ -34,7 +34,7 @@ function imprimir($id, $con)
         $peso = $row['Weight_User'];
         $imc = $row['Imc_User'];
 
-        echo ' <div class="card" style=" background-image: linear-gradient(to top right , #111 39.3%, #24baae 39.3%); border:none;box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
+        echo ' <div class="card" style=" background-image: linear-gradient(to top right , #111 39.3%, #24baae 39.3%);border:none;box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
         <h1>Tus datos</h1>
@@ -103,6 +103,20 @@ function imprimirol($id, $con)
     $rol = $row['Role'];
     echo $rol;
 }
+
+function getGradientColor($difficulty) {
+    switch ($difficulty) {
+        case 'Fácil':
+            return 'bg-gradient-success-to-secondary'; // Verde y blanco
+        case 'Intermedio':
+            return 'bg-gradient-warning-to-secondary'; // Amarillo y blanco
+        case 'Dificíl':
+            return 'bg-gradient-danger-to-secondary'; // Rojo y blanco
+        default:
+            return 'bg-gradient-primary-to-secondary'; // Valor por defecto
+    }
+}
+
 function imprimirRutina($con, $id)
 {
     $sql = "SELECT r.Id_Routine, r.Name_routine, r.Approach_Routine, r.Duration_Routine, d.Difficulty, r.Id_Check
@@ -121,18 +135,24 @@ function imprimirRutina($con, $id)
             $dificultad = ($row['Difficulty']) ? $row['Difficulty'] : 'Sin dificultad';
             $id_check = $row['Id_Check'];
 
+            $gradient_color = getGradientColor($dificultad);
+
             echo '<form method="post" class="col-12 col-md-6 col-lg-4 mb-4">';
             echo '<div class="card2">';
             echo '<div class="card-header d-flex justify-content-between align-items-center">';
             echo '<p>' . $dificultad . '</p>';
-            echo '<a href="routine/delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina text-danger"><i class="bx bx-x"></i></a>';
+            echo '<a href="routine/delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina text-success"><i class="bx bx-x"></i></a>';
             echo '</div>';
 
-            echo '<div class="card-img-top bg-gradient-primary-to-secondary" style="height: 200px;"></div>';
+            echo '<div class="card-img-top ' . $gradient_color . '" style="height: 200px;"></div>';
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . $nombre_rutina . '</h5>';
             echo '<p>' . $descripcion_rutina . '</p>';
-            echo '<p><box-icon name="stopwatch"></box-icon> ' . $duracion_rutina . ' Minutos</p>';
+            
+            // Condición para imprimir el icono de reloj y la duración de la rutina
+            if (!empty($duracion_rutina)) {
+                echo '<p><box-icon name="stopwatch"></box-icon> ' . $duracion_rutina . ' Minutos</p>';
+            }
 
             $bloquearEnlace = ($id_check == 1) ? 'disabled' : '';
             echo '<form method="post">';
@@ -148,6 +168,8 @@ function imprimirRutina($con, $id)
         }
     }
 }
+
+
 
 function obtenerurlroutine($id, $idrutina){
     session_start();

@@ -12,16 +12,14 @@ html {
 }
 
 body {
-  background-color: #202020;
+  background-color: #D7FBE8;
 }
 
-.hr {
-  width: 100%;
-  height: 15px;
-  top: 110px;
-  height: 20px;
-  left: 0px;
-  object-fit: cover;
+hr {
+  height: 5px;
+  border: none;
+  border-radius:20px;
+  background-color: #1FA398;
 }
 
 .card-title1 {
@@ -36,8 +34,8 @@ body {
 .routine-card {
   background-image: linear-gradient(
     to bottom left,
-    #24baae 50%,
-    #111 50%
+    #1FA398 50%,
+    #b4fdd6 50%
   ); /* fallback for old browsers */
   z-index: 0;
   border: none;
@@ -45,8 +43,11 @@ body {
 
 }
 .box-menu{
-    display: none;
-    cursor: pointer;
+      cursor: pointer;
+      position: fixed;
+      left: 30px;
+      top: 20px;
+      color: #117c73;
   }
 .border-danger {
   border-color: red !important;
@@ -562,9 +563,10 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid black;
+    border: 5px solid rgb(226, 226, 226);
     border-radius: 10px;
-    background-color: white;
+    background-color: #fff;
+    box-shadow: inset 0px 0px 20px rgba(70, 69, 69, 0.3);  
     width: 370px;
     padding: 0;
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -587,13 +589,24 @@ button {
 }
 
 .card-img-top {
-    background-image: linear-gradient(to bottom right, #4a6eb0, #9cd2d3);
     height: 200px;
     color: white;
 }
 
 .bg-gradient-primary-to-secondary {
-    background-image: linear-gradient(to bottom right, #4a6eb0, #9cd2d3);
+  background-color:#1471d4 ;
+}
+
+.bg-gradient-success-to-secondary {
+    background-color:#13be21 ;
+}
+
+.bg-gradient-warning-to-secondary {
+    background-color:#d0f350 ;
+}
+
+.bg-gradient-danger-to-secondary {
+    background-color:#d41414 ;
 }
 
 .eliminar-rutina {
@@ -604,6 +617,9 @@ button {
 @media (max-width: 2170px) {
     .card2 {
         width: 340px;
+    }
+    #calendar{
+        
     }
 
 }
@@ -622,12 +638,18 @@ button {
         transform: translateX(-13%); /* Add gap between cards */
         gap: 200px;
     }
+    #calendar{
+        transform: translateX(-20%);
+    }
 }
 @media (max-width: 1200px) and (min-width: 901px) {
     .container2 {
         transform: translateX(-25%); /* Add gap between cards */
         gap: 200px;
     }
+    #calendar{
+      transform: translateX(-50%);
+  }
 }
 @media (max-width: 900px) and (min-width: 769px) {
     .container2 {
@@ -654,17 +676,14 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Color semitransparente */
-    z-index: 999; /* Colocar por encima del contenido */
-    display: none; /* Ocultar inicialmente */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 800;
+    display: none;
 }
+
 @media (max-width: 673px)  {
     .box-menu {
         display: block;
-        position: fixed;
-        left: 30px;
-        top: 20px;
-        color: white;
     }
     .container2 {
         transform: translateX(0px);
@@ -704,20 +723,29 @@ button {
 .sidebar {
   position: fixed;
   top: 0;
-  transform: translateX(35px);
   margin-top: 25px;
-  /* Se separa un poco más de la izquierda */
+  overflow-x: hidden;
   width: 100px;
   height: 94%;
-  transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 900;
+  display: none;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
   overflow-y: auto;
   padding-top: 60px;
   border-radius: 200px;
   box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.3);
-  background-color: #24baae;
+  background-color: #1FA398;
   color: white;
-  /*Color nav */
+}
+#sidebar.open {
+  transform: translateX(35px);
+}
+
+/* Clase para la animación de salida */
+#sidebar.close {
+  transform: translateX(-100%);
+  
 }
 
 .buton-info {
@@ -815,3 +843,70 @@ button {
 .link-like-button:focus {
   outline: none;
 }
+
+/* Mostrar 3 productos por fila en pantallas grandes */
+
+  
+  /* Mostrar 2 productos por fila en pantallas medianas */
+  @media (max-width: 1200px) {
+    #resultadosProductos .carousel-inner {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    #resultadosProductos .carousel-item {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+  .chat-container {
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width:500px;
+    height: 620px;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.chat-box {
+    padding: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    margin-bottom: 0px;
+    border-radius:5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+.user-input {
+    width: 300px;
+    padding: 10px;
+    margin-right: 1px;
+    border-radius:5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    border:none;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.user-message {
+    text-align: right;
+    margin: 10px 0;
+}
+
+.bot-message {
+    text-align: left;
+    margin: 0px;
+    color: blue;
+}
+
+  /* Estilos generales para todas las pantallas */
+   

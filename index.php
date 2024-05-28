@@ -11,13 +11,14 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/style.css">
 
 </head>
 
+
 <body>
 
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg" data-bs-theme="light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">  <img src="images/Logo.svg" alt="Logo" width="70" height="54" class="d-inline-block align-text-top"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +33,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
           <a class="nav-link" href="#entrenamiento">Entrenamiento</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#planes">Planes</a>
+          <a class="nav-link" href="#nosotros">Nosotros</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#contacto">Contactanos</a>
@@ -53,14 +54,14 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
 <div class="container login-container" style="display:none" id="login-container">
     <div class="form">
         <div class="cerrar d-flex justify-content-end">
-            <box-icon name='x' color='#fff' id="cerrar-login"></box-icon>
+            <box-icon name='x' color='#111' id="cerrar-login"></box-icon>
         </div>
         <h1>Iniciar Sesión</h1>
         <br>
         <form method="post">
                 <div class="input_box">
                     <span class="icon">
-                        <box-icon color='#fff' name='id-card'></box-icon>
+                        <box-icon color='#111' name='id-card'></box-icon>
                     </span>
                     <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
                         placehorder="Ingrese cedula" required>
@@ -68,7 +69,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
                 </div>
                 <div class="input_box">
                     <span class="icon">
-                        <box-icon name='lock-alt' color="#fff"></box-icon>
+                        <box-icon name='lock-alt' color="#111"></box-icon>
                     </span>
                     <input type="password" name="password" placehorder="Ingrese contraseña" required>
                     <label>Contraseña</label>
@@ -86,57 +87,111 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
 <div class="container register-container" style="display:none" id="register-container">
     <div class="form">
         <div class="cerrar d-flex justify-content-end">
-            <box-icon name='x' color='#fff' id="cerrar-register"></box-icon>
+            <box-icon name='x' color='#111' id="cerrar-register"></box-icon>
         </div>
         <h1>Registrate</h1>
         <br>
         <form method="post">
-                <div class="input_box">
-                    <span class="icon">
-                        <box-icon color='#fff' name='id-card'></box-icon>
-                    </span>
-                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
-                        placehorder="Ingrese cedula" required>
-                    <label>Cedula</label>
-                </div>
-                <div class="input_box">
-                    <span class="icon">
-                        <box-icon color='#fff' name='id-card'></box-icon>
-                    </span>
-                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
-                        placehorder="Ingrese cedula" required>
-                    <label>Nombres</label>
-                </div>
-                <div class="input_box">
-                    <span class="icon">
-                        <box-icon color='#fff' name='id-card'></box-icon>
-                    </span>
-                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
-                        placehorder="Ingrese cedula" required>
-                    <label>Cedula</label>
-                </div>
-                <div class="input_box">
-                    <span class="icon">
-                        <box-icon color='#fff' name='id-card'></box-icon>
-                    </span>
-                    <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id"
-                        placehorder="Ingrese cedula" required>
-                    <label>Cedula</label>
-                </div>
-                <div class="input_box">
-                    <span class="icon">
-                        <box-icon name='lock-alt' color="#fff"></box-icon>
-                    </span>
-                    <input type="password" name="password" placehorder="Ingrese contraseña" required>
-                    <label>Contraseña</label>
-                    
-                </div>
-                <input type="checkbox" name="show_password" id="show_password"> Mostrar Contraseña
-                <br><br>
-                <br>
-                <button name="enviar" class="boton">Ingresar</button>
-            
-            </form>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input_box">
+                <span class="icon">
+                    <box-icon color='#111' name='id-card'></box-icon>
+                </span>
+                <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g);" name="id" required>
+                <label>Cedula</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input_box">
+                <input type="text" name="nombres" required>
+                <label>Nombres</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input_box">
+                <input type="text" name="apellidos" required>
+                <label>Apellidos</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input_box">
+                <span class="icon">
+                    <box-icon color='#111' name='envelope'></box-icon>
+                </span>
+                <input type="email" name="correo" required>
+                <label>Correo</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input_box">
+                <span class="icon">
+                    <box-icon color='#111' name='face'></box-icon>
+                </span>
+                <select id="genero" name="genero"
+                            required>
+                            <option value="" disabled selected ></option>
+                            <option value="M"
+                                <?php if (isset($_POST['genero']) && $_POST['genero'] === 'M') echo 'selected'; ?>>
+                                Masculino</option>
+                            <option value="F"
+                                <?php if (isset($_POST['genero']) && $_POST['genero'] === 'F') echo 'selected'; ?>>
+                                Femenino</option>
+                            <option value="O"
+                                <?php if (isset($_POST['genero']) && $_POST['genero'] === 'O') echo 'selected'; ?>>Otro
+                            </option>
+                        </select>
+                <label>Genero</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input_box">
+                <span class="icon">
+                    <box-icon name='lock-alt' color="#111"></box-icon>
+                </span>
+                <input type="password" name="contraseña" id="contraseña" required>
+                <label>Contraseña</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+    <div class="input_box">
+        <span class="icon">
+            <box-icon color='#111' name='ruler'></box-icon>
+        </span>
+        <input type="text" name="altura" required oninput="formatAltura(this);">
+        <label>Altura</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="input_box">
+            <span class="icon">
+                <box-icon color='#111' name='body'></box-icon>
+            </span>
+            <input type="text" name="peso" required oninput="formatPeso(this);">
+            <label>Peso</label>
+        </div>
+    </div>
+</div>
+        <div class="col-md-6 mb-4">
+            <div class="form-check ms-3">
+                <input type="checkbox" class="form-check-input" name="show_password" id="show_password">
+                <label class="form-check-label" for="show_password">Mostrar Contraseña</label>
+            </div>
+        </div>
+    </div>
+
+    <button name="enviar2" class="boton">Ingresar</button>
+</form>
+
+
     </div>
 </div>
 
@@ -147,35 +202,32 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
         <h1>GYM JS</h1>
         <h2>El mundo del ejercicio</h2>
         <hr>
-        <p>Gym JS es una plataforma interactiva que permite a los usuarios crear, personalizar y seguir rutinas de ejercicio de manera sencilla y eficiente. Con una interfaz intuitiva y funcionalidades avanzadas, Gym JS se adapta tanto a principiantes que buscan orientación como a atletas experimentados que necesitan un seguimiento detallado de su progreso.</p>
+        <p>Gym JS es una plataforma interactiva para crear y seguir rutinas de ejercicio fácilmente. Con una interfaz intuitiva y funciones avanzadas, es ideal para principiantes y atletas experimentados.</p>
 
         <div class="btn-container">
-            <a class="btn " href="#"  id="register-link">
+            <a class="btn1" href="#"  id="register-link">
                 Regístrate
-            </a>
-            <a class="btn" href="#nosotros">
-                Nosotros
             </a>
         </div>
 
     </div>
     <div class="img-content">
-        <img class="img-principal" src="images/img1.svg" alt="">
+        <img class="img-principal" src="images/img.svg" alt="">
     </div>
 </main>
 
-<section id="entrenamiento" class="py-5 my-5 bg-dark" >
+<section id="entrenamiento" class="py-5 my-5" style="background-color: #b4fdd6;" >
     <div class="container mt-5 ">
         <div class="row">
-            <div class="col">
+            <div class="col card-entre">
                 <h2>Entrenamiento Aeróbico:</h2>
                 <p>Actividades de intensidad moderada durante períodos prolongados que utilizan oxígeno para producir energía, como correr o nadar. Beneficia la salud cardiovascular, mejora la resistencia y quema grasa.</p>
             </div>
-            <div class="col">
+            <div class="col card-entre">
                 <h2>Entrenamiento Anaeróbico:</h2>
                 <p>Ejercicios de alta intensidad y corta duración que no dependen de oxígeno para producir energía, como levantamiento de pesas o sprints. Aumenta la fuerza muscular, mejora la potencia y promueve el crecimiento muscular.</p>
             </div>
-            <div class="col">
+            <div class="col card-entre">
                 <h2>Entrenamiento Funcional:</h2>
                 <p>Enfoque en movimientos cotidianos para mejorar la eficiencia y seguridad en las actividades diarias, como sentadillas o levantamientos. Mejora el equilibrio, la flexibilidad y previene lesiones.</p>
             </div>
@@ -185,7 +237,7 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
 
 
 
-<section id="nosotros" class="py-5 my-5">
+<section id="nosotros" class="py-5 my-5" >
     <div class="container">
         <h2 class="text-center mb-4">Nosotros</h2>
         <div class="row">
@@ -204,11 +256,11 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
 
 
 
-<section id="contacto" class="py-5 my-5 bg-dark">
+<section id="contacto" class="py-5 my-5" style="background-color: #b4fdd6;">
     <div class="container">
         <h2 class="text-center " style="margin-bottom: 130px">Contacto</h2>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 ">
                 <p>Estamos aquí para ayudarte en cada paso de tu viaje de fitness. Si tienes preguntas, sugerencias o necesitas asistencia, no dudes en ponerte en contacto con nosotros.</p>
                 <ul class="text-secondary">
                     <li>Teléfono: 3162352634 - 3155748135</li>
@@ -229,14 +281,40 @@ include ('C:\xampp\htdocs\pf\start\sesion.php');
             </div>
         </div>
     </div>
-    <br><br>
+    
 
     
 </section>
-<center><p>¡Prepárate para una experiencia de entrenamiento revolucionaria con Gym JS!</p></center>
+<center style="transform: translateY(-20px)">¡Prepárate para una experiencia de entrenamiento revolucionaria con Gym JS!</center>
+<script>
+function formatAltura(input) {
+    // Eliminar cualquier caracter que no sea número o punto decimal
+    input.value = input.value.replace(/[^\d.]/g, '');
+
+    // Limitar la entrada a 4 caracteres
+    input.value = input.value.slice(0, 4);
+
+    // Agregar el punto decimal en la posición adecuada
+    if (input.value.length === 3 && input.value.indexOf('.') === -1) {
+        input.value = input.value.slice(0, 2) + '.' + input.value.slice(2);
+    }
+}
+
+
+function formatPeso(input) {
+    // Si hay un punto decimal, permitir hasta 5 caracteres
+    if (input.value.indexOf('.') !== -1) {
+        input.value = input.value.replace(/[^\d.]/g, '').slice(0, 5);
+    } else {
+        // Si no hay un punto decimal, permitir hasta 4 caracteres
+        input.value = input.value.replace(/[^\d]/g, '').slice(0, 4);
+    }
+}
+</script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
     <script src="index.js"></script>
