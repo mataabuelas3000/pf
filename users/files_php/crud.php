@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $peso = $row['Weight_User'];
   $imc = $row['Imc_User'];
 
-          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
+          echo ' <div class="card1 " style="width: 100%;background-color: #1FA398;">
           <div class="card-body">
           <h5 class="card-title text-light">' . $nombre . ' - '.$id.'</h5>
             <div class="py-2">
@@ -138,7 +138,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $peso = $row['Weight_User'];
   $imc = $row['Imc_User'];
 
-          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%;">
+          echo ' <div class="card1 " style="width: 100%;background-color: #1FA398;">
           <div class="card-body">
           <h5 class="card-title text-light">' . $nombre . ' - '.$id.'</h5>
             <div class="py-2">
@@ -225,7 +225,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $peso = $row['Weight_User'];
   $imc = $row['Imc_User'];
 
-          echo ' <div class="card1 bg-dark" data-bs-theme="dark" style="width: 100%; ">
+          echo ' <div class="card1 " style="width: 100%;background-color: #1FA398; ">
           <div class="card-body">
             <h5 class="card-title text-light">' . $nombre . ' - '.$id.'</h5>
             <div class="py-2">
@@ -237,7 +237,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <form class="row g-3 py-2">
           <div class="col-md-6 input-container">
           <label for="inputEmail4" class="form-label text-dark">Nombres</label>
-          <input type="text" class="form-control text-light" id="inputPrimernom" value="' . $nombre . '"   disabled>
+          <input type="text" class="form-control text-light"  id="inputPrimernom" value="' . $nombre . '"   disabled>
           </div>
           <div class="col-md-6 input-container">
             <label for="inputEmail4" class="form-label text-dark">Apellidos</label>

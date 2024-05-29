@@ -10,12 +10,12 @@ include ('C:\xampp\htdocs\pf\users\files_php\crud.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jefe</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="crud.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/crud.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-light"><strong>Administrador</strong></a>
+            <a class="navbar-brand text-light" style="color: #1FA398 !important;font-size: 30px; position:relative; left:45px"><strong>Administrador</strong></a>
             <form class="d-flex" role="search" method="post">
                 <div class="input_box">
                     <span class="icon">
@@ -25,8 +25,8 @@ include ('C:\xampp\htdocs\pf\users\files_php\crud.php');
                         placeholder="Ingrese ID" name="search" aria-label="Search" required>
                 </div>
                 <div class="input_box">
-                    <button class="btn btn-outline-light  detalles toggle-details" type="submit"
-                        name="buscar">Buscar</button>
+                    <button class="btn btn-info  detalles toggle-details" type="submit"
+                        name="buscar" style="color: white !important;">Buscar</button>
                 </div>
             </form>
             <a href="../auth/logout.php" class="text-light"><input type="button" class="btcerrar btn btn-danger"
@@ -36,7 +36,7 @@ include ('C:\xampp\htdocs\pf\users\files_php\crud.php');
     <form method="post">
     <div class="container my-5">
       <button class="btn btn-danger my-5" name="refresh"><a class="text-light">Refresh</a></button>
-      <a href="create_user/create_user.php" class="text-light"><input type="button" class="btn btn-light my-5"
+      <a href="create_user/create_user.php" class="text-light"><input type="button" class="btn btn-info"
           value="Agregar Usuario"></a>
     </div>
     </form>

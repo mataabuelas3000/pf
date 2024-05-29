@@ -10,12 +10,12 @@ include ('C:\xampp\htdocs\pf\users\files_php\create.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="css/style1.css">
+<link rel="stylesheet" href="http://localhost/pf/assets/user/style1.css">
     <title>usuario</title>
 </head>
 <body>
     <div class=" container my-5" style="width:100%;">
-        <form method="post" class="form bg-dark" data-bs-theme="dark">
+        <form method="post" class="form" style="background-color: #198077;">
             <div class="titulo">
                 <h1>REGISTRO DE USUARIO</h1>
             </div>

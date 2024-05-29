@@ -222,16 +222,16 @@ if (isset($_POST['updaterutina'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="routine.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/user/routine.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top  bg-dark" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg fixed-top ">
         <div class="container-fluid">
-            <h5 class="navbar-brand text-light"><strong>Rutinas</strong></h5>
-            <a href="../crud_users.php"><input type="button" value="regresar" class="btn btn-danger"></a>
+            <h1><strong>Rutinas</strong></h1>
+            <a href="../crud_users.php"><input type="button" style="position:relative; left:-155px" value="regresar" class="btn btn-danger"></a>
         </div>
     </nav>
     <div class="card" style='width: 100%;'  >

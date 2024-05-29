@@ -10,12 +10,12 @@ include('C:\xampp\htdocs\pf\users\files_php\update.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style_update.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/user/style_update.css">
     <title>actualizar</title>
 </head>
 <body>
     <div class="container my-5" id="cerrar">
-        <form method="post" id="actualizarForm" class="form bg-dark" data-bs-theme="dark">
+        <form method="post" id="actualizarForm" class="form" style="background-color: #198077;">
             <div class="titulo">
                 <h1>Actualización de Datos</h1>
             </div>

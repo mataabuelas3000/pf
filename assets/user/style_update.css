@@ -10,7 +10,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background-color: #202020;
+  background-color: #D7FBE8; 
 }
 
 .form-control {
@@ -132,4 +132,31 @@ hr{
 select option {
 color: black;
 /* Color oscuro en hexadecimal */
+}
+.border-danger {
+    border-color: red !important;
+}
+
+.border-success {
+    border-color: green !important;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-container input {
+    padding-right: 70px;
+    /* Ajusta el espacio para el icono */
+
+}
+
+.input-container i {
+    position: absolute;
+    top: 40%;
+    right: 30px;
+}
+
+select option {
+    color: black;
 }
