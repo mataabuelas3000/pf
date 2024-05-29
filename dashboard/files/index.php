@@ -34,7 +34,7 @@ function imprimir($id, $con)
         $peso = $row['Weight_User'];
         $imc = $row['Imc_User'];
 
-        echo ' <div class="card" style=" background-image: linear-gradient(to top right , #111 39.3%, #24baae 39.3%);border:none;box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
+        echo ' <div class="card" style=" background-image: linear-gradient(to top right , #b4fdd6 30%, #1FA398 80%);border:none;box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);">
         <div class="card-body">
         <div style="font-size:20px; text-align: center;">
         <h1>Tus datos</h1>

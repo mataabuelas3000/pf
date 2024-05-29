@@ -47,7 +47,7 @@ include('files/index.php');
         padding: 10px 20px;
         cursor: pointer;
         background-color: #007bff;
-        color: white;
+        color: ;
         border: none;
         border-radius: 5px;
     }
@@ -66,7 +66,7 @@ include('files/index.php');
 </style>
 <body>
     <div class="box-menu" id="box-menu">
-    <i class='bx bx-menu' style="font-size: 35px"></i>
+    <i class='bx bx-menu' style="font-size: 55px"></i>
     </div>
     <nav class="sidebar" id="sidebar">
         <!-- Logo de usuario -->
@@ -94,7 +94,7 @@ include('files/index.php');
                 </span>
             </a>
             <!-- Enlace para cerrar sesión -->
-            <a class="nav-link text-light " href="../auth/logout.php" style="text-decoration:none; transform: translateY(33vh)" title="Cerrar sesion">
+            <a class="nav-link text-light " href="../auth/logout.php" style="text-decoration:none; transform: translateY(500%)" title="Cerrar sesion">
                 <span class="icon d-flex align-items-center justify-content-center">
                     <i class='bx bx-log-out' style="font-size: 35px"></i>
                 </span>
@@ -132,13 +132,13 @@ include('files/index.php');
                 <div class="suggested-options-1" style="display: none;">
                     <p>Opciones sugeridas:</p>
                     <button onclick="sendMessage('servicios')">¿Qué servicios ofrecen?</button>
-                    <button onclick="sendMessage('ofertas')">¿Qué ofertas tienen?</button>
+                    <button onclick="sendMessage('que actividades tienen')">¿Que actividades tienen?</button>
                 </div>
 
                 <div class="suggested-options-2" style="display: none;">
                     <p>Opciones sugeridas:</p>
                     <button onclick="sendMessage('Cuando estan abiertos')">¿Cuándo están abiertos?</button>
-                    <button onclick="sendMessage('Que horarios tienen')">¿Qué horarios tienen?</button>
+                    <button onclick="sendMessage(' horarios ')">¿Qué horarios tienen?</button>
                 </div>
 
                 <div class="suggested-options-3" style="display: none;">
@@ -148,6 +148,12 @@ include('files/index.php');
                 </div>
 
                 <div class="suggested-options-4" style="display: none;">
+                    <p>Opciones sugeridas:</p>
+                    <button onclick="sendMessage(' entrenadores personales')">¿Entrenadores personales?</button>
+                    <button onclick="sendMessage('asesoramiento de ejercicio')">Programar una sesión de rutina</button>
+                </div>
+
+                <div class="suggested-options-41" style="display: none;">
                     <p>Opciones sugeridas:</p>
                     <button onclick="sendMessage('plan de entrenamiento')">Plan de entrenamiento</button>
                     <button onclick="sendMessage('ejercicios')">Rutina de ejercicios</button>
@@ -169,6 +175,10 @@ include('files/index.php');
     <!-- -->
     <script>
 
+    // Variable para verificar si el saludo ya se ha enviado
+    var greetingSent = false;
+
+    // Función para abrir el widget de chat
     function openChatWidget() {
         // Crear el contenedor del widget de chat
         var chatWidgetContainer = document.createElement('div');
@@ -176,9 +186,18 @@ include('files/index.php');
         // Agregar el widget de chat al cuerpo del documento
         document.body.appendChild(chatWidgetContainer);
 
-        // Enviar un saludo automáticamente al abrir el widget de chat
-        sendMessageToBot("Hola");
+        // Verificar si el saludo aún no se ha enviado
+        if (!greetingSent) {
+            // Enviar el saludo solo si no se ha enviado antes
+            sendMessageToBot("Hola");
+            // Establecer la variable de saludo enviado a verdadero
+            greetingSent = true;
+        }
     }
+
+    // Llama a la función para abrir el widget de chat
+    openChatWidget();
+
 
     function sendMessage(message) {
         if (!message) {
@@ -222,17 +241,23 @@ include('files/index.php');
             if (botResponse.includes("¡Hola! Bienvenido al gimnasio. Soy el asistente virtual del gimnasio. ¿En qué puedo ayudarte?")) {
                 document.querySelector(".suggested-options-1").style.display = "block";
                 document.querySelector(".suggested-options-2").style.display = "none";
+                document.querySelector(".suggested-options-41").style.display = "none";
+                document.querySelector(".suggested-options-4").style.display = "none";
             }
 
             if (botResponse.includes("Gym JS ofrece una plataforma integral que fusiona tecnología y conocimiento en fitness para mejorar la experiencia de entrenamiento. Nuestra misión es transformar la forma en que las personas abordan su bienestar físico.")) {
                 document.querySelector(".suggested-options-2").style.display = "block";
                 document.querySelector(".suggested-options-1").style.display = "none";
+                document.querySelector(".suggested-options-41").style.display = "none";
+                document.querySelector(".suggested-options-4").style.display = "none";
             }
 
             if (botResponse.includes("Nuestro aplicativo web, Gym JS, está disponible las 24 horas del día, los 7 días de la semana. Esto te ofrece acceso continuo a nuestra plataforma de entrenamiento y bienestar, permitiéndote disfrutar de nuestros servicios y recursos en cualquier momento que se ajuste a tu horario.")) {
                 document.querySelector(".suggested-options-3").style.display = "block";
                 document.querySelector(".suggested-options-2").style.display = "none";
                 document.querySelector(".suggested-options-1").style.display = "none";
+                document.querySelector(".suggested-options-41").style.display = "none";
+                document.querySelector(".suggested-options-4").style.display = "none";
             }
 
             if (botResponse.includes("¡En Gym JS, todo es gratis! Accede a entrenamiento personalizado, seguimiento de progreso, asesoramiento y comunidad en línea sin costo alguno. Únete ahora para una vida más activa sin preocupaciones por cargos adicionales.")) {
@@ -241,8 +266,16 @@ include('files/index.php');
                 document.querySelector(".suggested-options-2").style.display = "none";
                 document.querySelector(".suggested-options-1").style.display = "none";
             }
+            if (botResponse.includes("Sí, contamos con entrenadores personales altamente cualificados que pueden ayudarte a alcanzar tus objetivos de fitness de manera efectiva.")) {
+                document.querySelector(".suggested-options-4").style.display = "none";
+                document.querySelector(".suggested-options-41").style.display = "block";
+                document.querySelector(".suggested-options-3").style.display = "none";
+                document.querySelector(".suggested-options-2").style.display = "none";
+                document.querySelector(".suggested-options-1").style.display = "none";
+            }
 
             if (botResponse.includes("Ofrecemos rutinas específicas para entrenar en casa, que incluyen ejercicios de peso corporal y el uso de equipamiento básico. Aquí tienes algunas rutinas populares para empezar. Selecciona una para más detalles:")) {
+                document.querySelector(".suggested-options-41").style.display = "none";
                 document.querySelector(".suggested-options-4").style.display = "none";
                 document.querySelector(".suggested-options-3").style.display = "none";
                 document.querySelector(".suggested-options-2").style.display = "none";
@@ -351,26 +384,26 @@ include('files/index.php');
         }
 
         const botonChatbot = document.getElementById('boton-chatbot');
-    const chatbotWindow = document.getElementById('widget');
+        const chatbotWindow = document.getElementById('widget');
 
-    botonChatbot.addEventListener('click', () => {
-        chatbotWindow.classList.remove('animate-fade-out');
-        chatbotWindow.style.display = 'block';
-        chatbotWindow.classList.add('animate-fade-in');
-        botonChatbot.style.display = 'none';
-    });
+        botonChatbot.addEventListener('click', () => {
+            chatbotWindow.classList.remove('animate-fade-out');
+            chatbotWindow.style.display = 'block';
+            chatbotWindow.classList.add('animate-fade-in');
+            botonChatbot.style.display = 'none';
+        });
 
-    const chatbotCloseButton = document.getElementById('chatbot-close-button');
+        const chatbotCloseButton = document.getElementById('chatbot-close-button');
 
-    chatbotCloseButton.addEventListener('click', () => {
-        chatbotWindow.classList.remove('animate-fade-in');
-        chatbotWindow.classList.add('animate-fade-out');
+        chatbotCloseButton.addEventListener('click', () => {
+            chatbotWindow.classList.remove('animate-fade-in');
+            chatbotWindow.classList.add('animate-fade-out');
 
-        setTimeout(() => {
-            chatbotWindow.style.display = 'none';
-            botonChatbot.style.display = 'block';
-        }, 500); // Duración de la animación de salida
-    });
+            setTimeout(() => {
+                chatbotWindow.style.display = 'none';
+                botonChatbot.style.display = 'block';
+            }, 500); // Duración de la animación de salida
+        });
 
     </script>
 
@@ -381,7 +414,7 @@ include('files/index.php');
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="col-12 col-md-6 col-lg-4 mb-5">
                 <div class="card2">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <select class="form-select" name="selecciondificultad" required>
+                        <select class="form-select" name="selecciondificultad" required style="border-radius: 5px; width: max-content; padding: 0px 50px; ">
                             <option disabled selected>Nivel de Dificultad</option>
                             <option value="">Sin dificultad</option>
                             <option value="1">Facil</option>
@@ -389,7 +422,9 @@ include('files/index.php');
                             <option value="3">Avanzado</option>
                         </select>
                     </div>
-                    <div class="card-img-top bg-gradient-primary-to-secondary d-flex justify-content-center align-items-center" style="height: 200px;">
+                    <div class="card-img-top bg-gradient-primary-to-secondary d-flex justify-content-center align-items-center" style="">
+                    
+                        
                     </div>
                     <div class="card-body">
                         <div class="mb-3">

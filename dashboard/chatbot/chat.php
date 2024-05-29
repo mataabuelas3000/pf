@@ -8,10 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "hola", "saludos", "buenas", "buenos dias", "buenas tardes", "buenas noches", "que tal", "hello", "hi", "saludo", "bienvenido", "hola asistente", "hola gym"
         ],
         "Gym JS ofrece una plataforma integral que fusiona tecnología y conocimiento en fitness para mejorar la experiencia de entrenamiento. Nuestra misión es transformar la forma en que las personas abordan su bienestar físico." => [
-            "servicios", "ofertas", "que ofrecen", "que servicios tienen", "actividades", "que actividades tienen", "que tienen", "servicios disponibles", "que clases ofrecen", "servicios del gimnasio", "actividades del gym"
+            "servicios", "ofertas", "que ofrecen", "que servicios tienen", "actividades", "que actividades tienen", "que tienen", "servici  os disponibles", "que clases ofrecen", "servicios del gimnasio", "actividades del gym"
         ],
         "Nuestro aplicativo web, Gym JS, está disponible las 24 horas del día, los 7 días de la semana. Esto te ofrece acceso continuo a nuestra plataforma de entrenamiento y bienestar, permitiéndote disfrutar de nuestros servicios y recursos en cualquier momento que se ajuste a tu horario." => [
-            "horarios", "cuando estan abiertos", "hora", "tiempo", "cuando estan abiertos", "que horarios tienen", "apertura", "horas de apertura", "horas de operacion", "horario de apertura", "horario del gimnasio", "horario del gym"
+            "horarios", "cuando estan abiertos", "hora", "tiempo", "cuando estan abiertos", "Que horarios tienen", "apertura", "horas de apertura", "horas de operacion", "horario de apertura", "horario del gimnasio", "horario del gym"
         ],
         "¡En Gym JS, todo es gratis! Accede a entrenamiento personalizado, seguimiento de progreso, asesoramiento y comunidad en línea sin costo alguno. Únete ahora para una vida más activa sin preocupaciones por cargos adicionales." => [
             "precio", "costo", "tarifa", "cuanto cuesta", "precio de membresia", "que precios tienen", "cuanto cuesta", "tarifas de membresia", "costos de membresia", "precios del gimnasio", "precios del gym", "cuanto vale", "costos del gym","prueba", "probar", "dia gratis", "prueba gratuita", "como probar", "visita gratis", "dia de prueba", "dia gratuito", "probar gratis", "visitar gratis", "puedo probar" 

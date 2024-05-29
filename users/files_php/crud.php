@@ -89,7 +89,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <div class="py-5">
           </div>
           <div class="col-12 ">
-          <a href="users_dashboard/routine_user.php?id=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
+          <a href="users_dashboard/routine_user.php?id_personal=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
           <a href="profile/update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
           <a href="#" class="text-light"  onclick="confirmacion(' . $id . ')""><input type="button" class="btn btn-danger" id="delete" value="Eliminar"></a>
           
@@ -179,7 +179,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <div class="py-5">
           </div>
           <div class="col-12 ">
-          <a href="users_dashboard/routine_user.php?id=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
+          <a href="users_dashboard/routine_user.php?id_personal=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Rutinas"></a>
           <a href="profile/update_user.php?updateid=' . $id . '" class="text-light"><input type="button" class="btn btn-secondary mr-3" value="Actualizar"></a>
           <a href="#" class="text-light"  onclick="confirmacion(' . $id . ')""><input type="button" class="btn btn-danger" id="delete" value="Eliminar"></a>
           

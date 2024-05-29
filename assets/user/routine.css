@@ -10,83 +10,18 @@ body {
   height: 100%;
 }
 
-.card {
-  background-color: #D7FBE8; 
-  position: relative;
-  top: 20px;
-  padding: 20px;
-  border: none;
-  width: 50%;
-}
 nav{
-  background-color: #80fcba;
+  background-color: #1FA398;
 }
-nav h1{
-  color: #1FA398 !important;
+nav h2{
+  color: #f3f3f3 !important;
   position:relative; 
-  left:155px;
 }
-.container{
-  background: #198077 !important;
-  border-radius: 15px;
-  position: relative;
-  top: 40px;
-  width: 100%;
+.card-title, .card-text{
+  padding: 10px;
 }
-.card-img-top {
-  border: white solid 1px;
-}
-
-.card-body {
-  border: white solid 1px;
-  padding: 15px;
-}
-
-.card1 {
-  padding: 40px 120px;
-  border: none;
-}
-
 .details {
   width: 100%;
-}
-
-#boton-chatbot {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  margin-right: 30px;
-  z-index: 999;
-  text-align: center;
-}
-
-#boton-chatbot:hover {
-  transform: scale(1.1);
-}
-
-#boton-chatbot:hover::after {
-  content: "Inicia tu rutina";
-  display: block;
-  position: absolute;
-  top: 6px;
-  left: -280%;
-  font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  white-space: nowrap;
-}
-
-.bx-play {
-  font-size: 40px;
-}
-
-.bx-logout {
-  font-size: 30px;
-  margin-left: 5px;
-  transform: translateY(5px);
-  margin-bottom: 10px;
 }
 
 * {

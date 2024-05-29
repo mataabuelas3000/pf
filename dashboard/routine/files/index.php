@@ -277,13 +277,12 @@ function misjercicios($con, $idrutina, $ejercicios){
         // Iterar sobre los ejercicios y mostrarlos
         foreach ($ejercicios as $ejercicio) {
             echo '
-        <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #24baae; color: white; font-size: 20px">
-            <i class="bx bx-dialpad-alt draggable-handle justify-content-center align-items-center d-flex"></i>
-            <form method="post">
-                <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-end align-items-center d-flex" style="background: none;color: white; border: none; cursor: pointer;"></button>
+        <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px;background-color: #D7FBE8; color: white; font-size: 20px">
+            <form method="post" style="transform: translateX(6%); margin-top: 5px">
+                <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-end align-items-center d-flex" style="background: none;color: #111; border: none; cursor: pointer;"></button>
             </form>
-            <div class="card-header" style="background: #13756d">' .$ejercicio['NombreEjercicio'] . '</div>
-            <div class="card-body" style="background: #178b82">
+            <div class="card-header" style="background: #13756d; border-top-left-radius: 10px; border-top-right-radius: 10px">' .$ejercicio['NombreEjercicio'] . '</div>
+            <div class="card-body" style="background: #178b82; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px">
                 <p>Descripcion: ' . $ejercicio['DescripcionEjercicio'] . '</p>
                 <p>Duracion: ' . $ejercicio['DuracionEjercicio'] . ' Minutos</p>
             </div>

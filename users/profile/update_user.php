@@ -15,7 +15,7 @@ include('C:\xampp\htdocs\pf\users\files_php\update.php');
 </head>
 <body>
     <div class="container my-5" id="cerrar">
-        <form method="post" id="actualizarForm" class="form" style="background-color: #198077;">
+        <form method="post" id="actualizarForm" class="form" style="background-color: #1FA398; border-radius: 30px; padding:50px">
             <div class="titulo">
                 <h1>Actualización de Datos</h1>
             </div>

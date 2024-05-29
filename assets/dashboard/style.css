@@ -34,8 +34,8 @@ hr {
 .routine-card {
   background-image: linear-gradient(
     to bottom left,
-    #1FA398 50%,
-    #b4fdd6 50%
+    #1FA398 20%,
+    #b4fdd6 80%
   ); /* fallback for old browsers */
   z-index: 0;
   border: none;
@@ -108,9 +108,7 @@ hr {
   margin-top: 26px;
   font-size: 15px;
 }
-.bxs-plus-circle {
-  font-size: 90px;
-}
+
 
 .input_box {
   position: relative;
@@ -223,10 +221,6 @@ hr {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.reloj {
-  color: #ff0000;
-}
-
 .number-input {
   display: flex;
   align-items: center;
@@ -265,8 +259,6 @@ button {
 .card {
   padding: 40px 120px;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
 
 .form-group {
   position: relative;
@@ -527,7 +519,7 @@ button {
 }
 
 .bxs-chat {
-  color: #1FA398;
+  color: #2baf97 !important;
   transform: translateY(7px);
   font-size: 100px;
   margin-left: -10px;
@@ -569,6 +561,7 @@ button {
     box-shadow: inset 0px 0px 20px rgba(70, 69, 69, 0.3);  
     width: 370px;
     padding: 0;
+    height: 550px;
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 
 }
@@ -594,19 +587,28 @@ button {
 }
 
 .bg-gradient-primary-to-secondary {
-  background-color:#1471d4 ;
+  background-image: url("../../images/crear.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+.bxs-hand-down {
+    font-size: 50px;
+
 }
 
 .bg-gradient-success-to-secondary {
-    background-color:#13be21 ;
+    background-color:#dbdbdb ;
+    border: none;
 }
 
 .bg-gradient-warning-to-secondary {
-    background-color:#d0f350 ;
+    background-color:#50f09a ;
 }
 
 .bg-gradient-danger-to-secondary {
-    background-color:#d41414 ;
+    background-color:#1FA398;
 }
 
 .eliminar-rutina {

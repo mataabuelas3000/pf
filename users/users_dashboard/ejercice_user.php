@@ -260,22 +260,23 @@ if (isset($_POST['agregarejer'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="routine_user_styles.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/dashboard/routine/routine_user_styles.css">
 </head>
 
 <body>
     <!-- Barra de navegación -->
-    <nav class="navbar bg-dark">
+    <nav class="navbar ">
         <div class="container-fluid">
             <h5 class="nav-link text-light"><?php echo $nombrerutina ?></h5>
             <a class="nav-link text-light" href="routine_user.php?id_personal=<?php echo $id; ?>">
-                <input value="Regresar" type="button" class="btn btn-danger">
+            Regresar <i class='bx bx-log-out bx-logout'></i>
             </a>
         </div>
     </nav>
 
     <!-- Contenido principal -->
-    <div class="card1 d-flex justify-content-end" style="width: 100%;">
+    <div class="card1 d-flex justify-content-between">
+        <img src="../../images/img2.svg" alt="" width="900">
             <form method="post">
                 <div class="details">
                     <?php mostrarejercicios($con, $idrutina); ?>
@@ -283,7 +284,7 @@ if (isset($_POST['agregarejer'])) {
             </form>
     </div>
 
-    <div class="card bg-dark" style="width: 100%;">
+    <div class="card" style="width: 100%;background-color: #1FA398">
         <div class="card-body">
             <h3 class="text-light">Ejercicios</h3>
             <br>
@@ -299,9 +300,8 @@ if (isset($_POST['agregarejer'])) {
                     // Iterar sobre los ejercicios y mostrarlos
                     foreach ($ejercicios as $ejercicio) {
                         echo '
-                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #24baae; color: white; font-size: 20px">
-                        <i class="bx bx-dialpad-alt draggable-handle justify-content-center align-items-center d-flex"></i>
-                        <form method="post">
+                    <div class="card mb-4 ejercicio-item" id="ejercicio_' . $ejercicio['IdEjercicio'] . '" style="border-radius: 10px; background-color: #D7FBE8; color: white; font-size: 20px">
+                        <form method="post" style="transform: translateX(6%); margin-top: 5px">
                             <button type="submit" name="eliminareje" value="' . $ejercicio['IdEjercicio'] . '" class="bx bx-x eliminareje justify-content-end align-items-center d-flex" style="background: none;color: white; border: none; cursor: pointer;"></button>
                         </form>
                         <div class="card-header" style="background: #13756d">' . $ejercicio['NombreEjercicio'] . '</div>

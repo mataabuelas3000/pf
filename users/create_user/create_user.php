@@ -15,7 +15,7 @@ include ('C:\xampp\htdocs\pf\users\files_php\create.php');
 </head>
 <body>
     <div class=" container my-5" style="width:100%;">
-        <form method="post" class="form" style="background-color: #198077;">
+        <form method="post" class="form" style="background-color: #1FA398; border-radius: 20px; padding:50px">
             <div class="titulo">
                 <h1>REGISTRO DE USUARIO</h1>
             </div>

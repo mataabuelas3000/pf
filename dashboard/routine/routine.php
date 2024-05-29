@@ -14,16 +14,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="http://localhost/pf/assets/dashboard/routine/style.css">
 </head>
 
 <body>
     <!-- Barra de navegación -->
-    <nav class="navbar bg-dark">
+    <nav class="navbar">
         <div class="container-fluid">
             <h5 class="nav-link text-light"><?php echo $nombrerutina ?></h5>
-            <a class="nav-link text-light" href="../interface.php">
-               Logout <i class='bx bx-log-out bx-logout'></i>
+            <a class="nav-link text-light"  href="../interface.php">
+               Regresar <i class='bx bx-log-out bx-logout'></i>
             </a>
         </div>
     </nav>
@@ -38,9 +38,9 @@
             </form>
     </div>
 
-    <div class="card bg-dark" style="width: 100%">
+    <div class="card" style="width: 100%; background-color: #1FA398">
         <div class="card-body">
-            <h3 class="text-light">Mis ejercicios</h3>
+            <h2 class="text-light">Mis ejercicios</h2>
             <br>
             <div id="ejercicios-lista">
                 <?php

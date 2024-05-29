@@ -12,101 +12,97 @@ if (isset($_GET['id_personal'])) {
     $id = $_GET['id_personal'];
 
  
-
-    function imprimirRutina($con, $id)
-{
-    // Consulta para seleccionar las rutinas del usuario
-    $sql = "SELECT r.Id_Routine, r.Name_routine, r.Approach_Routine, r.Duration_Routine, r.Id_Difficulty
-            FROM routine r
-            WHERE r.Id_User = $id";
-    $result = mysqli_query($con, $sql);
-
-    // Verificar si la consulta se ejecutó correctamente
-    if ($result) {
-        // Contador para las rutinas
-        $count = 0;
-        // Iterar sobre cada fila de resultados
-        while ($row = mysqli_fetch_assoc($result)) {
-            // Obtener los datos de la rutina
-            $id_rutina = $row['Id_Routine'];
-            $nombre_rutina = $row['Name_routine'];
-            $descripcion_rutina = $row['Approach_Routine'];
-            $duracion_rutina = $row['Duration_Routine'];
-            $dificultad = $row['Id_Difficulty'];
-
-            // Imprimir el formulario para cada rutina
-            echo '<form method="post" style="width: 30%; margin-right:20px;" >';
-            echo '<div class="card" style="border: 1px solid black; width: 100%; height: 440px; padding: 0px; margin-bottom: 20px; margin-right: 20px; position: relative;">';
-            echo '<input type="hidden" name="idrutina" value="' . $id_rutina . '">';
-
-            // Selector de dificultad
-            echo '<div style="position: absolute; top: 10px; left: 5%; display: flex; align-items: center;"><div class="mr-2"></div>';
-            echo '<select class="form-select form-select-bg-dark" aria-label="Default select example" name="updatedificultad" style="border-radius: 5px; " required>';
-            // Seleccionar opciones según la dificultad actual
-            switch ($dificultad) {
-                case 1:
-                    echo '<option value="">Sin dificultad</option>
-                          <option value="1" selected>Facil</option>
-                          <option value="2">Intermedio</option>
-                          <option value="3">Dificil</option>';
-                    break;
-                case 2:
-                    echo '<option value="">Sin dificultad</option>
-                          <option value="1">Facil</option>
-                          <option value="2" selected>Intermedio</option>
-                          <option value="3">Dificl</option>';
-                    break;
-                case 3:
-                    echo '<option value="">Sin dificultad</option>
-                          <option value="1">Facil</option>
-                          <option value="2">Intermedio</option>
-                          <option value="3" selected>Dificil</option>';
-                    break;
-                default:
-                    echo '<option value="" selected>Sin dificultad</option>
-                          <option value="1">Facil</option>
-                          <option value="2">Intermedio</option>
-                          <option value="3">Avanzado</option>';
-                    break;
-            }
-            echo '</select></div>';
-
-            // Imprimir duración de la rutina si está presente
-            if (!empty($duracion_rutina)) {
-                echo '<div style="position: absolute; top: 160px; left: 60%; display: flex; align-items: center; "><box-icon name="stopwatch" class="reloj"></box-icon><div class="mr-2"></div> ' . $duracion_rutina . ' Minutos</div>';
-            }
-
-            // Enlace para eliminar la rutina
-            echo '<a href="delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina" style="position: absolute; top: 5px; right: 5px; color: white; font-size: 30px"><i class="bx bx-x"></i></a>';
-
-            // Imprimir imagen de la rutina
-            echo '<div class="card-img-top" style="background-image: linear-gradient(to bottom right, #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;
-            border-top-left-radius: 8px; "></div>';
-            echo '<div class="card-body bg-dark" data-bs-theme="dark" style="padding: 35px;';
-
-            // Campos para editar nombre y descripción de la rutina
-
-            echo '<input type="text" class="card-text" name="updatenombre" value="' . $nombre_rutina . '">';
-            echo '<input type="text" class="card-text mb-3" name="updatenombre" value="' . $nombre_rutina . '">';
-            echo '<textarea class="card-text mb-4" name="updatedescripcion">' . $descripcion_rutina . '</textarea> <br>';
-
-            // Enlace para iniciar la rutina y botón para actualizar la rutina
-            
-            echo '<div class="d-flex justify-content-center">';
-            echo '<a href="ejercice_user.php?id_personal=' . $id . '&IdRutina=' . $id_rutina . '" style="text-decoration: none;">
-                <button type="button" class="btn btn-danger" style="cursor: pointer;">
-                    <span>Iniciar</span>
-                </button>
-            </a>
-            ';
-            echo '<input type="submit" class="btn btn-secondary ml-5" style="position: relative; left:-15px" name="updaterutina" value="Actualizar">';
-            echo '</div></div></div>';  // Cierre de los divs card, card-body y form
-            echo '</form>';  // Cierre del formulario
-
-            $count++;
-        }
+function getGradientColor($difficulty) {
+    switch ($difficulty) {
+        case 'Fácil':
+            return 'bg-gradient-success-to-secondary'; // Verde y blanco
+        case 'Intermedio':
+            return 'bg-gradient-warning-to-secondary'; // Amarillo y blanco
+        case 'Dificíl':
+            return 'bg-gradient-danger-to-secondary'; // Rojo y blanco
+        default:
+            return 'bg-gradient-primary-to-secondary'; // Valor por defecto
     }
 }
+
+
+    function imprimirRutina($con, $id)
+    {
+        $sql = "SELECT r.Id_Routine, r.Name_routine, r.Approach_Routine, r.Duration_Routine, d.Difficulty, r.Id_Check
+                FROM routine r
+                LEFT JOIN difficulty d ON r.Id_Difficulty = d.Id_Difficulty
+                WHERE r.Id_User = $id";
+        $result = mysqli_query($con, $sql);
+    
+        if ($result) {
+            $count = 0;
+            while ($row = mysqli_fetch_assoc($result)) {
+                $id_rutina = $row['Id_Routine'];
+                $nombre_rutina = $row['Name_routine'];
+                $descripcion_rutina = $row['Approach_Routine'];
+                $duracion_rutina = $row['Duration_Routine'];
+                $dificultad = ($row['Difficulty']) ? $row['Difficulty'] : 'Sin dificultad';
+                $id_check = $row['Id_Check'];
+    
+                $gradient_color = getGradientColor($dificultad);
+    
+                echo '<form method="post" class="col-12 col-md-6 col-lg-4 mb-4">';
+                echo '<div class="card2">';
+                echo '<div class="card-header d-flex justify-content-between align-items-center">';
+                echo '<select class="form-select form-select-bg-dark" aria-label="Default select example" name="updatedificultad" style="border-radius: 5px;" required>';
+                switch ($dificultad) {
+                    case 'Facil':
+                        echo '<option value="1" selected>Facil</option>';
+                        echo '<option value="2">Intermedio</option>';
+                        echo '<option value="3">Dificil</option>';
+                        break;
+                    case 'Intermedio':
+                        echo '<option value="1">Facil</option>';
+                        echo '<option value="2" selected>Intermedio</option>';
+                        echo '<option value="3">Dificil</option>';
+                        break;
+                    case 'Dificil':
+                        echo '<option value="1">Facil</option>';
+                        echo '<option value="2">Intermedio</option>';
+                        echo '<option value="3" selected>Dificil</option>';
+                        break;
+                    default:
+                        echo '<option value="1">Facil</option>';
+                        echo '<option value="2">Intermedio</option>';
+                        echo '<option value="3">Dificil</option>';
+                        break;
+                }
+                echo '</select>';
+                echo '<a href="delete_routine.php?idrutina=' . $id_rutina . '&id_interfaz=' . $id . '" class="eliminar-rutina text-success"><i class="bx bx-x"></i></a>';
+                echo '</div>';
+    
+                echo '<div class="card-img-top ' . $gradient_color . '" style="height: 200px;"></div>';
+                echo '<div class="card-body">';
+                echo '<input type="text" class="card-title" name="updatenombre" value="' . $nombre_rutina . '">';
+                echo '<textarea class="card-text mb-4" name="updatedescripcion">' . $descripcion_rutina . '</textarea>';
+    
+                $bloquearEnlace = ($id_check == 1) ? 'disabled' : '';
+                echo '<form method="post">';
+                echo '<input type="hidden" name="id" value="' . $id . '">';
+                echo '<input type="hidden" name="idrutina" value="' . $id_rutina . '">';
+                echo '<div class="d-flex justify-content-center">';
+                echo '<a href="ejercice_user.php?id_personal=' . $id . '&IdRutina=' . $id_rutina . '" style="text-decoration: none;">
+                        <button type="button" class="btn btn-primary" style="cursor: pointer;">
+                            <span>Iniciar</span>
+                        </button>
+                      </a>';
+                echo '<input type="submit" class="btn btn-secondary ml-5" style="position: relative; left:-15px" name="updaterutina" value="Actualizar">';
+                echo '</div>';
+                echo '</form>';
+                echo '</div>';
+                echo '</div>';
+                echo '</form>';
+    
+                $count++;
+            }
+        }
+    }
+    
 // Manejo del formulario para crear una nueva rutina
 if (isset($_POST['crearrutina'])) {
     $nombrerutina = $_POST['namerutina'];
@@ -210,6 +206,26 @@ if (isset($_POST['updaterutina'])) {
     // header("Location: pagina_error.php");
     exit;  // Terminar el script
 }
+
+function obtenerNombreUsuario($con, $id)
+{
+    $sql = "SELECT Name_User 
+            FROM user_info 
+            WHERE Id_User = $id";
+
+    // Ejecutar la consulta
+    $result = mysqli_query($con, $sql);
+
+    // Verificar si se encontró el usuario
+    if ($result && mysqli_num_rows($result) > 0) {
+        // Obtener el nombre del usuario
+        $row = mysqli_fetch_assoc($result);
+        return $row['Name_User'];
+    } else {
+        return null; // Si no se encuentra el usuario, devolver null
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -222,6 +238,7 @@ if (isset($_POST['updaterutina'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="http://localhost/pf/assets/dashboard/style.css">
     <link rel="stylesheet" href="http://localhost/pf/assets/user/routine.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
@@ -230,57 +247,54 @@ if (isset($_POST['updaterutina'])) {
 <body>
     <nav class="navbar navbar-expand-lg fixed-top ">
         <div class="container-fluid">
-            <h1><strong>Rutinas</strong></h1>
+            <h2><?php 
+
+            $nombreUsuario = obtenerNombreUsuario($con, $id);
+            if ($nombreUsuario !== null) {
+                echo  $nombreUsuario;
+            } else {
+                echo "Usuario no encontrado.";
+            }            
+            
+            ?></h2>
             <a href="../crud_users.php"><input type="button" style="position:relative; left:-155px" value="regresar" class="btn btn-danger"></a>
         </div>
     </nav>
-    <div class="card" style='width: 100%;'  >
-        <div class="container" style="padding: 20px; display: flex; flex-wrap: wrap;  justify-content: center;">
-            <form action="" method="post" style="width:30%; margin-right: 20px;">
-                <div class="card"
-                    style="border: 1px solid black; width: 100%; padding: 0px; margin-bottom: 20px; margin-right: 0px;  position: relative;">
-                    <div
-                        style="position: absolute; top: 10px; left: 5%; display: flex; align-items: center; color: white">
-                        <div class="mr-2"></div> 
-                        <select class="form-select form-select-bg-dark"
-                            aria-label="Default select example" name="selecciondificultad" style="border-radius: 5px; "
-                            required>
+    <div class="py-5"></div> <!-- Espacio vertical -->
+    <div class="card routine-card mb-5" style="transform: translateX(20%)">
+    <div class="card-body routine-body">
+        <div id="container-rutina" class="tab-content container2">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="col-12 col-md-6 col-lg-4 mb-5">
+                <div class="card2">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <select class="form-select" name="selecciondificultad" required style="border-radius: 5px; width: max-content; padding: 0px 50px; ">
                             <option disabled selected>Nivel de Dificultad</option>
                             <option value="">Sin dificultad</option>
                             <option value="1">Facil</option>
                             <option value="2">Intermedio</option>
-                            <option value="3">Dificil</option>
+                            <option value="3">Avanzado</option>
                         </select>
                     </div>
-                    <div
-                            style="position: absolute; top: 70px; left: 38%; display: flex; align-items: center; color: white;font-size: 90px">
-                            <!-- Ícono de agregar -->
-                            <i class='bx bxs-plus-circle bx-flashing-hover'></i> <!-- Ícono de más -->
+                    <div class="card-img-top bg-gradient-primary-to-secondary d-flex justify-content-center align-items-center" style="">
+                    
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="input-group-text">Nombre</span>
+                            <input type="text" class="form-control" name="namerutina" required>
                         </div>
-                        <div class="card-img-top" style="background-image: linear-gradient(to bottom right,  #4a6eb0, #9cd2d3); height: 200px;border-top-right-radius: 8px;border-top-left-radius: 8px;">
-                        </div> 
-                    <div class="card-body  bg-dark" data-bs-theme="dark" style="padding:35px">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Nombre</span>
-                            <input type="text" class="form-control" name="namerutina" value=""
-                                placeholder="Nombre rutina" required>
-                        </div>
-                        <div class="input-group mb-3">
+                        <div class="mb-3">
                             <span class="input-group-text">Descripcion</span>
-                            <textarea class="form-control" name="enfoque" placeholder="Descripción"
-                                required></textarea>
+                            <textarea class="form-control" name="descripcion" required></textarea>
                         </div>
-                        <input class="btn btn-secondary" type="submit" value="Crear" name="crearrutina">
+                        <button type="submit" class="btn btn-secondary" name="crearrutina">Crear</button>
                     </div>
                 </div>
             </form>
-            <?php
-                // Llamar a la función para imprimir las rutinas del usuario
-                imprimirRutina($con, $id);
-            ?>
+            <?php imprimirRutina($con, $id); ?>
         </div>
-    </div>
-    </div>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>

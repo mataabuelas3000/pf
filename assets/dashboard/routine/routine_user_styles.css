@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
 
+* {
+  font-family: "Prompt", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -8,15 +15,14 @@ body {
   background-color: rgb(20, 20, 20);
   background-image: linear-gradient(
     to bottom left,
-    #24baae 49%,
-    #111 49%
+    #1FA398 31%,
+    #b4fdd6 70%
   ) ;
   background-repeat: no-repeat; /* fallback for old browsers */
   width: 100%;
 }
 
 .card1 {
-  width: 100%;
   padding: 40px 120px;
   border: none;
 }
@@ -24,9 +30,15 @@ body {
   width: 100%;
 }
 .card {
-  width: 100%;
   padding: 40px 120px;
   border: none;
+}
+nav{
+    background-color: #1FA398;
+   
+}
+nav a, h5{
+  font-size: 22px;
 }
 #boton-chatbot {
   position: fixed;
@@ -59,28 +71,10 @@ body {
   font-size: 40px;
 }
 .bx-logout {
-  font-size: 30px;
+  font-size: 33px;
   margin-left: 5px;
   transform: translateY(5px);
   margin-bottom: 10px;
-}
-@import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
-
-* {
-  font-family: "Prompt", sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.draggable-handle {
-  color: black;
-  margin-top: -40px;
-  height: 50px;
-  width: 70px;
-  transform: translateX(-120px);
-  font-size: 20px;
-  cursor: pointer;
 }
 
 .eliminareje {
@@ -95,7 +89,7 @@ body {
   display: none;
 }
 .modal-content {
-  background-color: #111;
+  background-color: #D7FBE8;
   color: #24baae;
 }
 .modal-header {
@@ -108,13 +102,14 @@ body {
   margin-left: 20px;
   margin-top: 90px;
   font-size: 45px;
+  font-weight: bold;
   width: 100%;
   display: flex;
   justify-content: center;
-  text-shadow: 0 0px 90px rgba(32, 173, 142, 0.815) ;
+  text-shadow: 0 0px 90px rgba(217, 255, 247, 0.815) ;
 }
 .modal p{
-    text-shadow: 0 0px 90px rgba(32, 173, 142, 0.815) ;
+    text-shadow: 0 0px 90px rgba(196, 240, 230, 0.815) ;
 }
 
 video{
